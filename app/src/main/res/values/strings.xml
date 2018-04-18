@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Photos of Interest</string>
+    <string name="title_feed">Feed</string>
+    <string name="title_challenges">Challenges</string>
+    <string name="title_scoreboard">Scoreboard</string>
+    <string name="title_profile">Profile</string>
+</resources>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_feed"
+        android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+        android:title="@string/title_feed" />
+
+    <item
+        android:id="@+id/navigation_challenges"
+        android:icon="@drawable/ic_flag_black_24dp"
+        android:title="@string/title_challenges" />
+
+    <item
+        android:id="@+id/navigation_scoreboard"
+        android:icon="@drawable/ic_trophy_black_24dp"
+        android:title="@string/title_scoreboard" />
+
+    <item
+        android:id="@+id/navigation_profile"
+        android:icon="@drawable/ic_person_black_24dp"
+        android:title="@string/title_profile" />
+
+</menu>
