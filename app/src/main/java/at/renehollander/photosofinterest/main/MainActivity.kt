@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
@@ -7,6 +8,7 @@ import android.widget.Toast
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
 import at.renehollander.photosofinterest.feed.FeedFragment
+import at.renehollander.photosofinterest.image.ImageActivity
 import at.renehollander.photosofinterest.profile.ProfileFragment
 import at.renehollander.photosofinterest.scoreboard.ScoreboardFragment
 import dagger.android.support.DaggerAppCompatActivity
@@ -71,5 +73,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun displaySomething() {
         Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this, ImageActivity::class.java)
+        startActivity(intent)
     }
 }
