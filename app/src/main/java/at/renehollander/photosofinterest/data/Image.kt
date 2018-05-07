@@ -1,3 +1,3 @@
 package at.renehollander.photosofinterest.data
 
-data class Image(var name: String)
+data class Image(var uri: String)
