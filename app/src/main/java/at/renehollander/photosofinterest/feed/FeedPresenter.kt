@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class FeedPresenter @Inject constructor(
         private val useCaseHandler: UseCaseHandler
-): FeedContract.Presenter {
+) : FeedContract.Presenter {
 
     private var view: FeedContract.View? = null
 

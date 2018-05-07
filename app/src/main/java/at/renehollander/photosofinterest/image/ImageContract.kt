@@ -5,7 +5,7 @@ import at.renehollander.photosofinterest.BaseView
 
 interface ImageContract {
 
-    interface View: BaseView {
+    interface View : BaseView {
         /**
          * Displays or hides the controls of the image display
          */
@@ -51,7 +51,7 @@ interface ImageContract {
         fun returnResult(canceled: Boolean)
     }
 
-    interface Presenter: BasePresenter<View> {
+    interface Presenter : BasePresenter<View> {
 
         /**
          * Initializes the view with the given mode, title and content

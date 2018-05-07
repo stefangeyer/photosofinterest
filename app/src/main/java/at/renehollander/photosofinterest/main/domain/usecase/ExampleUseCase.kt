@@ -6,7 +6,7 @@ import at.renehollander.photosofinterest.data.source.EntityDataSource
 import javax.inject.Inject
 
 class ExampleUseCase @Inject constructor(
-    private val dataSource: EntityDataSource
+        private val dataSource: EntityDataSource
 ) : UseCase<ExampleUseCase.RequestValues, ExampleUseCase.ResponseValue>() {
 
     override fun executeUseCase(requestValues: RequestValues?) {

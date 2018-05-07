@@ -10,6 +10,6 @@ import at.renehollander.photosofinterest.BaseView
  * @version 1.0
  */
 interface FeedContract {
-    interface View: BaseView
-    interface Presenter: BasePresenter<View>
+    interface View : BaseView
+    interface Presenter : BasePresenter<View>
 }

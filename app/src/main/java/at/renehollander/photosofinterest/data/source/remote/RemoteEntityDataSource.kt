@@ -6,7 +6,7 @@ import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import javax.inject.Inject
 
 @ApplicationScoped
-class RemoteEntityDataSource @Inject constructor(): EntityDataSource {
+class RemoteEntityDataSource @Inject constructor() : EntityDataSource {
     override fun loadEntities(callback: EntityDataSource.LoadRecordCallback<Entity>) {
         // TODO("not implemented")
     }

@@ -11,6 +11,6 @@ import at.renehollander.photosofinterest.BaseView
  */
 interface ScoreboardContract {
 
-    interface View: BaseView
-    interface Presenter: BasePresenter<View>
+    interface View : BaseView
+    interface Presenter : BasePresenter<View>
 }

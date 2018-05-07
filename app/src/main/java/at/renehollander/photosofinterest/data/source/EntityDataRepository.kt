@@ -16,7 +16,7 @@ import javax.inject.Inject
 @ApplicationScoped
 class EntityDataRepository @Inject constructor(
         private val remoteDataSource: RemoteEntityDataSource
-): EntityDataSource {
+) : EntityDataSource {
     override fun loadEntities(callback: EntityDataSource.LoadRecordCallback<Entity>) {
         return this.remoteDataSource.loadEntities(callback)
     }
