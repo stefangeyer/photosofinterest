@@ -66,7 +66,7 @@ class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
     }
 
     override fun titleProvided(): Boolean {
-        return !this.titleEditText.text.isEmpty() && this.titleEditText.text.toString() != "Title"
+        return this.titleEditText.text.isNotBlank()
     }
 
     override fun showTitleMissingAlert() {
