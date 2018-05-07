@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.feed.post
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.image.ImageActivity
 import dagger.android.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_post.*
 import javax.inject.Inject
@@ -22,6 +25,10 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        image.setOnClickListener {
+            this.presenter.onImageClicked()
+        }
 
         detailContainer.setOnClickListener {
             this.presenter.onInformationClicked()
@@ -44,6 +51,10 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
     override fun onDestroy() {
         super.onDestroy()
         presenter.dropView()
+    }
+
+    override fun init(post: Post) {
+        this.presenter.init(post)
     }
 
     override fun updateTitle(title: String) {
@@ -70,18 +81,8 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
         upvoteLabel.text = upvotes.toString()
     }
 
-    override fun increaseUpvotes() {
-        val curr = upvoteLabel.text.toString().toInt()
-        upvoteLabel.text = (curr + 1).toString()
-    }
-
     override fun updateDownvotes(downvotes: Int) {
         downvoteLabel.text = downvotes.toString()
-    }
-
-    override fun increaseDownvotes() {
-        val curr = downvoteLabel.text.toString().toInt()
-        downvoteLabel.text = (curr + 1).toString()
     }
 
     override fun showChallengeDetails() {
@@ -93,5 +94,13 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
     override fun enableVoteButtons(enabled: Boolean) {
         upvoteButton.isEnabled = enabled
         downvoteButton.isEnabled = enabled
+    }
+
+    override fun showImageDetails(title: String, uri: String) {
+        val intent = Intent(activity, ImageActivity::class.java)
+        intent.putExtra("mode", ImageActivity.MODE_VIEW)
+        intent.putExtra("title", title)
+        intent.putExtra("uri", uri)
+        startActivity(intent)
     }
 }
