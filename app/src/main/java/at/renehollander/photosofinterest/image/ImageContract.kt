@@ -15,11 +15,15 @@ interface ImageContract {
 
         fun enableCreateMode()
 
-        fun returnResult()
+        fun titleProvided(): Boolean
+
+        fun showTitleMissingAlert()
+
+        fun returnResult(canceled: Boolean)
     }
 
     interface Presenter: BasePresenter<View> {
-        fun init()
+        fun init(mode: Int, title: String, uriString: String)
 
         fun onImageClicked()
 

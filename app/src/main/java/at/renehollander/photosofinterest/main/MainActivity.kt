@@ -1,9 +1,11 @@
 package at.renehollander.photosofinterest.main
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
@@ -71,9 +73,24 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                val title = data?.getStringExtra("title")
+                val uri = data?.getStringExtra("uri")
+                Log.d("image", title)
+                Log.d("uri", uri)
+            }
+        }
+    }
+
     override fun displaySomething() {
         Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, ImageActivity::class.java)
-        startActivity(intent)
+        intent.putExtra("mode", ImageActivity.MODE_CREATE)
+        intent.putExtra("uri", "https://media05.regionaut.meinbezirk.at/2012/05/30/1771193_web.jpg")
+        startActivityForResult(intent, 0)
     }
 }

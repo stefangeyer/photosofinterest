@@ -2,11 +2,11 @@ package at.renehollander.photosofinterest.image
 
 import javax.inject.Inject
 
-class ImagePresenter @Inject constructor(): ImageContract.Presenter {
+class ImagePresenter @Inject constructor() : ImageContract.Presenter {
 
     companion object {
-        val MODE_CREATE = 0
-        val MODE_DISPLAY = 1
+        const val MODE_CREATE = 0
+        const val MODE_VIEW = 1
     }
 
     private var view: ImageContract.View? = null
@@ -19,10 +19,15 @@ class ImagePresenter @Inject constructor(): ImageContract.Presenter {
         this.view = null
     }
 
-    override fun init() {
-        this.view?.enableViewMode()
-        this.view?.updateTitle("Flughafen Innsbruck")
-        this.view?.updateContent("https://www.innsbruck.info/emobilder/1000cx550c/12389/Flughafen---Christian-Schoepf.jpg")
+    override fun init(mode: Int, title: String, uriString: String) {
+        when (mode) {
+            MODE_CREATE -> this.view?.enableCreateMode()
+            MODE_VIEW -> this.view?.enableViewMode()
+            else -> this.view?.returnResult(true)
+        }
+
+        if (title.isNotBlank()) this.view?.updateTitle(title)
+        if (uriString.isNotBlank()) this.view?.updateContent(uriString)
     }
 
     override fun onImageClicked() {
@@ -30,10 +35,14 @@ class ImagePresenter @Inject constructor(): ImageContract.Presenter {
     }
 
     override fun onBackButtonClicked() {
-        this.view?.returnResult()
+        this.view?.returnResult(true)
     }
 
     override fun onConfirmButtonClicked() {
-        this.view?.returnResult()
+        if (this.view?.titleProvided()!!) {
+            this.view?.returnResult(false)
+        } else {
+            this.view?.showTitleMissingAlert()
+        }
     }
 }

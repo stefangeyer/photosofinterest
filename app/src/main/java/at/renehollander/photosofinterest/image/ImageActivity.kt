@@ -1,6 +1,9 @@
 package at.renehollander.photosofinterest.image
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.GestureDetector
 import android.view.MotionEvent
@@ -14,16 +17,21 @@ import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_image.*
 import javax.inject.Inject
 
+
 class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
+
+    companion object {
+        const val MODE_CREATE = 0
+        const val MODE_VIEW = 1
+    }
 
     @Inject
     lateinit var presenter: ImageContract.Presenter
 
     private val controllerListener = object : BaseControllerListener<ImageInfo>() {
         override fun onFailure(id: String?, throwable: Throwable?) {
-            // TODO string resource
-            Toast.makeText(this@ImageActivity, "Cannot load image", Toast.LENGTH_SHORT).show()
-            Log.i("DraweeUpdate", throwable?.message)
+            Toast.makeText(this@ImageActivity, getString(R.string.image_cannot_load), Toast.LENGTH_SHORT).show()
+            Log.i("DraweeUpdate", "Update failed: " + throwable?.message)
         }
     }
 
@@ -32,7 +40,9 @@ class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
         setContentView(R.layout.activity_image)
 
         this.presenter.takeView(this)
-        this.presenter.init()
+
+        // This call performs the initialization
+        processIntent()
 
         image.setTapListener(object : GestureDetector.SimpleOnGestureListener() {
             override fun onSingleTapUp(e: MotionEvent?): Boolean {
@@ -53,6 +63,19 @@ class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
         confirmButton.setOnClickListener {
             this.presenter.onConfirmButtonClicked()
         }
+    }
+
+    override fun titleProvided(): Boolean {
+        return !this.titleEditText.text.isEmpty() && this.titleEditText.text.toString() != "Title"
+    }
+
+    override fun showTitleMissingAlert() {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(R.string.image_please_provide_title)
+                .setNeutralButton(R.string.button_ok, { dialog, _ ->
+                    dialog.dismiss()
+                })
+        builder.create().show()
     }
 
     override fun toggleControls() {
@@ -87,7 +110,26 @@ class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
         image.controller = controller
     }
 
-    override fun returnResult() {
+    override fun returnResult(canceled: Boolean) {
+        val data = Intent()
+        if (!canceled) {
+            data.putExtra("uri", intent.getStringExtra("uri"))
+            data.putExtra("title", titleEditText.text.toString())
+        }
+
+        if (!canceled) setResult(Activity.RESULT_OK, data)
+        else setResult(Activity.RESULT_CANCELED)
+
         this.finish()
+    }
+
+    private fun processIntent() {
+        val mode = intent.getIntExtra("mode", -1)
+        var title = intent.getStringExtra("title")
+        if (title == null) title = ""
+        var uri = intent.getStringExtra("uri")
+        if (uri == null) uri = ""
+
+        this.presenter.init(mode, title, uri)
     }
 }

@@ -4,4 +4,11 @@
     <string name="title_challenges">Challenges</string>
     <string name="title_scoreboard">Scoreboard</string>
     <string name="title_profile">Profile</string>
+
+    <string name="button_ok">OK</string>
+
+    <!-- Image Viewer -->
+    <string name="image_cannot_load">Cannot load image</string>
+    <string name="image_please_provide_title">Please provide a title</string>
+    <string name="image_title_placeholder">Title</string>
 </resources>
