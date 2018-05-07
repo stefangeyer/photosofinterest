@@ -1,10 +1,12 @@
 package at.renehollander.photosofinterest.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
 import at.renehollander.photosofinterest.feed.FeedFragment
 import at.renehollander.photosofinterest.profile.ProfileFragment
@@ -59,6 +61,9 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
