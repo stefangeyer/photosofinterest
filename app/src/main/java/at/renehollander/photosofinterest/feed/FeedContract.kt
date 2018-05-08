@@ -13,6 +13,7 @@ import at.renehollander.photosofinterest.data.Post
 interface FeedContract {
     interface View : BaseView {
         fun updatePosts(posts: List<Post>)
+        fun stopRefreshing()
 
         // Errors
         fun showCannotReload()
