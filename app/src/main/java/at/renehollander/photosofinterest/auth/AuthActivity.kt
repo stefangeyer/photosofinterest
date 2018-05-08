@@ -24,6 +24,11 @@ class AuthActivity : DaggerAppCompatActivity(), AuthContract.View {
         presenter.takeView(this)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter.dropView()
+    }
+
     override fun close() {
         finish()
     }
