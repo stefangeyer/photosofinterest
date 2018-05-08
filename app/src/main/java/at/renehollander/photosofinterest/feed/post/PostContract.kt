@@ -5,8 +5,7 @@ import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Post
 
 interface PostContract {
-    interface View : BaseView {
-        fun init(post: Post)
+    interface ViewHolder : BaseView {
         fun updateTitle(title: String)
         fun updateChallengeName(name: String)
         fun updateLocationName(name: String)
@@ -19,11 +18,21 @@ interface PostContract {
         fun showImageDetails(title: String, uri: String)
     }
 
-    interface Presenter : BasePresenter<View> {
-        fun init(post: Post)
+    interface ViewHolderPresenter : BasePresenter<ViewHolder> {
         fun onImageClicked()
         fun onInformationClicked()
         fun onUpvoteButtonClicked()
         fun onDownvoteButtonClicked()
+    }
+
+    interface AdapterView: BaseView {
+        fun update(posts: List<Post>)
+        fun notifyAdapter()
+    }
+
+    interface AdapterPresenter: BasePresenter<AdapterView> {
+        fun getItemCount(): Int
+        fun getItemAt(position: Int): Post
+        fun onDataChange(posts: List<Post>)
     }
 }

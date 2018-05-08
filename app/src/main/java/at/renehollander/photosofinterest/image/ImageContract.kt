@@ -24,7 +24,7 @@ interface ImageContract {
         fun updateContent(contentUri: String)
 
         /**
-         * Switches to view mode
+         * Switches to parentView mode
          */
         fun enableViewMode()
 
@@ -54,7 +54,7 @@ interface ImageContract {
     interface Presenter : BasePresenter<View> {
 
         /**
-         * Initializes the view with the given mode, title and content
+         * Initializes the parentView with the given mode, title and content
          * @param mode the mode to switch to
          * @param title the title to display
          * @param uriString the uri to get the content from

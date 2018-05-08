@@ -4,7 +4,7 @@ import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 
 /**
- * Contract for the main view
+ * Contract for the main parentView
  *
  * @author Stefan Geyer, Rene Hollander
  * @version 1.0

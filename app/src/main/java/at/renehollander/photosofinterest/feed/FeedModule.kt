@@ -1,13 +1,12 @@
 package at.renehollander.photosofinterest.feed
 
-import at.renehollander.photosofinterest.feed.post.PostModule
 import at.renehollander.photosofinterest.inject.scopes.ActivityScoped
 import at.renehollander.photosofinterest.inject.scopes.FragmentScoped
 import dagger.Binds
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
-@Module(includes = [PostModule::class])
+@Module
 abstract class FeedModule {
 
     @FragmentScoped
