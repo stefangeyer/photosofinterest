@@ -14,6 +14,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
+
 class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
     @Inject
@@ -27,6 +28,10 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        swipeRefreshLayout.setOnRefreshListener({
+            this.presenter.fetchPosts()
+        })
 
         val layoutManager = LinearLayoutManager(activity)
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
@@ -50,6 +55,11 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
     override fun updatePosts(posts: List<Post>) {
         this.adapter.setAll(posts)
+        stopRefreshing()
+    }
+
+    override fun stopRefreshing() {
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showCannotReload() {
