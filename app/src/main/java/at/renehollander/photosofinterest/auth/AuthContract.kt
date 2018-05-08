@@ -12,8 +12,11 @@ import at.renehollander.photosofinterest.BaseView
 interface AuthContract {
 
     interface View : BaseView {
+        fun close()
     }
 
     interface Presenter : BasePresenter<View> {
+        fun googleSignIn();
+        fun facebookSignIn();
     }
 }

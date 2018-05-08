@@ -17,8 +17,12 @@ class AuthActivity : DaggerAppCompatActivity(), AuthContract.View {
         setContentView(R.layout.activity_auth)
         btn_google.setSize(SignInButton.SIZE_WIDE)
         btn_google.setOnClickListener {
-            finish()
+            presenter.googleSignIn()
         }
+    }
+
+    override fun close() {
+        finish()
     }
 
 }

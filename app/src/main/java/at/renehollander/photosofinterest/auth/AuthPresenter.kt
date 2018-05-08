@@ -13,4 +13,15 @@ class AuthPresenter @Inject constructor() : AuthContract.Presenter {
     override fun dropView() {
         this.view = null
     }
+
+    override fun facebookSignIn() {
+        view?.close()
+        TODO("not implemented")
+    }
+
+    override fun googleSignIn() {
+        view?.close()
+        TODO("not implemented")
+    }
+
 }
