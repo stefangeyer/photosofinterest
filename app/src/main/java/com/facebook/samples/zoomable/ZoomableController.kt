@@ -59,21 +59,21 @@ interface ZoomableController {
     interface Listener {
 
         /**
-         * Notifies the view that the transform began.
+         * Notifies the parentView that the transform began.
          *
          * @param transform the current transform matrix
          */
         fun onTransformBegin(transform: Matrix)
 
         /**
-         * Notifies the view that the transform changed.
+         * Notifies the parentView that the transform changed.
          *
          * @param transform the new matrix
          */
         fun onTransformChanged(transform: Matrix)
 
         /**
-         * Notifies the view that the transform ended.
+         * Notifies the parentView that the transform ended.
          *
          * @param transform the current transform matrix
          */
@@ -115,9 +115,9 @@ interface ZoomableController {
     fun setImageBounds(imageBounds: RectF)
 
     /**
-     * Sets the bounds of the view.
+     * Sets the bounds of the parentView.
      *
-     * @param viewBounds the bounds of the view
+     * @param viewBounds the bounds of the parentView
      */
     fun setViewBounds(viewBounds: RectF)
 

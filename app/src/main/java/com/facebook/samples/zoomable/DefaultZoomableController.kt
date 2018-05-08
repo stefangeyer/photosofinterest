@@ -63,19 +63,19 @@ open class DefaultZoomableController(
      */
     var maxScaleFactor = 2.0f
 
-    // View bounds, in view-absolute coordinates
-    /** Gets the view bounds.  */
+    // View bounds, in parentView-absolute coordinates
+    /** Gets the parentView bounds.  */
     val viewBounds = RectF()
-    // Non-transformed image bounds, in view-absolute coordinates
-    /** Gets the non-transformed image bounds, in view-absolute coordinates.  */
+    // Non-transformed image bounds, in parentView-absolute coordinates
+    /** Gets the non-transformed image bounds, in parentView-absolute coordinates.  */
     val imageBounds = RectF()
-    // Transformed image bounds, in view-absolute coordinates
-    /** Gets the transformed image bounds, in view-absolute coordinates  */
+    // Transformed image bounds, in parentView-absolute coordinates
+    /** Gets the transformed image bounds, in parentView-absolute coordinates  */
     private val transformedImageBounds = RectF()
 
     private val mPreviousTransform = Matrix()
     /**
-     * Gets the matrix that transforms image-absolute coordinates to view-absolute coordinates.
+     * Gets the matrix that transforms image-absolute coordinates to parentView-absolute coordinates.
      * The zoomable transformation is taken into account.
      *
      * Internal matrix is exposed for performance reasons and is not to be modified by the callers.
@@ -124,7 +124,7 @@ open class DefaultZoomableController(
         mListener = listener
     }
 
-    /** Sets the image bounds, in view-absolute coordinates.  */
+    /** Sets the image bounds, in parentView-absolute coordinates.  */
     override fun setImageBounds(imageBounds: RectF) {
         if (imageBounds != this.imageBounds) {
             this.imageBounds.set(imageBounds)
@@ -132,7 +132,7 @@ open class DefaultZoomableController(
         }
     }
 
-    /** Sets the view bounds.  */
+    /** Sets the parentView bounds.  */
     override fun setViewBounds(viewBounds: RectF) {
         this.viewBounds.set(viewBounds)
     }
@@ -148,7 +148,7 @@ open class DefaultZoomableController(
     }
 
     /**
-     * Gets the matrix that transforms image-relative coordinates to view-absolute coordinates.
+     * Gets the matrix that transforms image-relative coordinates to parentView-absolute coordinates.
      * The zoomable transformation is taken into account.
      */
     fun getImageRelativeToViewAbsoluteTransform(outMatrix: Matrix) {
@@ -156,7 +156,7 @@ open class DefaultZoomableController(
     }
 
     /**
-     * Maps point from view-absolute to image-relative coordinates.
+     * Maps point from parentView-absolute to image-relative coordinates.
      * This takes into account the zoomable transformation.
      */
     fun mapViewToImage(viewPoint: PointF): PointF {
@@ -170,7 +170,7 @@ open class DefaultZoomableController(
     }
 
     /**
-     * Maps point from image-relative to view-absolute coordinates.
+     * Maps point from image-relative to parentView-absolute coordinates.
      * This takes into account the zoomable transformation.
      */
     fun mapImageToView(imagePoint: PointF): PointF {
@@ -183,7 +183,7 @@ open class DefaultZoomableController(
     }
 
     /**
-     * Maps array of 2D points from view-absolute to image-relative coordinates.
+     * Maps array of 2D points from parentView-absolute to image-relative coordinates.
      * This does NOT take into account the zoomable transformation.
      * Points are represented by a float array of [x0, y0, x1, y1, ...].
      *
@@ -199,7 +199,7 @@ open class DefaultZoomableController(
     }
 
     /**
-     * Maps array of 2D points from image-relative to view-absolute coordinates.
+     * Maps array of 2D points from image-relative to parentView-absolute coordinates.
      * This does NOT take into account the zoomable transformation.
      * Points are represented by float array of [x0, y0, x1, y1, ...].
      *
@@ -216,11 +216,11 @@ open class DefaultZoomableController(
 
     /**
      * Zooms to the desired scale and positions the image so that the given image point corresponds
-     * to the given view point.
+     * to the given parentView point.
      *
      * @param scale desired scale, will be limited to {min, max} scale factor
      * @param imagePoint 2D point in image's relative coordinate system (i.e. 0 <= x, y <= 1)
-     * @param viewPoint 2D point in view's absolute coordinate system
+     * @param viewPoint 2D point in parentView's absolute coordinate system
      */
     open fun zoomToPoint(scale: Float, imagePoint: PointF, viewPoint: PointF) {
         FLog.v(TAG, "zoomToPoint")
@@ -230,12 +230,12 @@ open class DefaultZoomableController(
 
     /**
      * Calculates the zoom transformation that would zoom to the desired scale and position the image
-     * so that the given image point corresponds to the given view point.
+     * so that the given image point corresponds to the given parentView point.
      *
      * @param outTransform the matrix to store the result to
      * @param scale desired scale, will be limited to {min, max} scale factor
      * @param imagePoint 2D point in image's relative coordinate system (i.e. 0 <= x, y <= 1)
-     * @param viewPoint 2D point in view's absolute coordinate system
+     * @param viewPoint 2D point in parentView's absolute coordinate system
      * @param limitFlags whether to limit translation and/or scale.
      * @return whether or not the transform has been corrected due to limitation
      */
@@ -374,8 +374,8 @@ open class DefaultZoomableController(
      * Limits the translation so that there are no empty spaces on the sides if possible.
      *
      *
-     *  The image is attempted to be centered within the view bounds if the transformed image is
-     * smaller. There will be no empty spaces within the view bounds if the transformed image is
+     *  The image is attempted to be centered within the parentView bounds if the transformed image is
+     * smaller. There will be no empty spaces within the parentView bounds if the transformed image is
      * bigger. This applies to each dimension (horizontal and vertical) independently.
      *
      * @param limitTypes whether to limit translation along the specific axis.

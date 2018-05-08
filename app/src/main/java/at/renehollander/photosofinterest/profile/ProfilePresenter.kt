@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class ProfilePresenter @Inject constructor(
         private val useCaseHandler: UseCaseHandler
-): ProfileContract.Presenter {
+) : ProfileContract.Presenter {
 
     private var view: ProfileContract.View? = null
 

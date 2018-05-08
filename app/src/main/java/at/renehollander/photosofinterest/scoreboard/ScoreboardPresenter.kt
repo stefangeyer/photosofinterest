@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class ScoreboardPresenter @Inject constructor(
         private val useCaseHandler: UseCaseHandler
-): ScoreboardContract.Presenter {
+) : ScoreboardContract.Presenter {
 
     private var view: ScoreboardContract.View? = null
 

@@ -5,7 +5,7 @@ import javax.inject.Inject
 
 class ChallengesPresenter @Inject constructor(
         private val useCaseHandler: UseCaseHandler
-): ChallengesContract.Presenter {
+) : ChallengesContract.Presenter {
 
     private var view: ChallengesContract.View? = null
 

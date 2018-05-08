@@ -1,6 +1,5 @@
 package at.renehollander.photosofinterest.challenges
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,8 +17,8 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
         return inflater.inflate(R.layout.fragment_challenges, container, false)
     }
 
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
+    override fun onResume() {
+        super.onResume()
         presenter.takeView(this)
     }
 
