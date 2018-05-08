@@ -1,6 +1,7 @@
 package at.renehollander.photosofinterest.data.source.remote
 
 import at.renehollander.photosofinterest.data.*
+import at.renehollander.photosofinterest.data.source.LoadRecordCallback
 import at.renehollander.photosofinterest.data.source.PostDataSource
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import org.threeten.bp.LocalDateTime
@@ -9,7 +10,7 @@ import javax.inject.Inject
 @ApplicationScoped
 class RemotePostDataSource @Inject constructor() : PostDataSource {
 
-    override fun loadPosts(callback: PostDataSource.LoadRecordCallback<Post>) {
+    override fun loadPosts(callback: LoadRecordCallback<Post>) {
         val now = LocalDateTime.now()
         val challenge1 = Challenge("Challenge 1", Image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg"), now.minusDays(4), now.plusDays(3), "Desc 123456",
                 listOf(Region("Some Region", getPoints())), getPois())
