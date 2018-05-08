@@ -4,6 +4,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
@@ -62,9 +64,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val intent = Intent(this, AuthActivity::class.java)
-        startActivity(intent)
-
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         val transaction = supportFragmentManager.beginTransaction()
@@ -74,7 +73,25 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.sign_in -> presenter.signIn()
+            else -> return false
+        }
+        return true
+    }
+
     override fun displaySomething() {
         Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun startSignIn() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
     }
 }

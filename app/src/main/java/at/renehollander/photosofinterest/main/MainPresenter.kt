@@ -1,13 +1,17 @@
 package at.renehollander.photosofinterest.main
 
-import at.renehollander.photosofinterest.main.domain.usecase.ExampleUseCase
 import at.renehollander.photosofinterest.UseCaseHandler
+import at.renehollander.photosofinterest.main.domain.usecase.ExampleUseCase
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(
         private val useCaseHandler: UseCaseHandler,
         private val exampleUseCase: ExampleUseCase
 ) : MainContract.Presenter {
+
+    override fun signIn() {
+        this.view?.startSignIn()
+    }
 
     private var view: MainContract.View? = null
 

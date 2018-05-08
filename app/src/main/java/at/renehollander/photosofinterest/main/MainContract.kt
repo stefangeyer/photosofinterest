@@ -11,11 +11,13 @@ import at.renehollander.photosofinterest.BaseView
  */
 interface MainContract {
 
-    interface View: BaseView {
+    interface View : BaseView {
         fun displaySomething()
+        fun startSignIn()
     }
 
-    interface Presenter: BasePresenter<View> {
+    interface Presenter : BasePresenter<View> {
         fun performSomeAction()
+        fun signIn()
     }
 }
