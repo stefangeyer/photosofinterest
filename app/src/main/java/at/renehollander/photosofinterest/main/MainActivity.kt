@@ -81,6 +81,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.sign_in -> presenter.signIn()
+            R.id.sign_out -> presenter.signOut()
             else -> return false
         }
         return true
@@ -93,5 +94,9 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun startSignIn() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
+    }
+
+    override fun startSignOut() {
+        Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
 }

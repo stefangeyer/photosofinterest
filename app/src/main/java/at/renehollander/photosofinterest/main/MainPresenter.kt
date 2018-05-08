@@ -9,10 +9,6 @@ class MainPresenter @Inject constructor(
         private val exampleUseCase: ExampleUseCase
 ) : MainContract.Presenter {
 
-    override fun signIn() {
-        this.view?.startSignIn()
-    }
-
     private var view: MainContract.View? = null
 
     override fun performSomeAction() {
@@ -32,5 +28,13 @@ class MainPresenter @Inject constructor(
 
     override fun dropView() {
         this.view = null
+    }
+
+    override fun signIn() {
+        this.view?.startSignIn()
+    }
+
+    override fun signOut() {
+        this.view?.startSignOut()
     }
 }
