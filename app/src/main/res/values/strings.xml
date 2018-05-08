@@ -5,6 +5,9 @@
     <string name="title_scoreboard">Scoreboard</string>
     <string name="title_profile">Profile</string>
 
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+
     <string name="button_ok">OK</string>
 
     <!-- Image Viewer -->

@@ -2,6 +2,8 @@ package at.renehollander.photosofinterest.inject.modules
 
 import android.app.Application
 import at.renehollander.photosofinterest.PhotosOfInterest
+import at.renehollander.photosofinterest.auth.AuthActivity
+import at.renehollander.photosofinterest.auth.AuthModule
 import at.renehollander.photosofinterest.image.ImageActivity
 import at.renehollander.photosofinterest.image.ImageModule
 import at.renehollander.photosofinterest.inject.scopes.ActivityScoped
@@ -30,5 +32,10 @@ abstract class AndroidBindingModule {
     @ActivityScoped
     @ContributesAndroidInjector(modules = [ImageModule::class])
     abstract fun imageActivity(): ImageActivity
+
+
+    @ActivityScoped
+    @ContributesAndroidInjector(modules = [AuthModule::class])
+    abstract fun authActivity(): AuthActivity
 
 }
