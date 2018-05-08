@@ -47,7 +47,7 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
 
     /**
      * Zooms to the desired scale and positions the image so that the given image point corresponds
-     * to the given view point.
+     * to the given parentView point.
      *
      *
      * If this method is called while an animation or gesture is already in progress,
@@ -55,7 +55,7 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      *
      * @param scale desired scale, will be limited to {min, max} scale factor
      * @param imagePoint 2D point in image's relative coordinate system (i.e. 0 <= x, y <= 1)
-     * @param viewPoint 2D point in view's absolute coordinate system
+     * @param viewPoint 2D point in parentView's absolute coordinate system
      */
     override fun zoomToPoint(
             scale: Float,
@@ -66,7 +66,7 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
 
     /**
      * Zooms to the desired scale and positions the image so that the given image point corresponds
-     * to the given view point.
+     * to the given parentView point.
      *
      *
      * If this method is called while an animation or gesture is already in progress,
@@ -74,7 +74,7 @@ abstract class AbstractAnimatedZoomableController(transformGestureDetector: Tran
      *
      * @param scale desired scale, will be limited to {min, max} scale factor
      * @param imagePoint 2D point in image's relative coordinate system (i.e. 0 <= x, y <= 1)
-     * @param viewPoint 2D point in view's absolute coordinate system
+     * @param viewPoint 2D point in parentView's absolute coordinate system
      * @param limitFlags whether to limit translation and/or scale.
      * @param durationMs length of animation of the zoom, or 0 if no animation desired
      * @param onAnimationComplete code to run when the animation completes. Ignored if durationMs=0

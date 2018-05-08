@@ -77,7 +77,7 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
      * Gets the zoomable controller.
      *
      *
-     *  Zoomable controller can be used to zoom to point, or to map point from view to image
+     *  Zoomable controller can be used to zoom to point, or to map point from parentView to image
      * coordinates for instance.
      */
     /**
@@ -130,25 +130,25 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
     }
 
     /**
-     * Gets the original image bounds, in view-absolute coordinates.
+     * Gets the original image bounds, in parentView-absolute coordinates.
      *
      *
      *  The original image bounds are those reported by the hierarchy. The hierarchy itself may
      * apply scaling on its own (e.g. due to scale type) so the reported bounds are not necessarily
      * the same as the actual bitmap dimensions. In other words, the original image bounds correspond
-     * to the image bounds within this view when no zoomable transformation is applied, but including
+     * to the image bounds within this parentView when no zoomable transformation is applied, but including
      * the potential scaling of the hierarchy.
-     * Having the actual bitmap dimensions abstracted away from this view greatly simplifies
+     * Having the actual bitmap dimensions abstracted away from this parentView greatly simplifies
      * implementation because the actual bitmap may change (e.g. when a high-res image arrives and
      * replaces the previously set low-res image). With proper hierarchy scaling (e.g. FIT_CENTER),
-     * this underlying change will not affect this view nor the zoomable transformation in any way.
+     * this underlying change will not affect this parentView nor the zoomable transformation in any way.
      */
     private fun getImageBounds(outBounds: RectF) {
         hierarchy.getActualImageBounds(outBounds)
     }
 
     /**
-     * Gets the bounds used to limit the translation, in view-absolute coordinates.
+     * Gets the bounds used to limit the translation, in parentView-absolute coordinates.
      *
      *
      *  These bounds are passed to the zoomable controller in order to limit the translation. The
@@ -156,15 +156,15 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
      * There will be no empty spaces within the limit bounds if the transformed image is bigger.
      * This applies to each dimension (horizontal and vertical) independently.
      *
-     *  Unless overridden by a subclass, these bounds are same as the view bounds.
+     *  Unless overridden by a subclass, these bounds are same as the parentView bounds.
      */
     private fun getLimitBounds(outBounds: RectF) {
         outBounds.set(0f, 0f, width.toFloat(), height.toFloat())
     }
 
     /**
-     * Check whether the parent view can intercept touch events while zoomed.
-     * This can be used, for example, to swipe between images in a view pager while zoomed.
+     * Check whether the parent parentView can intercept touch events while zoomed.
+     * This can be used, for example, to swipe between images in a parentView pager while zoomed.
      *
      * @return true if touch events can be intercepted
      */
@@ -173,8 +173,8 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
     }
 
     /**
-     * If this is set to true, parent views can intercept touch events while the view is zoomed.
-     * For example, this can be used to swipe between images in a view pager while zoomed.
+     * If this is set to true, parent views can intercept touch events while the parentView is zoomed.
+     * For example, this can be used to swipe between images in a parentView pager while zoomed.
      *
      * @param allowTouchInterceptionWhileZoomed true if the parent needs to intercept touches
      */
@@ -278,11 +278,11 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val a = event.actionMasked
-        FLog.v(logTag, "onTouchEvent: %d, view %x, received", a, this.hashCode())
+        FLog.v(logTag, "onTouchEvent: %d, parentView %x, received", a, this.hashCode())
         if (mTapGestureDetector!!.onTouchEvent(event)) {
             FLog.v(
                     logTag,
-                    "onTouchEvent: %d, view %x, handled by tap gesture detector",
+                    "onTouchEvent: %d, parentView %x, handled by tap gesture detector",
                     a,
                     this.hashCode())
             return true
@@ -291,7 +291,7 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
         if (mZoomableController!!.onTouchEvent(event)) {
             FLog.v(
                     logTag,
-                    "onTouchEvent: %d, view %x, handled by zoomable controller",
+                    "onTouchEvent: %d, parentView %x, handled by zoomable controller",
                     a,
                     this.hashCode())
             if (!mAllowTouchInterceptionWhileZoomed && !mZoomableController!!.isIdentity) {
@@ -300,7 +300,7 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
             return true
         }
         if (super.onTouchEvent(event)) {
-            FLog.v(logTag, "onTouchEvent: %d, view %x, handled by the super", a, this.hashCode())
+            FLog.v(logTag, "onTouchEvent: %d, parentView %x, handled by the super", a, this.hashCode())
             return true
         }
         // None of our components reported that they handled the touch event. Upon returning false
@@ -341,13 +341,13 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
     }
 
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
-        FLog.v(logTag, "onLayout: view %x", this.hashCode())
+        FLog.v(logTag, "onLayout: parentView %x", this.hashCode())
         super.onLayout(changed, left, top, right, bottom)
         updateZoomableControllerBounds()
     }
 
     private fun onFinalImageSet() {
-        FLog.v(logTag, "onFinalImageSet: view %x", this.hashCode())
+        FLog.v(logTag, "onFinalImageSet: parentView %x", this.hashCode())
         if (!mZoomableController!!.isEnabled) {
             mZoomableController!!.isEnabled = true
             updateZoomableControllerBounds()
@@ -355,12 +355,12 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
     }
 
     private fun onRelease() {
-        FLog.v(logTag, "onRelease: view %x", this.hashCode())
+        FLog.v(logTag, "onRelease: parentView %x", this.hashCode())
         mZoomableController!!.isEnabled = false
     }
 
     protected fun onTransformChanged(transform: Matrix) {
-        FLog.v(logTag, "onTransformChanged: view %x, transform: %s", this.hashCode(), transform)
+        FLog.v(logTag, "onTransformChanged: parentView %x, transform: %s", this.hashCode(), transform)
         maybeSetHugeImageController()
         invalidate()
     }
@@ -372,7 +372,7 @@ open class ZoomableDraweeView : DraweeView<GenericDraweeHierarchy>, ScrollingVie
         mZoomableController!!.setViewBounds(mViewBounds)
         FLog.v(
                 logTag,
-                "updateZoomableControllerBounds: view %x, view bounds: %s, image bounds: %s",
+                "updateZoomableControllerBounds: parentView %x, parentView bounds: %s, image bounds: %s",
                 this.hashCode(),
                 mViewBounds,
                 mImageBounds)
