@@ -1,7 +1,7 @@
 package at.renehollander.photosofinterest.main
 
-import at.renehollander.photosofinterest.main.domain.usecase.ExampleUseCase
 import at.renehollander.photosofinterest.UseCaseHandler
+import at.renehollander.photosofinterest.main.domain.usecase.ExampleUseCase
 import javax.inject.Inject
 
 class MainPresenter @Inject constructor(
@@ -28,5 +28,13 @@ class MainPresenter @Inject constructor(
 
     override fun dropView() {
         this.view = null
+    }
+
+    override fun signIn() {
+        this.view?.startSignIn()
+    }
+
+    override fun signOut() {
+        this.view?.startSignOut()
     }
 }

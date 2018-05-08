@@ -1,10 +1,14 @@
 package at.renehollander.photosofinterest.main
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
 import at.renehollander.photosofinterest.feed.FeedFragment
 import at.renehollander.photosofinterest.profile.ProfileFragment
@@ -69,7 +73,30 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.sign_in -> presenter.signIn()
+            R.id.sign_out -> presenter.signOut()
+            else -> return false
+        }
+        return true
+    }
+
     override fun displaySomething() {
         Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun startSignIn() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+    }
+
+    override fun startSignOut() {
+        Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
 }
