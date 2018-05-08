@@ -3,9 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="350dp"
-    android:background="@drawable/sh_border"
-    tools:context=".feed.post.PostFragment">
+    android:layout_height="350dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"

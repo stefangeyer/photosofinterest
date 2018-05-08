@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.feed
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
+import at.renehollander.photosofinterest.data.Post
 
 /**
  * Contract for the feed parentView
@@ -10,6 +11,14 @@ import at.renehollander.photosofinterest.BaseView
  * @version 1.0
  */
 interface FeedContract {
-    interface View : BaseView
-    interface Presenter : BasePresenter<View>
+    interface View : BaseView {
+        fun updatePosts(posts: List<Post>)
+
+        // Errors
+        fun showCannotReload()
+    }
+
+    interface Presenter : BasePresenter<View> {
+        fun fetchPosts()
+    }
 }

@@ -6,28 +6,19 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 
-class PostAdapter(posts: List<Post>): RecyclerView.Adapter<PostViewHolder>(), PostContract.AdapterView {
+class PostAdapter : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter {
 
-    private val presenter: PostContract.AdapterPresenter = PostAdapterPresenter()
-
-    init {
-        update(posts)
-    }
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
-        this.presenter.takeView(this)
-    }
+    private var posts = mutableListOf<Post>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.fragment_post, parent, false)
-        return PostViewHolder(item, this.presenter)
+        return PostViewHolder(item, this)
     }
 
-    override fun getItemCount(): Int = this.presenter.getItemCount()
+    override fun getItemCount(): Int = this.posts.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = this.presenter.getItemAt(position)
+        val post = getItemAt(position)
 
         holder.title.text = post.title
         holder.challenge.text = post.challenge.title
@@ -38,14 +29,25 @@ class PostAdapter(posts: List<Post>): RecyclerView.Adapter<PostViewHolder>(), Po
         holder.userImage.setImageURI(post.user.image.uri)
     }
 
-    override fun onDetachedFromRecyclerView(recyclerView: RecyclerView) {
-        super.onDetachedFromRecyclerView(recyclerView)
-        this.presenter.dropView()
+    override fun setAll(posts: List<Post>) {
+        this.posts.clear()
+        this.posts.addAll(posts)
+        notifyAdapter()
     }
 
-    override fun update(posts: List<Post>) {
-        this.presenter.onDataChange(posts)
+    override fun addItem(post: Post) {
+        this.posts.add(post)
+        notifyAdapter()
     }
+
+    override fun removeItem(post: Post) {
+        this.posts.remove(post)
+        notifyAdapter()
+    }
+
+    override fun getItemAt(position: Int): Post = this.posts[position]
+
+    override fun getItems(): List<Post> = this.posts
 
     override fun notifyAdapter() {
         notifyDataSetChanged()

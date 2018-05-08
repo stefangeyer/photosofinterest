@@ -1,7 +1,7 @@
 package at.renehollander.photosofinterest.feed.post
 
 class PostViewHolderPresenter(
-        private val postAdapterPresenter: PostContract.AdapterPresenter
+        private val adapter: PostContract.Adapter
 ) : PostContract.ViewHolderPresenter {
 
     private var view: PostContract.ViewHolder? = null
@@ -17,7 +17,7 @@ class PostViewHolderPresenter(
 
     override fun onImageClicked() {
         if (position == null) return
-        val post = this.postAdapterPresenter.getItemAt(position!!)
+        val post = this.adapter.getItemAt(position!!)
         this.view?.showImageDetails(post.title, post.image.uri)
     }
 
@@ -28,7 +28,7 @@ class PostViewHolderPresenter(
     override fun onUpvoteButtonClicked() {
         // TODO vote use case
         if (position == null) return
-        val post = this.postAdapterPresenter.getItemAt(position!!)
+        val post = this.adapter.getItemAt(position!!)
         post.upvotes++
         this.view?.updateUpvotes(post.upvotes)
     }
@@ -36,7 +36,7 @@ class PostViewHolderPresenter(
     override fun onDownvoteButtonClicked() {
         // TODO vote use case
         if (position == null) return
-        val post = this.postAdapterPresenter.getItemAt(position!!)
+        val post = this.adapter.getItemAt(position!!)
         post.downvotes++
         this.view?.updateUpvotes(post.downvotes)
     }

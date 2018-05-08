@@ -12,7 +12,7 @@ import com.facebook.drawee.view.SimpleDraweeView
 
 class PostViewHolder(
         private val parentView: View,
-        private val adapterPresenter: PostContract.AdapterPresenter
+        private val adapter: PostContract.Adapter
 ) : RecyclerView.ViewHolder(parentView), PostContract.ViewHolder {
 
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)
@@ -23,7 +23,7 @@ class PostViewHolder(
     val image: SimpleDraweeView = this.parentView.findViewById(R.id.image)
     val userImage: SimpleDraweeView = this.parentView.findViewById(R.id.userImage)
 
-    val presenter = PostViewHolderPresenter(this.adapterPresenter)
+    val presenter = PostViewHolderPresenter(this.adapter)
 
     init {
         this.presenter.takeView(this)

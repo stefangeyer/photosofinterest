@@ -25,14 +25,12 @@ interface PostContract {
         fun onDownvoteButtonClicked()
     }
 
-    interface AdapterView: BaseView {
-        fun update(posts: List<Post>)
-        fun notifyAdapter()
-    }
-
-    interface AdapterPresenter: BasePresenter<AdapterView> {
-        fun getItemCount(): Int
+    interface Adapter: BaseView {
+        fun setAll(posts: List<Post>)
+        fun addItem(post: Post)
+        fun removeItem(post: Post)
         fun getItemAt(position: Int): Post
-        fun onDataChange(posts: List<Post>)
+        fun getItems(): List<Post>
+        fun notifyAdapter()
     }
 }
