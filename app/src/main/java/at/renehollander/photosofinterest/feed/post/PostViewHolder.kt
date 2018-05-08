@@ -4,6 +4,7 @@ import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
@@ -18,15 +19,38 @@ class PostViewHolder(
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)
     val challenge: TextView = this.parentView.findViewById(R.id.challengeLabel)
     val location: TextView = this.parentView.findViewById(R.id.locationLabel)
-    val upvotes: TextView = this.parentView.findViewById(R.id.upvoteLabel)
-    val downvotes: TextView = this.parentView.findViewById(R.id.downvoteLabel)
+    val upvoteLabel: TextView = this.parentView.findViewById(R.id.upvoteLabel)
+    val downvoteLabel: TextView = this.parentView.findViewById(R.id.downvoteLabel)
+    val upvoteButton: ImageView = this.parentView.findViewById(R.id.upvoteButton)
+    val downvoteButton: ImageView = this.parentView.findViewById(R.id.downvoteButton)
     val image: SimpleDraweeView = this.parentView.findViewById(R.id.image)
     val userImage: SimpleDraweeView = this.parentView.findViewById(R.id.userImage)
+    val detailContainer: View = this.parentView.findViewById(R.id.detailContainer)
 
     val presenter = PostViewHolderPresenter(this.adapter)
 
     init {
         this.presenter.takeView(this)
+
+        this.image.setOnClickListener {
+            this.presenter.onImageClicked()
+        }
+
+        this.detailContainer.setOnClickListener {
+            this.presenter.onInformationClicked()
+        }
+
+        this.upvoteButton.setOnClickListener {
+            this.presenter.onUpvoteButtonClicked()
+        }
+
+        this.downvoteButton.setOnClickListener {
+            this.presenter.onDownvoteButtonClicked()
+        }
+    }
+
+    override fun bind() {
+        this.presenter.onBind()
     }
 
     override fun updateTitle(title: String) {
@@ -50,11 +74,11 @@ class PostViewHolder(
     }
 
     override fun updateUpvotes(upvotes: Int) {
-        this.upvotes.text = upvotes.toString()
+        this.upvoteLabel.text = upvotes.toString()
     }
 
     override fun updateDownvotes(downvotes: Int) {
-        this.downvotes.text = downvotes.toString()
+        this.downvoteLabel.text = downvotes.toString()
     }
 
     override fun showChallengeDetails() {
@@ -64,8 +88,8 @@ class PostViewHolder(
     }
 
     override fun enableVoteButtons(enabled: Boolean) {
-        this.downvotes.isEnabled = enabled
-        this.upvotes.isEnabled = enabled
+        this.downvoteLabel.isEnabled = enabled
+        this.upvoteLabel.isEnabled = enabled
     }
 
     override fun showImageDetails(title: String, uri: String) {
@@ -75,5 +99,9 @@ class PostViewHolder(
         intent.putExtra("title", title)
         intent.putExtra("uri", uri)
         context.startActivity(intent)
+    }
+
+    override fun updateViewHolderPosition(position: Int) {
+        this.presenter.onPositionChanged(position)
     }
 }

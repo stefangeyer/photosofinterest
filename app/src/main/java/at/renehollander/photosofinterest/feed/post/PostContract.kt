@@ -6,6 +6,7 @@ import at.renehollander.photosofinterest.data.Post
 
 interface PostContract {
     interface ViewHolder : BaseView {
+        fun bind()
         fun updateTitle(title: String)
         fun updateChallengeName(name: String)
         fun updateLocationName(name: String)
@@ -16,6 +17,7 @@ interface PostContract {
         fun showChallengeDetails()
         fun enableVoteButtons(enabled: Boolean)
         fun showImageDetails(title: String, uri: String)
+        fun updateViewHolderPosition(position: Int)
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
@@ -23,9 +25,11 @@ interface PostContract {
         fun onInformationClicked()
         fun onUpvoteButtonClicked()
         fun onDownvoteButtonClicked()
+        fun onPositionChanged(position: Int)
+        fun onBind()
     }
 
-    interface Adapter: BaseView {
+    interface Adapter : BaseView {
         fun setAll(posts: List<Post>)
         fun addItem(post: Post)
         fun removeItem(post: Post)

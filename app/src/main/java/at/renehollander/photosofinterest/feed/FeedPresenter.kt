@@ -22,8 +22,9 @@ class FeedPresenter @Inject constructor(
     override fun fetchPosts() {
         this.useCaseHandler.execute(this.loadPosts, LoadPosts.RequestValues(), {
             // Success
-            response -> this.view?.updatePosts(response.posts)
-        },  {
+            response ->
+            this.view?.updatePosts(response.posts)
+        }, {
             // Failure
             this.view?.showCannotReload()
         })

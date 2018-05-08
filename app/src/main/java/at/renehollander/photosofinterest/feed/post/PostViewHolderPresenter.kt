@@ -38,6 +38,24 @@ class PostViewHolderPresenter(
         if (position == null) return
         val post = this.adapter.getItemAt(position!!)
         post.downvotes++
-        this.view?.updateUpvotes(post.downvotes)
+        this.view?.updateDownvotes(post.downvotes)
+    }
+
+    override fun onPositionChanged(position: Int) {
+        this.position = position
+    }
+
+    override fun onBind() {
+        val position = this.position
+        if (position != null) {
+            val post = adapter.getItemAt(position)
+            this.view?.updateTitle(post.title)
+            this.view?.updateChallengeName(post.challenge.title)
+            this.view?.updateLocationName(post.poi.name)
+            this.view?.updateUpvotes(post.upvotes)
+            this.view?.updateDownvotes(post.downvotes)
+            this.view?.updateImage(post.image.uri)
+            this.view?.updateUserImage(post.user.image.uri)
+        }
     }
 }

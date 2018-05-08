@@ -10,8 +10,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="80dp"
+        android:background="@android:color/background_dark"
         android:src="@drawable/ic_person_black_24dp"
-        app:actualImageScaleType="fitCenter"
+        app:actualImageScaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -100,7 +101,6 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0"
                 app:srcCompat="@drawable/ic_location_marker_black_24dp" />
 
             <TextView
@@ -137,14 +137,14 @@
             android:layout_height="48dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_arrow_up_black_24dp" />
+            app:srcCompat="@drawable/ic_arrow_up_white_24dp" />
 
         <TextView
             android:id="@+id/upvoteLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -157,14 +157,14 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/ic_arrow_down_black_24dp" />
+            app:srcCompat="@drawable/ic_arrow_down_white_24dp" />
 
         <TextView
             android:id="@+id/downvoteLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
-            android:textColor="@android:color/black"
+            android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/downvoteButton"
             app:layout_constraintEnd_toEndOf="parent"

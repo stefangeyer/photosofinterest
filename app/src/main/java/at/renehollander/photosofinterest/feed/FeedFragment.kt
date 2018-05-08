@@ -1,6 +1,7 @@
 package at.renehollander.photosofinterest.feed
 
 import android.os.Bundle
+import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -27,8 +28,12 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(activity)
+        val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
+
+        recyclerView.layoutManager = layoutManager
         recyclerView.adapter = this.adapter
+        recyclerView.addItemDecoration(dividerItemDecoration)
 
         this.presenter.fetchPosts()
     }

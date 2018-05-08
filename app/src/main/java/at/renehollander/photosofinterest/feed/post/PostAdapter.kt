@@ -18,15 +18,8 @@ class PostAdapter : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter
     override fun getItemCount(): Int = this.posts.size
 
     override fun onBindViewHolder(holder: PostViewHolder, position: Int) {
-        val post = getItemAt(position)
-
-        holder.title.text = post.title
-        holder.challenge.text = post.challenge.title
-        holder.location.text = post.poi.name
-        holder.upvotes.text = post.upvotes.toString()
-        holder.downvotes.text = post.downvotes.toString()
-        holder.image.setImageURI(post.image.uri)
-        holder.userImage.setImageURI(post.user.image.uri)
+        holder.updateViewHolderPosition(position)
+        holder.bind()
     }
 
     override fun setAll(posts: List<Post>) {
