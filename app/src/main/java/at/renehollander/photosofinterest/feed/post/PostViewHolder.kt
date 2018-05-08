@@ -19,8 +19,7 @@ class PostViewHolder(
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)
     val challenge: TextView = this.parentView.findViewById(R.id.challengeLabel)
     val location: TextView = this.parentView.findViewById(R.id.locationLabel)
-    val upvoteLabel: TextView = this.parentView.findViewById(R.id.upvoteLabel)
-    val downvoteLabel: TextView = this.parentView.findViewById(R.id.downvoteLabel)
+    val voteLabel: TextView = this.parentView.findViewById(R.id.voteLabel)
     val upvoteButton: ImageView = this.parentView.findViewById(R.id.upvoteButton)
     val downvoteButton: ImageView = this.parentView.findViewById(R.id.downvoteButton)
     val image: SimpleDraweeView = this.parentView.findViewById(R.id.image)
@@ -73,12 +72,8 @@ class PostViewHolder(
         this.image.setImageURI(uri)
     }
 
-    override fun updateUpvotes(upvotes: Int) {
-        this.upvoteLabel.text = upvotes.toString()
-    }
-
-    override fun updateDownvotes(downvotes: Int) {
-        this.downvoteLabel.text = downvotes.toString()
+    override fun updateVotes(votes: Int) {
+        this.voteLabel.text = votes.toString()
     }
 
     override fun showChallengeDetails() {
@@ -88,8 +83,8 @@ class PostViewHolder(
     }
 
     override fun enableVoteButtons(enabled: Boolean) {
-        this.downvoteLabel.isEnabled = enabled
-        this.upvoteLabel.isEnabled = enabled
+        this.upvoteButton.isEnabled = enabled
+        this.downvoteButton.isEnabled = enabled
     }
 
     override fun showImageDetails(title: String, uri: String) {
