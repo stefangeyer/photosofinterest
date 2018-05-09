@@ -18,5 +18,5 @@ abstract class DataModule {
   
     @Binds
     @ApplicationScoped
-    abstract fun bindChallengeDataSource(repository: ChallengeDataRepository): ChallengeDataSourc
+    abstract fun bindChallengeDataSource(repository: ChallengeDataRepository): ChallengeDataSource
 }
