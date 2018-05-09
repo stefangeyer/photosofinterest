@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.main
 
 import android.content.Context
 import android.support.v4.app.FragmentManager
+import at.renehollander.photosofinterest.challenge.ChallengeModule
 import at.renehollander.photosofinterest.challenges.ChallengesModule
 import at.renehollander.photosofinterest.feed.FeedModule
 import at.renehollander.photosofinterest.inject.annotation.ApplicationContext
@@ -16,6 +17,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module(includes = [
     MainModule.Declarations::class,
+    ChallengeModule::class,
     ChallengesModule::class,
     FeedModule::class,
     ProfileModule::class,
@@ -36,4 +38,5 @@ abstract class MainModule {
     @Provides
     @ActivityScoped
     fun fragmentManager(activity: MainActivity): FragmentManager = activity.supportFragmentManager
+
 }

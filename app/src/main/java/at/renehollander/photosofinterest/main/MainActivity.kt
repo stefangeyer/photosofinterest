@@ -30,6 +30,8 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     lateinit var profileFragment: ProfileFragment
     @Inject
     lateinit var scoreboardFragment: ScoreboardFragment
+    @Inject
+    lateinit var challengeFragment: ChallengesFragment
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -42,7 +44,8 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
                 selectedFragment = this.feedFragment
             }
             R.id.navigation_challenges -> {
-                selectedFragment = this.challengesFragment
+//                selectedFragment = this.challengesFragment
+                selectedFragment = this.challengeFragment
             }
             R.id.navigation_scoreboard -> {
                 selectedFragment = this.scoreboardFragment
