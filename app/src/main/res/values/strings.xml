@@ -38,4 +38,8 @@
     <string name="challenges_category_nearby">Nearby</string>
     <string name="challenges_category_ongoing">Ongoing</string>
     <string name="challenges_category_all">All</string>
+    <string name="challenges_ends_in">Ends in</string>
+    <string name="challenges_weeks">Weeks</string>
+    <string name="challenges_days">Days</string>
+    <string name="challenges_hours">Hours</string>
 </resources>
