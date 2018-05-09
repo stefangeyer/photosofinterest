@@ -39,8 +39,8 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     @Inject
     lateinit var application: PhotosOfInterest
 
-    private lateinit var signIn: MenuItem;
-    private lateinit var signOut: MenuItem;
+    private lateinit var signIn: MenuItem
+    private lateinit var signOut: MenuItem
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -128,13 +128,13 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
 
-    fun updateActionBar() {
+    private fun updateActionBar() {
         if (application.isLoggedIn()) {
-            signIn.setVisible(false)
-            signOut.setVisible(true)
+            signIn.isVisible = false
+            signOut.isVisible = true
         } else {
-            signIn.setVisible(true)
-            signOut.setVisible(false)
+            signIn.isVisible = true
+            signOut.isVisible = false
         }
     }
 

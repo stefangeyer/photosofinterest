@@ -17,14 +17,12 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 
-class FeedFragment @Inject constructor(
-        private val application: PhotosOfInterest
-) : DaggerFragment(), FeedContract.View {
+class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
     @Inject
     lateinit var presenter: FeedContract.Presenter
 
-    private val adapter: PostAdapter = PostAdapter(application)
+    private lateinit var adapter: PostAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_feed, container, false)
@@ -52,6 +50,8 @@ class FeedFragment @Inject constructor(
 
         val layoutManager = LinearLayoutManager(activity)
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
+
+        adapter = PostAdapter(activity!!.application as PhotosOfInterest)
 
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = this.adapter

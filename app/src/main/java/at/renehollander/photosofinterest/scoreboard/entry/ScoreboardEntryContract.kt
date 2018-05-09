@@ -13,8 +13,7 @@ interface ScoreboardEntryContract {
         fun updateIsLeader(isLeader: Boolean)
     }
 
-    interface ViewHolderPresenter : BasePresenter<ViewHolder> {
-    }
+    interface ViewHolderPresenter : BasePresenter<ViewHolder>
 
     interface Adapter : BaseView {
         fun setAll(entries: List<ScoreboardEntry>)

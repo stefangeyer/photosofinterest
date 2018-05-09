@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="300dp">
 
@@ -49,7 +48,7 @@
             android:id="@+id/titleLabel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Title"
+            android:text="@string/title"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -63,6 +62,7 @@
                 android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/challenge_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
-                android:text="Challenge"
+                android:text="@string/challenge"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -96,6 +96,7 @@
                 android:layout_height="16dp"
                 android:layout_marginEnd="8dp"
                 android:layout_weight="1"
+                android:contentDescription="@string/location_icon"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -109,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_weight="1"
-                android:text="Location"
+                android:text="@string/location"
                 android:textColor="@android:color/black"
                 android:textSize="15sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -135,6 +136,7 @@
             android:id="@+id/upvoteButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="@string/upvote_button"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_arrow_up_white_24dp" />
@@ -143,7 +145,7 @@
             android:id="@+id/voteLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
+            android:text="@string/votes_default"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
             app:layout_constraintBottom_toTopOf="@+id/downvoteButton"
@@ -155,6 +157,7 @@
             android:id="@+id/downvoteButton"
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:contentDescription="@string/downvote_button"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

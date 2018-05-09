@@ -42,7 +42,7 @@ class ScoreboardEntryViewHolder(
     }
 
     override fun updateScore(score: Int) {
-        this.points.text = parentView.context.getString(R.string.scoreboard_points, score);
+        this.points.text = parentView.context.resources.getQuantityString(R.plurals.scoreboard_points, score, score)
     }
 
     private val rank: TextView = parentView.findViewById(R.id.scoreboard_item_rank)

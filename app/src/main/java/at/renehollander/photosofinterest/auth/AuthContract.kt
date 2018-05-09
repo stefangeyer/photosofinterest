@@ -16,7 +16,7 @@ interface AuthContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun googleSignIn();
-        fun facebookSignIn();
+        fun googleSignIn()
+        fun facebookSignIn()
     }
 }

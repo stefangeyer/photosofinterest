@@ -15,7 +15,7 @@ import com.facebook.drawee.view.SimpleDraweeView
 class PostViewHolder(
         private val parentView: View,
         private val adapter: PostContract.Adapter,
-        private val application: PhotosOfInterest
+        application: PhotosOfInterest
 ) : RecyclerView.ViewHolder(parentView), PostContract.ViewHolder {
 
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)

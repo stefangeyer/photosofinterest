@@ -12,7 +12,11 @@
 
     <string name="placeholder">PLACEHOLDER</string>
 
-    <string name="scoreboard_points">%1$d points</string>
+    <plurals name="scoreboard_points">
+        <item quantity="one">%d point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
+
     <string name="current_leader">Current Leader</string>
 
     <!-- Image Viewer -->
@@ -32,7 +36,14 @@
     <string name="challenge_category_uploads">Uploads</string>
     <string name="points_of_interest">Points of Interest</string>
     <string name="description">Description</string>
-    <string name="endsIn">Ends in %1$d hours and %2$d minutes</string>
+    <plurals name="endsInHours">
+        <item quantity="one">Ends in %d hour</item>
+        <item quantity="other">Ends in %d hours</item>
+    </plurals>
+    <plurals name="endsInMinutes">
+        <item quantity="one"> and %d minute</item>
+        <item quantity="other"> and %d minutes</item>
+    </plurals>
 
     <!-- challenge overview -->
     <string name="challenges_action_details">Details</string>
@@ -46,5 +57,15 @@
     <string name="challenges_weeks">Weeks</string>
     <string name="challenges_days">Days</string>
     <string name="challenges_hours">Hours</string>
-  
+    <string name="confirm_button">Confirm Button</string>
+    <string name="back_button">Back Button</string>
+    <string name="challenge_icon">Challenge Icon</string>
+    <string name="location_icon">Location Icon</string>
+    <string name="upvote_button">Upvote Button</string>
+    <string name="downvote_button">downvote_button</string>
+    <string name="votes_default">0</string>
+    <string name="title">Title</string>
+    <string name="challenge">Challenge</string>
+    <string name="location">Location</string>
+
 </resources>
