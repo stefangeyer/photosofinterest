@@ -83,6 +83,9 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
+
+        // TODO change
+        this.presenter.fetchNearbyChallenges()
     }
 
     override fun onDestroy() {
@@ -93,7 +96,6 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
     override fun updateNearbyChallenges(challenges: List<Challenge>) {
         this.nearby?.adapter?.setAll(challenges)
         this.nearby?.stopRefreshing()
-
     }
 
     override fun updateOngoingChallenges(challenges: List<Challenge>) {
