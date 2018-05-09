@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
+import dagger.Lazy
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
 import javax.inject.Inject
@@ -16,7 +17,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     lateinit var presenter: ChallengeContract.Presenter
 
     @Inject
-    lateinit var adapter: ChallengeFragmentPagerAdapter
+    lateinit var adapter: Lazy<ChallengeFragmentPagerAdapter>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_challenge, container, false)
@@ -25,7 +26,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewPager.adapter = adapter
+        viewPager.adapter = adapter.get()
     }
 
     override fun onResume() {
