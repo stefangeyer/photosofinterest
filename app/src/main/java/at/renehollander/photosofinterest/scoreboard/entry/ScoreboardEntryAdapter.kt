@@ -25,6 +25,7 @@ class ScoreboardEntryAdapter(
         holder.updateUserImage(entry.user.image.uri)
         holder.updateName(entry.user.name)
         holder.updateScore(entry.score)
+        holder.updateIsLeader(position == 0)
     }
 
     override fun setAll(entries: List<ScoreboardEntry>) {

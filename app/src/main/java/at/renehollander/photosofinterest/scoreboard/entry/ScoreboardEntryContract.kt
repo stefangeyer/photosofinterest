@@ -10,6 +10,7 @@ interface ScoreboardEntryContract {
         fun updateUserImage(uri: String)
         fun updateName(name: String)
         fun updateScore(score: Int)
+        fun updateIsLeader(isLeader: Boolean)
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
