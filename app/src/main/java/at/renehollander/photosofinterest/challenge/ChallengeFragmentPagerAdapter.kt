@@ -9,9 +9,7 @@ import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragm
 import at.renehollander.photosofinterest.feed.FeedFragment
 import javax.inject.Inject
 
-class ChallengeFragmentPagerAdapter @Inject constructor(
-        private val fm: FragmentManager
-) : FragmentPagerAdapter(fm) {
+class ChallengeFragmentPagerAdapter @Inject constructor(fragment: ChallengeFragment) : FragmentPagerAdapter(fragment.fragmentManager) {
 
     @Inject
     lateinit var challengeDetailsFragment: ChallengeDetailsFragment
