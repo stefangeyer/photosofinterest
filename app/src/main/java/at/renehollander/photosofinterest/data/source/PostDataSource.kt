@@ -10,8 +10,8 @@ import at.renehollander.photosofinterest.data.Post
  */
 interface PostDataSource {
     fun loadPosts(filter: Filter, callback: LoadRecordCallback<Post>)
-}
 
-enum class Filter {
-    RISING, RECENT, TOP
+    enum class Filter {
+        RISING, RECENT, TOP
+    }
 }

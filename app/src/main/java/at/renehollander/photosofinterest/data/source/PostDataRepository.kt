@@ -17,7 +17,7 @@ import javax.inject.Inject
 class PostDataRepository @Inject constructor(
         private val remoteDataSource: RemotePostDataSource
 ) : PostDataSource {
-    override fun loadPosts(filter: Filter, callback: LoadRecordCallback<Post>) {
+    override fun loadPosts(filter: PostDataSource.Filter, callback: LoadRecordCallback<Post>) {
         return this.remoteDataSource.loadPosts(filter, callback)
     }
 }
