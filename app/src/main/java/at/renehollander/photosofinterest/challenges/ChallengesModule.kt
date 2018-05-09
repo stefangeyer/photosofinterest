@@ -15,9 +15,5 @@ abstract class ChallengesModule {
 
     @Binds
     @ActivityScoped
-    abstract fun bindView(fragment: ChallengesFragment): ChallengesContract.View
-
-    @Binds
-    @ActivityScoped
     abstract fun bindPresenter(presenter: ChallengesPresenter): ChallengesContract.Presenter
 }
