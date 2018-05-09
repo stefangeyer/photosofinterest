@@ -3,6 +3,7 @@ package at.renehollander.photosofinterest.challenges.overview
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Challenge
+import org.threeten.bp.Duration
 import org.threeten.bp.LocalDateTime
 
 interface ChallengeOverviewContract {
@@ -24,7 +25,7 @@ interface ChallengeOverviewContract {
     interface ViewHolder : BaseView {
         fun updateImage(uri: String)
         fun updateTitle(title: String)
-        fun updateEnd(end: LocalDateTime)
+        fun updateEnd(between: Duration)
         fun updateLocations(locations: List<String>)
         fun showImage(title: String, uri: String)
         fun showDetails()
