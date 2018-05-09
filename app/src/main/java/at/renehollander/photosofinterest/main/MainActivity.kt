@@ -11,11 +11,13 @@ import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.ChallengeFragment
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
+import at.renehollander.photosofinterest.data.*
 import at.renehollander.photosofinterest.feed.FeedFragment
 import at.renehollander.photosofinterest.profile.ProfileFragment
 import at.renehollander.photosofinterest.scoreboard.ScoreboardFragment
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 class MainActivity : DaggerAppCompatActivity(), MainContract.View {
@@ -67,6 +69,14 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        challengeFragment.presenter.setChallenge(Challenge(
+                "Challenge 1",
+                Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"),
+                LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(2),
+                "This is the very awesome first challenge!",
+                mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),
+                mutableListOf(PointOfInterest("Point 1", Point(10.0, 10.0), 20))))
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

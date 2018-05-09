@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
-import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.Challenge
+import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.feed.FeedFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
@@ -46,6 +48,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
+        presenter.update()
     }
 
     override fun onDestroy() {
@@ -66,6 +69,8 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             this.presenter.photoTaken(data.extras!!["data"] as Bitmap)
         }
     }
+
+    override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
 
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1

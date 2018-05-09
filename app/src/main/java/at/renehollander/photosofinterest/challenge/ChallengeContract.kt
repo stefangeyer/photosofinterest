@@ -3,7 +3,8 @@ package at.renehollander.photosofinterest.challenge
 import android.graphics.Bitmap
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
-import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
+import at.renehollander.photosofinterest.data.Challenge
 
 /**
  * Contract for the feed parentView
@@ -14,11 +15,14 @@ import at.renehollander.photosofinterest.data.Post
 interface ChallengeContract {
     interface View : BaseView {
         fun startPhotoTake()
+        fun getDetailsPresenter(): ChallengeDetailsContract.Presenter
     }
 
     interface Presenter : BasePresenter<View> {
         fun takePhoto()
-
         fun photoTaken(photo: Bitmap)
+
+        fun setChallenge(challenge: Challenge?)
+        fun update()
     }
 }

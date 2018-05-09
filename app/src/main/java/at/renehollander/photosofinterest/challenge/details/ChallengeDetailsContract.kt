@@ -2,7 +2,8 @@ package at.renehollander.photosofinterest.challenge.details
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
-import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.Challenge
+import org.threeten.bp.Duration
 
 /**
  * Contract for the feed parentView
@@ -12,13 +13,15 @@ import at.renehollander.photosofinterest.data.Post
  */
 interface ChallengeDetailsContract {
     interface View : BaseView {
-        fun updatePosts(posts: List<Post>)
-
-        // Errors
-        fun showCannotReload()
+        fun updateTitle(title: String)
+        fun updateImage(uri: String)
+        fun updateEndTime(between: Duration)
+        fun updateRegion(region: List<String>)
+        fun updateDescription(description: String)
     }
 
     interface Presenter : BasePresenter<View> {
-        fun fetchPosts()
+        fun setChallenge(challenge: Challenge?)
+        fun update()
     }
 }
