@@ -60,9 +60,9 @@ class ChallengeOverviewViewHolder(
 
         endsIn.append(res.getString(R.string.challenges_ends_in) + " ")
 
-        if (weeks > 0) endsIn.append(res.getString(R.string.challenges_weeks) + " ").append(weeks).append(" ")
-        if (days > 0) endsIn.append(res.getString(R.string.challenges_days) + " ").append(days).append(" ")
-        endsIn.append(res.getString(R.string.challenges_hours) + " ").append(hours).append(" ")
+        if (weeks > 0) endsIn.append(weeks).append(" ").append(res.getString(R.string.challenges_weeks) + " ")
+        if (days > 0) endsIn.append(days).append(" ").append(res.getString(R.string.challenges_days) + " ")
+        endsIn.append(hours).append(" ").append(res.getString(R.string.challenges_hours) + " ")
 
         this.endsIn.text = endsIn.toString()
     }
@@ -78,6 +78,8 @@ class ChallengeOverviewViewHolder(
         intent.putExtra("mode", ImageActivity.MODE_VIEW)
         intent.putExtra("title", title)
         intent.putExtra("uri", uri)
+
+        context.startActivity(intent)
     }
 
     override fun showDetails() {
