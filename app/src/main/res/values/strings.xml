@@ -10,6 +10,8 @@
 
     <string name="button_ok">OK</string>
 
+    <string name="placeholder">PLACEHOLDER</string>
+
     <!-- Image Viewer -->
     <string name="image_cannot_load">Cannot load image</string>
     <string name="image_please_provide_title">Please provide a title</string>
@@ -19,4 +21,11 @@
     <string name="feed_category_rising">Rising</string>
     <string name="feed_category_recent">Recent</string>
     <string name="feed_category_top">Top</string>
+    <string name="feed_cannot_reload">Cannot fetch posts</string>
+
+    <!-- challenge overview -->
+    <string name="challenges_action_details">Details</string>
+    <string name="challenges_action_uploads">Uploads</string>
+    <string name="challenges_clock_desc">Clock icon</string>
+    <string name="challenges_marker_desc">Marker icon</string>
 </resources>
