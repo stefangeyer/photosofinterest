@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.feed
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
+import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Post
 
 /**
@@ -12,8 +13,9 @@ import at.renehollander.photosofinterest.data.Post
  */
 interface FeedContract {
     interface View : BaseView {
-        fun updatePosts(posts: List<Post>)
-        fun stopRefreshing()
+        fun updateRisingPosts(posts: List<Post>)
+        fun updateRecentPosts(posts: List<Post>)
+        fun updateTopPosts(posts: List<Post>)
 
         // Errors
         fun showCannotReload()

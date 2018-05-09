@@ -5,6 +5,16 @@ import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Post
 
 interface PostContract {
+    interface View : BaseView {
+        fun stopRefreshing()
+        fun setOnDataReloadListener(listener: OnDataReloadListener)
+        fun getAdapter(): Adapter
+
+        interface OnDataReloadListener {
+            fun onReload()
+        }
+    }
+
     interface ViewHolder : BaseView {
         fun bind()
         fun updateTitle(title: String)
