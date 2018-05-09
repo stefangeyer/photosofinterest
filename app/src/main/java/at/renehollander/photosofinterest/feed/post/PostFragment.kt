@@ -25,17 +25,14 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        this.adapter = PostAdapter(this.application)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_recycler_view, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        this.adapter = PostAdapter(application)
 
         swipeRefreshLayout.setOnRefreshListener {
             this.reloadListener.onReload()

@@ -74,6 +74,8 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
+        // TODO change
+        this.presenter.fetchRisingPosts()
     }
 
     override fun onDestroy() {
