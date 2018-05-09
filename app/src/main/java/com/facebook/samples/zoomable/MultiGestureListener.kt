@@ -14,7 +14,7 @@ package com.facebook.samples.zoomable
 
 import android.view.GestureDetector
 import android.view.MotionEvent
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Gesture listener that allows multiple child listeners to be added and notified about gesture
