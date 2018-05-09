@@ -9,10 +9,15 @@ interface ChallengeOverviewContract {
     interface View : BaseView {
         fun stopRefreshing()
         fun setOnDataReloadListener(listener: OnDataReloadListener)
+        fun setOnShowDetailsListener(listener: OnShowDetailsListener)
         fun getAdapter(): Adapter
 
         interface OnDataReloadListener {
             fun onReload()
+        }
+
+        interface OnShowDetailsListener {
+            fun showDetails(challenge: Challenge)
         }
     }
 
@@ -41,5 +46,6 @@ interface ChallengeOverviewContract {
         fun getItemAt(position: Int): Challenge
         fun getItems(): List<Challenge>
         fun notifyAdapter()
+        fun showChallenge(challenge: Challenge)
     }
 }
