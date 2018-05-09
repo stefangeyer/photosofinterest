@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenge.details
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,8 +44,10 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
         challengeImage.setImageURI(uri)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun updateEndTime(between: Duration) {
-        challengeEndTime.text = context?.getString(R.string.endsIn, between.toHours(), between.minusHours(between.toHours()).toMinutes())
+        challengeEndTime.text = context?.resources?.getQuantityString(R.plurals.endsInHours, between.toHours().toInt(), R.plurals.endsInHours, between.toHours().toInt()) +
+                context?.resources?.getQuantityString(R.plurals.endsInMinutes, between.minusHours(between.toHours()).toMinutes().toInt(), between.minusHours(between.toHours()).toMinutes().toInt())
     }
 
     override fun updateRegion(region: List<String>) {

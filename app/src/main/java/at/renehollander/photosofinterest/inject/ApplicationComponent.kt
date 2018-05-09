@@ -11,13 +11,7 @@ import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
 
 @ApplicationScoped
-@Component(modules = arrayOf(
-        ApplicationModule::class,
-        AndroidBindingModule::class,
-        AndroidSupportInjectionModule::class,
-        UseCaseModule::class,
-        DataModule::class
-))
+@Component(modules = [(ApplicationModule::class), (AndroidBindingModule::class), (AndroidSupportInjectionModule::class), (UseCaseModule::class), (DataModule::class)])
 interface ApplicationComponent : AndroidInjector<PhotosOfInterest> {
 
     @Component.Builder
