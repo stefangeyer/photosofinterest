@@ -86,7 +86,6 @@ class AnimatedZoomableController constructor(transformGestureDetector: Transform
     }
 
 
-
     companion object {
 
         private val TAG = AnimatedZoomableController::class.java
