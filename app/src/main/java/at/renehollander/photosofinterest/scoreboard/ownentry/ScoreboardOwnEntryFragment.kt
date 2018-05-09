@@ -52,7 +52,7 @@ class ScoreboardOwnEntryFragment @Inject constructor() : DaggerFragment(), Score
     }
 
     override fun updateScore(score: Int) {
-        this.scoreboard_item_points.text = context!!.getString(R.string.scoreboard_points, score);
+        this.scoreboard_item_points.text = context!!.resources.getQuantityString(R.plurals.scoreboard_points, score, score)
     }
 
 }

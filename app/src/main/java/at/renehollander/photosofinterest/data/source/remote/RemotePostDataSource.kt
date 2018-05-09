@@ -23,17 +23,15 @@ class RemotePostDataSource @Inject constructor() : PostDataSource {
         val post2 = Post(user1, challenge1, "Another", image1, 100, 5, getPoints()[2], getPois()[2])
         val post3 = Post(user2, challenge1, "Another one", image2, 0, 5, getPoints()[1], getPois()[1])
         val post4 = Post(user2, challenge1, "Another one", image2, 0, 50, getPoints()[2], getPois()[2])
-        var posts = listOf<Post>()
-
-        when (filter) {
+        val posts: List<Post> = when (filter) {
             PostDataSource.Filter.RISING -> {
-                posts = listOf(post3, post1)
+                listOf(post3, post1)
             }
             PostDataSource.Filter.RECENT -> {
-                posts = listOf(post4, post2)
+                listOf(post4, post2)
             }
             PostDataSource.Filter.TOP -> {
-                posts = listOf(post2, post1)
+                listOf(post2, post1)
             }
         }
 

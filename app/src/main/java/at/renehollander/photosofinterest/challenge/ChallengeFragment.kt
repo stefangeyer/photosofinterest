@@ -44,7 +44,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
 
         takePhoto.setOnClickListener { this.presenter.takePhoto() }
 
-        adapter = ChallengeFragmentPagerAdapter(childFragmentManager);
+        adapter = ChallengeFragmentPagerAdapter(childFragmentManager)
         adapter.context = context!!
         adapter.challengeDetailsFragment = challengeDetailsFragment
         adapter.feedFragment = feedFragment
@@ -69,18 +69,18 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         val smBuilder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(smBuilder.build())
 
-        val builder = AlertDialog.Builder(context!!);
-        builder.setTitle("Upload Picture");
-        builder.setIcon(R.drawable.ic_photo_camera_black_24dp);
-        builder.setMessage("Take a picture with your phone camera or upload an existing");
+        val builder = AlertDialog.Builder(context!!)
+        builder.setTitle("Upload Picture")
+        builder.setIcon(R.drawable.ic_photo_camera_black_24dp)
+        builder.setMessage("Take a picture with your phone camera or upload an existing")
         builder.setPositiveButton("Take Picture", { _, _ ->
             val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
             val image = File.createTempFile("poi_upload", ".jpg", storageDir)
-            uri = Uri.fromFile(image);
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            uri = Uri.fromFile(image)
+            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
             if (takePictureIntent.resolveActivity(activity?.packageManager) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
             }
         })
         builder.setNegativeButton("Select Picture", { _, _ ->
@@ -93,7 +93,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         })
         builder.setNeutralButton("Cancel", { _, _ ->
         })
-        builder.create().show();
+        builder.create().show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

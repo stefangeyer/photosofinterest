@@ -6,8 +6,7 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.ScoreboardEntry
 
-class ScoreboardEntryAdapter(
-) : RecyclerView.Adapter<ScoreboardEntryViewHolder>(), ScoreboardEntryContract.Adapter {
+class ScoreboardEntryAdapter : RecyclerView.Adapter<ScoreboardEntryViewHolder>(), ScoreboardEntryContract.Adapter {
 
     private var scores = mutableListOf<ScoreboardEntry>()
 
