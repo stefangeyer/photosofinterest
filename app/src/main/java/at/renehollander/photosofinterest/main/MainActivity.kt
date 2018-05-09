@@ -110,6 +110,11 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         return true
     }
 
+    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+        updateActionBar()
+        return super.onMenuOpened(featureId, menu)
+    }
+
     override fun displaySomething() {
         Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
     }
@@ -117,11 +122,9 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun startSignIn() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
-        updateActionBar()
     }
 
     override fun startSignOut() {
-        updateActionBar()
         Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
 
