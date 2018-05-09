@@ -1,7 +1,6 @@
 package at.renehollander.photosofinterest.inject.modules
 
-import at.renehollander.photosofinterest.data.source.EntityDataRepository
-import at.renehollander.photosofinterest.data.source.EntityDataSource
+import at.renehollander.photosofinterest.data.source.*
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import dagger.Binds
 import dagger.Module
@@ -11,5 +10,13 @@ abstract class DataModule {
 
     @Binds
     @ApplicationScoped
-    abstract fun bindDataSource(repository: EntityDataRepository): EntityDataSource
+    abstract fun bindPostDataSource(repository: PostDataRepository): PostDataSource
+
+    @Binds
+    @ApplicationScoped
+    abstract fun bindScoreboardDataSource(repository: ScoreboardDataRepository): ScoreboardDataSource
+
+    @Binds
+    @ApplicationScoped
+    abstract fun bindChallengeDataSource(repository: ChallengeDataRepository): ChallengeDataSource
 }

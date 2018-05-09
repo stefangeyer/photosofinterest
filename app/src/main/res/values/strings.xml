@@ -4,4 +4,64 @@
     <string name="title_challenges">Challenges</string>
     <string name="title_scoreboard">Scoreboard</string>
     <string name="title_profile">Profile</string>
+
+    <string name="sign_in">Sign In</string>
+    <string name="sign_out">Sign Out</string>
+
+    <string name="button_ok">OK</string>
+
+    <string name="placeholder">PLACEHOLDER</string>
+
+    <plurals name="scoreboard_points">
+        <item quantity="one">%d point</item>
+        <item quantity="other">%d points</item>
+    </plurals>
+
+    <string name="current_leader">Current Leader</string>
+
+    <!-- Image Viewer -->
+    <string name="image_cannot_load">Cannot load image</string>
+    <string name="image_please_provide_title">Please provide a title</string>
+    <string name="image_title_placeholder">Title</string>
+
+    <!-- Feed -->
+    <string name="feed_category_rising">Rising</string>
+    <string name="feed_category_recent">Recent</string>
+    <string name="feed_category_top">Top</string>
+    <string name="feed_cannot_reload">Cannot fetch posts</string>
+
+
+    <!-- Challenge Details -->
+    <string name="challenge_category_details">Details</string>
+    <string name="challenge_category_uploads">Uploads</string>
+    <string name="points_of_interest">Points of Interest</string>
+    <string name="description">Description</string>
+    <plurals name="endsInHours">
+        <item quantity="one">Ends in %d hour</item>
+        <item quantity="other">Ends in %d hours</item>
+    </plurals>
+    <plurals name="endsInMinutes">
+        <item quantity="one"> and %d minute</item>
+        <item quantity="other"> and %d minutes</item>
+    </plurals>
+
+    <!-- challenge overview -->
+    <string name="challenges_action_details">Details</string>
+    <string name="challenges_action_uploads">Uploads</string>
+    <string name="challenges_clock_desc">Clock icon</string>
+    <string name="challenges_marker_desc">Marker icon</string>
+    <string name="challenges_category_nearby">Nearby</string>
+    <string name="challenges_category_ongoing">Ongoing</string>
+    <string name="challenges_category_all">All</string>
+    <string name="confirm_button">Confirm Button</string>
+    <string name="back_button">Back Button</string>
+    <string name="challenge_icon">Challenge Icon</string>
+    <string name="location_icon">Location Icon</string>
+    <string name="upvote_button">Upvote Button</string>
+    <string name="downvote_button">downvote_button</string>
+    <string name="votes_default">0</string>
+    <string name="title">Title</string>
+    <string name="challenge">Challenge</string>
+    <string name="location">Location</string>
+
 </resources>
