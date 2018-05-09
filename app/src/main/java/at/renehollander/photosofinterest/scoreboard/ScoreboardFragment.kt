@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.data.ScoreboardEntry
@@ -27,6 +28,9 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     @Inject
     lateinit var ownEntryFragment: ScoreboardOwnEntryFragment
 
+    @Inject
+    lateinit var application: PhotosOfInterest
+
     private val adapter: ScoreboardEntryAdapter = ScoreboardEntryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -42,9 +46,11 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
         scoreboard_list.layoutManager = layoutManager
         scoreboard_list.adapter = this.adapter
 
-        val ft = childFragmentManager.beginTransaction()
-        ft.replace(R.id.ownEntry_container, ownEntryFragment)
-        ft.commit()
+        if (application.isLoggedIn()) {
+            val ft = childFragmentManager.beginTransaction()
+            ft.replace(R.id.ownEntry_container, ownEntryFragment)
+            ft.commit()
+        }
     }
 
     override fun onResume() {
