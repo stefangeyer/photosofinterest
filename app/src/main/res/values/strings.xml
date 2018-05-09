@@ -20,4 +20,8 @@
     <string name="feed_category_recent">Recent</string>
     <string name="feed_category_top">Top</string>
     <string name="feed_cannot_reload">Cannot fetch posts</string>
+
+    <!-- Challenge Details -->
+    <string name="challenge_category_details">Details</string>
+    <string name="challenge_category_uploads">Uploads</string>
 </resources>
