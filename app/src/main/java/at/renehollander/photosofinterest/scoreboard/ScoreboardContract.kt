@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.scoreboard
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
+import at.renehollander.photosofinterest.data.ScoreboardEntry
 
 /**
  * Contract for the scoreboard view
@@ -11,6 +12,13 @@ import at.renehollander.photosofinterest.BaseView
  */
 interface ScoreboardContract {
 
-    interface View: BaseView
-    interface Presenter: BasePresenter<View>
+    interface View : BaseView {
+        fun updateScores(scores: List<ScoreboardEntry>)
+
+        fun showCannotReload()
+    }
+
+    interface Presenter : BasePresenter<View> {
+        fun fetchScores()
+    }
 }

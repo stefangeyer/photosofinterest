@@ -4,18 +4,20 @@ import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 
 /**
- * Contract for the main view
+ * Contract for the main parentView
  *
  * @author Stefan Geyer, Rene Hollander
  * @version 1.0
  */
 interface MainContract {
 
-    interface View: BaseView {
-        fun displaySomething()
+    interface View : BaseView {
+        fun startSignIn()
+        fun startSignOut()
     }
 
-    interface Presenter: BasePresenter<View> {
-        fun performSomeAction()
+    interface Presenter : BasePresenter<View> {
+        fun signIn()
+        fun signOut()
     }
 }
