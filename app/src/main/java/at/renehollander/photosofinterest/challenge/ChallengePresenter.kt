@@ -1,10 +1,12 @@
 package at.renehollander.photosofinterest.challenge
 
 import android.graphics.Bitmap
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.data.Challenge
 import javax.inject.Inject
 
 class ChallengePresenter @Inject constructor(
+        private val application: PhotosOfInterest
 ) : ChallengeContract.Presenter {
 
     private var view: ChallengeContract.View? = null
@@ -20,7 +22,11 @@ class ChallengePresenter @Inject constructor(
     }
 
     override fun takePhoto() {
-        this.view?.startPhotoTake()
+        if (application.isLoggedIn()) {
+            this.view?.startPhotoTake()
+        } else {
+            this.view?.startLogin()
+        }
     }
 
     override fun photoTaken(photo: Bitmap) {
