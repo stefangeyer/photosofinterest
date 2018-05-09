@@ -1,6 +1,7 @@
 package at.renehollander.photosofinterest.feed
 
 import android.os.Bundle
+import android.support.design.widget.TabLayout
 import android.support.v7.widget.DividerItemDecoration
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -13,6 +14,7 @@ import at.renehollander.photosofinterest.feed.post.PostAdapter
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
+
 
 class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
@@ -28,6 +30,23 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        swipeRefreshLayout.setOnRefreshListener({
+            fetchPosts()
+        })
+
+        tabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabSelected(tab: TabLayout.Tab) {
+                fetchPosts()
+            }
+
+            override fun onTabReselected(tab: TabLayout.Tab) {
+                fetchPosts()
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab) {
+            }
+        })
+
         val layoutManager = LinearLayoutManager(activity)
         val dividerItemDecoration = DividerItemDecoration(recyclerView.context, layoutManager.orientation)
 
@@ -35,7 +54,7 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
         recyclerView.adapter = this.adapter
         recyclerView.addItemDecoration(dividerItemDecoration)
 
-        this.presenter.fetchPosts()
+        fetchPosts()
     }
 
     override fun onResume() {
@@ -50,10 +69,28 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
 
     override fun updatePosts(posts: List<Post>) {
         this.adapter.setAll(posts)
+        stopRefreshing()
+    }
+
+    override fun stopRefreshing() {
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showCannotReload() {
-        // TODO text is static
-        Toast.makeText(activity, "Cannot fetch posts", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.feed_cannot_reload), Toast.LENGTH_SHORT).show()
+    }
+
+    private fun fetchPosts() {
+        when (tabLayout.selectedTabPosition) {
+            0 -> {
+                this.presenter.fetchRisingPosts()
+            }
+            1 -> {
+                this.presenter.fetchRecentPosts()
+            }
+            2 -> {
+                this.presenter.fetchTopPosts()
+            }
+        }
     }
 }

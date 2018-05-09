@@ -1,11 +1,13 @@
 package at.renehollander.photosofinterest.feed.post
 
+import at.renehollander.photosofinterest.data.Post
+
 class PostViewHolderPresenter(
         private val adapter: PostContract.Adapter
 ) : PostContract.ViewHolderPresenter {
 
     private var view: PostContract.ViewHolder? = null
-    var position: Int? = null
+    private var position: Int? = null
 
     override fun takeView(view: PostContract.ViewHolder) {
         this.view = view
@@ -30,7 +32,7 @@ class PostViewHolderPresenter(
         if (position == null) return
         val post = this.adapter.getItemAt(position!!)
         post.upvotes++
-        this.view?.updateUpvotes(post.upvotes)
+        updateVotes(post)
     }
 
     override fun onDownvoteButtonClicked() {
@@ -38,11 +40,15 @@ class PostViewHolderPresenter(
         if (position == null) return
         val post = this.adapter.getItemAt(position!!)
         post.downvotes++
-        this.view?.updateDownvotes(post.downvotes)
+        updateVotes(post)
     }
 
     override fun onPositionChanged(position: Int) {
         this.position = position
+    }
+
+    private fun updateVotes(post: Post) {
+        this.view?.updateVotes(post.upvotes - post.downvotes)
     }
 
     override fun onBind() {
@@ -52,8 +58,7 @@ class PostViewHolderPresenter(
             this.view?.updateTitle(post.title)
             this.view?.updateChallengeName(post.challenge.title)
             this.view?.updateLocationName(post.poi.name)
-            this.view?.updateUpvotes(post.upvotes)
-            this.view?.updateDownvotes(post.downvotes)
+            updateVotes(post)
             this.view?.updateImage(post.image.uri)
             this.view?.updateUserImage(post.user.image.uri)
         }
