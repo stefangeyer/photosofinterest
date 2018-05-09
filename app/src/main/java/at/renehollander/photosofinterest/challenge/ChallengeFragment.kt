@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
 import at.renehollander.photosofinterest.feed.FeedFragment
@@ -110,6 +111,11 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             intent.putExtra("uri", uri.toString())
             context!!.startActivity(intent)
         }
+    }
+
+    override fun startLogin() {
+        val intent = Intent(context, AuthActivity::class.java)
+        startActivity(intent)
     }
 
     override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
