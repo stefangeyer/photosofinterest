@@ -18,7 +18,7 @@ class LoadPosts @Inject constructor(
     }
 
     override fun executeUseCase(requestValues: RequestValues?) {
-        Log.d(TAG, "Fetching challenges from remote")
+        Log.d(TAG, "Fetching posts from remote")
 
         var remoteFilter: Filter = Filter.RISING
 
@@ -31,12 +31,12 @@ class LoadPosts @Inject constructor(
         this.dataSource.loadPosts(remoteFilter, object : LoadRecordCallback<Post> {
             override fun onRecordsLoaded(records: List<Post>) {
                 this@LoadPosts.useCaseCallback?.onSuccess(ResponseValue(records))
-                Log.d(TAG, "Fetching challenges was successful")
+                Log.d(TAG, "Fetching posts was successful")
             }
 
             override fun onDataNotAvailable() {
                 this@LoadPosts.useCaseCallback?.onError()
-                Log.d(TAG, "Fetching challenges did not produce any data")
+                Log.d(TAG, "Fetching posts did not produce any data")
             }
         })
     }
