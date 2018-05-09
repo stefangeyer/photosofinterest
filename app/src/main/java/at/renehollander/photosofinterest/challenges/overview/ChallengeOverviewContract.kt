@@ -4,7 +4,6 @@ import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Challenge
 import org.threeten.bp.Duration
-import org.threeten.bp.LocalDateTime
 
 interface ChallengeOverviewContract {
     interface View : BaseView {
