@@ -1,5 +1,5 @@
 package at.renehollander.photosofinterest.feed.domain.model
 
-enum class Filter {
+enum class RequestFilter {
     RISING, RECENT, TOP
 }
