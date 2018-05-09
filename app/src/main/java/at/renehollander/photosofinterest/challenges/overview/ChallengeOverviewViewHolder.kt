@@ -14,7 +14,7 @@ import org.threeten.bp.temporal.ChronoUnit
 class ChallengeOverviewViewHolder(
         private val parentView: View,
         private val adapter: ChallengeOverviewContract.Adapter
-) : RecyclerView.ViewHolder(parentView), ChallengeOverviewContract.View {
+) : RecyclerView.ViewHolder(parentView), ChallengeOverviewContract.ViewHolder {
 
     private val image: SimpleDraweeView = this.parentView.findViewById(R.id.image)
     private val title: TextView = this.parentView.findViewById(R.id.title)
@@ -23,7 +23,7 @@ class ChallengeOverviewViewHolder(
     private val detailsButton: Button = this.parentView.findViewById(R.id.detailsButton)
     private val uploadsButton: Button = this.parentView.findViewById(R.id.uploadsButton)
 
-    val presenter: ChallengeOverviewContract.Presenter = ChallengeOverviewViewHolderPresenter(this.adapter)
+    val presenter: ChallengeOverviewContract.ViewHolderPresenter = ChallengeOverviewViewHolderPresenter(this.adapter)
 
     init {
         this.presenter.takeView(this)

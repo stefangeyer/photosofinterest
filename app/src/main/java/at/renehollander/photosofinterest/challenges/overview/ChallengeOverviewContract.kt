@@ -7,6 +7,16 @@ import org.threeten.bp.LocalDateTime
 
 interface ChallengeOverviewContract {
     interface View : BaseView {
+        fun stopRefreshing()
+        fun setOnDataReloadListener(listener: OnDataReloadListener)
+        fun getAdapter(): Adapter
+
+        interface OnDataReloadListener {
+            fun onReload()
+        }
+    }
+
+    interface ViewHolder : BaseView {
         fun updateImage(uri: String)
         fun updateTitle(title: String)
         fun updateEnd(end: LocalDateTime)
@@ -16,7 +26,7 @@ interface ChallengeOverviewContract {
         fun showUploads()
     }
 
-    interface Presenter : BasePresenter<View> {
+    interface ViewHolderPresenter : BasePresenter<ViewHolder> {
         fun bind()
         fun changePosition(position: Int)
         fun onImageClicked()

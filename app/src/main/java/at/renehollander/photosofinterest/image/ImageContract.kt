@@ -46,7 +46,7 @@ interface ImageContract {
 
         /**
          * Returns the current result
-         * @param canceled View canceled
+         * @param canceled ViewHolder canceled
          */
         fun returnResult(canceled: Boolean)
     }
