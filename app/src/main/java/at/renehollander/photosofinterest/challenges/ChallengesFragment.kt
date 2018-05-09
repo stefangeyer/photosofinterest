@@ -78,13 +78,17 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
 
     override fun updateNearbyChallenges(challenges: List<Challenge>) {
         this.nearby?.adapter?.setAll(challenges)
+        this.nearby?.stopRefreshing()
+
     }
 
     override fun updateOngoingChallenges(challenges: List<Challenge>) {
         this.ongoing?.adapter?.setAll(challenges)
+        this.ongoing?.stopRefreshing()
     }
 
     override fun updateAllChallenges(challenges: List<Challenge>) {
         this.all?.adapter?.setAll(challenges)
+        this.all?.stopRefreshing()
     }
 }

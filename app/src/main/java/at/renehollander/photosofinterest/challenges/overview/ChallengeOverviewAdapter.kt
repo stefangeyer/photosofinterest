@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Challenge
 
-class ChallengeOverviewAdapter: RecyclerView.Adapter<ChallengeOverviewViewHolder>(), ChallengeOverviewContract.Adapter {
+class ChallengeOverviewAdapter : RecyclerView.Adapter<ChallengeOverviewViewHolder>(), ChallengeOverviewContract.Adapter {
 
     private val challenges = mutableListOf<Challenge>()
 
