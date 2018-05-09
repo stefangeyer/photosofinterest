@@ -10,8 +10,6 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
-import at.renehollander.photosofinterest.data.Challenge
-import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.feed.FeedFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*

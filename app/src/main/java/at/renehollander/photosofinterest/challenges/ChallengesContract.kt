@@ -16,6 +16,7 @@ interface ChallengesContract {
         fun updateOngoingChallenges(challenges: List<Challenge>)
         fun updateAllChallenges(challenges: List<Challenge>)
     }
+
     interface Presenter : BasePresenter<View> {
         fun fetchNearbyChallenges()
         fun fetchOngoingChallenges()
