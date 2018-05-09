@@ -19,4 +19,5 @@
     <string name="feed_category_rising">Rising</string>
     <string name="feed_category_recent">Recent</string>
     <string name="feed_category_top">Top</string>
+    <string name="feed_cannot_reload">Cannot fetch posts</string>
 </resources>

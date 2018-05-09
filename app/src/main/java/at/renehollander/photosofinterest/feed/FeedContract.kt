@@ -20,6 +20,8 @@ interface FeedContract {
     }
 
     interface Presenter : BasePresenter<View> {
-        fun fetchPosts()
+        fun fetchRecentPosts()
+        fun fetchRisingPosts()
+        fun fetchTopPosts()
     }
 }
