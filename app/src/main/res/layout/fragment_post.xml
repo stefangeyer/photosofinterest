@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="350dp">
+    android:layout_height="300dp">
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/image"
@@ -22,8 +22,8 @@
 
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/userImage"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
         app:layout_constraintBottom_toTopOf="@+id/image"
         app:layout_constraintEnd_toStartOf="@+id/detailContainer"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:id="@+id/detailContainer"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="64dp"
+        android:layout_marginStart="80dp"
         android:gravity="center_vertical"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/image"
@@ -123,7 +123,7 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="121dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -140,12 +140,13 @@
             app:srcCompat="@drawable/ic_arrow_up_white_24dp" />
 
         <TextView
-            android:id="@+id/upvoteLabel"
+            android:id="@+id/voteLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0"
             android:textColor="@color/colorWhite"
             android:textSize="20sp"
+            app:layout_constraintBottom_toTopOf="@+id/downvoteButton"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/upvoteButton" />
@@ -159,16 +160,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:srcCompat="@drawable/ic_arrow_down_white_24dp" />
 
-        <TextView
-            android:id="@+id/downvoteLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/colorWhite"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/downvoteButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
     </android.support.constraint.ConstraintLayout>
 
 </android.support.constraint.ConstraintLayout>
