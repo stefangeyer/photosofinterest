@@ -7,13 +7,15 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.image.ImageActivity
 import com.facebook.drawee.view.SimpleDraweeView
 
 class PostViewHolder(
         private val parentView: View,
-        private val adapter: PostContract.Adapter
+        private val adapter: PostContract.Adapter,
+        private val application: PhotosOfInterest
 ) : RecyclerView.ViewHolder(parentView), PostContract.ViewHolder {
 
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)
@@ -26,7 +28,7 @@ class PostViewHolder(
     val userImage: SimpleDraweeView = this.parentView.findViewById(R.id.userImage)
     val detailContainer: View = this.parentView.findViewById(R.id.detailContainer)
 
-    val presenter = PostViewHolderPresenter(this.adapter)
+    val presenter = PostViewHolderPresenter(application, this.adapter)
 
     init {
         this.presenter.takeView(this)

@@ -3,16 +3,17 @@ package at.renehollander.photosofinterest.feed.post
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 
-class PostAdapter : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter {
+class PostAdapter constructor(private val application: PhotosOfInterest) : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter {
 
     private var posts = mutableListOf<Post>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.fragment_post, parent, false)
-        return PostViewHolder(item, this)
+        return PostViewHolder(item, this, application)
     }
 
     override fun getItemCount(): Int = this.posts.size
