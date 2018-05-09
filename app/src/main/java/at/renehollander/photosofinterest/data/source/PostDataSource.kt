@@ -9,5 +9,9 @@ import at.renehollander.photosofinterest.data.Post
  * @version 1.0
  */
 interface PostDataSource {
-    fun loadPosts(callback: LoadRecordCallback<Post>)
+    fun loadPosts(filter: Filter, callback: LoadRecordCallback<Post>)
+}
+
+enum class Filter {
+    RISING, RECENT, TOP
 }

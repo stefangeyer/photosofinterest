@@ -3,9 +3,10 @@ package at.renehollander.photosofinterest.feed.domain.usecase
 import android.util.Log
 import at.renehollander.photosofinterest.UseCase
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.source.Filter
 import at.renehollander.photosofinterest.data.source.LoadRecordCallback
 import at.renehollander.photosofinterest.data.source.PostDataSource
-import at.renehollander.photosofinterest.feed.domain.model.Filter
+import at.renehollander.photosofinterest.feed.domain.model.RequestFilter
 import javax.inject.Inject
 
 class LoadPosts @Inject constructor(
@@ -19,13 +20,15 @@ class LoadPosts @Inject constructor(
     override fun executeUseCase(requestValues: RequestValues?) {
         Log.d(TAG, "Fetching posts from remote")
 
+        var remoteFilter: Filter = Filter.RISING
+
         when (requestValues?.filter) {
-            Filter.RISING -> TODO()
-            Filter.RECENT -> TODO()
-            Filter.TOP -> TODO()
+            RequestFilter.RISING -> remoteFilter = Filter.RISING
+            RequestFilter.RECENT -> remoteFilter = Filter.RECENT
+            RequestFilter.TOP -> remoteFilter = Filter.TOP
         }
 
-        this.dataSource.loadPosts(object : LoadRecordCallback<Post> {
+        this.dataSource.loadPosts(remoteFilter, object : LoadRecordCallback<Post> {
             override fun onRecordsLoaded(records: List<Post>) {
                 this@LoadPosts.useCaseCallback?.onSuccess(ResponseValue(records))
                 Log.d(TAG, "Fetching posts was successful")
@@ -38,7 +41,7 @@ class LoadPosts @Inject constructor(
         })
     }
 
-    class RequestValues(val filter: Filter) : UseCase.RequestValues
+    class RequestValues(val filter: RequestFilter) : UseCase.RequestValues
 
     class ResponseValue(val posts: List<Post>) : UseCase.ResponseValue
 }
