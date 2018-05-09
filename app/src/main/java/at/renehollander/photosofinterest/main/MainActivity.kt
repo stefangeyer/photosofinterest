@@ -53,8 +53,8 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
                 selectedFragment = this.feedFragment
             }
             R.id.navigation_challenges -> {
-//                selectedFragment = this.challengesFragment
-                selectedFragment = this.challengeFragment
+                selectedFragment = this.challengesFragment
+//                selectedFragment = this.challengeFragment
             }
             R.id.navigation_scoreboard -> {
                 selectedFragment = this.scoreboardFragment

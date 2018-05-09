@@ -1,7 +1,6 @@
 package at.renehollander.photosofinterest.data.source.remote
 
 import at.renehollander.photosofinterest.data.*
-import at.renehollander.photosofinterest.data.source.Filter
 import at.renehollander.photosofinterest.data.source.LoadRecordCallback
 import at.renehollander.photosofinterest.data.source.PostDataSource
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
@@ -11,7 +10,7 @@ import javax.inject.Inject
 @ApplicationScoped
 class RemotePostDataSource @Inject constructor() : PostDataSource {
 
-    override fun loadPosts(filter: Filter, callback: LoadRecordCallback<Post>) {
+    override fun loadPosts(filter: PostDataSource.Filter, callback: LoadRecordCallback<Post>) {
         val now = LocalDateTime.now()
         val challenge1 = Challenge("Challenge 1",
                 Image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg"),
@@ -27,13 +26,13 @@ class RemotePostDataSource @Inject constructor() : PostDataSource {
         var posts = listOf<Post>()
 
         when (filter) {
-            Filter.RISING -> {
+            PostDataSource.Filter.RISING -> {
                 posts = listOf(post3, post1)
             }
-            Filter.RECENT -> {
+            PostDataSource.Filter.RECENT -> {
                 posts = listOf(post4, post2)
             }
-            Filter.TOP -> {
+            PostDataSource.Filter.TOP -> {
                 posts = listOf(post2, post1)
             }
         }
