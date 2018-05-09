@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.ChallengeFragment
@@ -35,6 +36,11 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     lateinit var scoreboardFragment: ScoreboardFragment
     @Inject
     lateinit var challengeFragment: ChallengeFragment
+    @Inject
+    lateinit var application: PhotosOfInterest
+
+    private lateinit var signIn: MenuItem;
+    private lateinit var signOut: MenuItem;
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
@@ -89,6 +95,9 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.main, menu)
+        signIn = menu!!.findItem(R.id.sign_in)
+        signOut = menu.findItem(R.id.sign_out)
+        updateActionBar()
         return true
     }
 
@@ -108,9 +117,22 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun startSignIn() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
+        updateActionBar()
     }
 
     override fun startSignOut() {
+        updateActionBar()
         Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
+
+    fun updateActionBar() {
+        if (application.isLoggedIn()) {
+            signIn.setVisible(false)
+            signOut.setVisible(true)
+        } else {
+            signIn.setVisible(true)
+            signOut.setVisible(false)
+        }
+    }
+
 }
