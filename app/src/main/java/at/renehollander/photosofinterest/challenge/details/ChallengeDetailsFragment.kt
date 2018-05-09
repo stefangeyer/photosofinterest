@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import javax.inject.Inject
 
 class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View {
@@ -20,6 +21,11 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+        challengeName.text = "Challenge 1"
+        challengeEndTime.text = "Ends in 3 days 5 hours"
+        challengePlace.text = "Carinthia"
+        challengeImage.setImageURI("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg")
+        pointsImage.setImageURI("https://i.imgur.com/DgtBZ37.png")
     }
 
     override fun onResume() {

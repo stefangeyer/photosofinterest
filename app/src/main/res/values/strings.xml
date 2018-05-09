@@ -24,4 +24,6 @@
     <!-- Challenge Details -->
     <string name="challenge_category_details">Details</string>
     <string name="challenge_category_uploads">Uploads</string>
+    <string name="points_of_interest">Points of Interest</string>
+    <string name="description">Description</string>
 </resources>
