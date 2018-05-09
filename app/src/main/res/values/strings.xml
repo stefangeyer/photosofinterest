@@ -12,6 +12,9 @@
 
     <string name="placeholder">PLACEHOLDER</string>
 
+    <string name="scoreboard_points">%1$d points</string>
+    <string name="current_leader">Current Leader</string>
+
     <!-- Image Viewer -->
     <string name="image_cannot_load">Cannot load image</string>
     <string name="image_please_provide_title">Please provide a title</string>
@@ -22,6 +25,7 @@
     <string name="feed_category_recent">Recent</string>
     <string name="feed_category_top">Top</string>
     <string name="feed_cannot_reload">Cannot fetch posts</string>
+
 
     <!-- Challenge Details -->
     <string name="challenge_category_details">Details</string>
@@ -42,4 +46,5 @@
     <string name="challenges_weeks">Weeks</string>
     <string name="challenges_days">Days</string>
     <string name="challenges_hours">Hours</string>
+  
 </resources>

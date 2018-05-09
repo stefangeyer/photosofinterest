@@ -1,8 +1,13 @@
 package at.renehollander.photosofinterest.feed.post
 
+import android.content.Intent
+import android.support.v4.content.ContextCompat.startActivity
+import at.renehollander.photosofinterest.PhotosOfInterest
+import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.data.Post
 
 class PostViewHolderPresenter(
+        private val application: PhotosOfInterest,
         private val adapter: PostContract.Adapter
 ) : PostContract.ViewHolderPresenter {
 
@@ -28,19 +33,23 @@ class PostViewHolderPresenter(
     }
 
     override fun onUpvoteButtonClicked() {
-        // TODO vote use case
-        if (position == null) return
-        val post = this.adapter.getItemAt(position!!)
-        post.upvotes++
-        updateVotes(post)
+        if (checkLogin()) {
+            // TODO vote use case
+            if (position == null) return
+            val post = this.adapter.getItemAt(position!!)
+            post.upvotes++
+            updateVotes(post)
+        }
     }
 
     override fun onDownvoteButtonClicked() {
-        // TODO vote use case
-        if (position == null) return
-        val post = this.adapter.getItemAt(position!!)
-        post.downvotes++
-        updateVotes(post)
+        if (checkLogin()) {
+            // TODO vote use case
+            if (position == null) return
+            val post = this.adapter.getItemAt(position!!)
+            post.downvotes++
+            updateVotes(post)
+        }
     }
 
     override fun onPositionChanged(position: Int) {
@@ -62,5 +71,13 @@ class PostViewHolderPresenter(
             this.view?.updateImage(post.image.uri)
             this.view?.updateUserImage(post.user.image.uri)
         }
+    }
+
+    fun checkLogin(): Boolean {
+        if (!application.isLoggedIn()) {
+            val intent = Intent(application, AuthActivity::class.java)
+            startActivity(application, intent, null)
+        }
+        return application.isLoggedIn()
     }
 }

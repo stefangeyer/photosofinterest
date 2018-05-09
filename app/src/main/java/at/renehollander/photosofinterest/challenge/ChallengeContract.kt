@@ -16,6 +16,7 @@ interface ChallengeContract {
     interface View : BaseView {
         fun startPhotoTake()
         fun getDetailsPresenter(): ChallengeDetailsContract.Presenter
+        fun startLogin()
     }
 
     interface Presenter : BasePresenter<View> {

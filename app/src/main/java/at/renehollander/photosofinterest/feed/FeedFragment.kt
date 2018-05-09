@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.feed.post.PostAdapter
@@ -16,12 +17,14 @@ import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 
 
-class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
+class FeedFragment @Inject constructor(
+        private val application: PhotosOfInterest
+) : DaggerFragment(), FeedContract.View {
 
     @Inject
     lateinit var presenter: FeedContract.Presenter
 
-    private val adapter: PostAdapter = PostAdapter()
+    private val adapter: PostAdapter = PostAdapter(application)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_feed, container, false)
