@@ -1,6 +1,7 @@
 package at.renehollander.photosofinterest.feed
 
 import at.renehollander.photosofinterest.UseCaseHandler
+import at.renehollander.photosofinterest.feed.domain.model.Filter
 import at.renehollander.photosofinterest.feed.domain.usecase.LoadPosts
 import javax.inject.Inject
 
@@ -19,8 +20,20 @@ class FeedPresenter @Inject constructor(
         this.view = null
     }
 
-    override fun fetchPosts() {
-        this.useCaseHandler.execute(this.loadPosts, LoadPosts.RequestValues(), {
+    override fun fetchRecentPosts() {
+        fetchPosts(Filter.RECENT)
+    }
+
+    override fun fetchRisingPosts() {
+        fetchPosts(Filter.RISING)
+    }
+
+    override fun fetchTopPosts() {
+        fetchPosts(Filter.TOP)
+    }
+
+    private fun fetchPosts(filter: Filter) {
+        this.useCaseHandler.execute(this.loadPosts, LoadPosts.RequestValues(filter), {
             // Success
             response ->
             this.view?.updatePosts(response.posts)
