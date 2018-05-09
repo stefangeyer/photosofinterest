@@ -10,6 +10,9 @@
 
     <string name="button_ok">OK</string>
 
+    <string name="scoreboard_points">%1$d points</string>
+    <string name="current_leader">Current Leader</string>
+
     <!-- Image Viewer -->
     <string name="image_cannot_load">Cannot load image</string>
     <string name="image_please_provide_title">Please provide a title</string>
