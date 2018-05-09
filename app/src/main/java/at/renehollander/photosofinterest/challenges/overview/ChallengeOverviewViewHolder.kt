@@ -51,9 +51,9 @@ class ChallengeOverviewViewHolder(
 
     override fun updateEnd(end: LocalDateTime) {
         val now = LocalDateTime.now()
-        val weeks = now.until(now, ChronoUnit.WEEKS)
-        val days = now.until(now, ChronoUnit.WEEKS)
-        val hours = now.until(now, ChronoUnit.WEEKS)
+        val weeks = now.until(end, ChronoUnit.WEEKS)
+        val days = now.until(end, ChronoUnit.WEEKS)
+        val hours = now.until(end, ChronoUnit.WEEKS)
 
         val res = this.parentView.context.resources
         val endsIn = StringBuilder()
