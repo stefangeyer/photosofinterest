@@ -1,11 +1,8 @@
 package at.renehollander.photosofinterest.profile
 
-import at.renehollander.photosofinterest.UseCaseHandler
 import javax.inject.Inject
 
-class ProfilePresenter @Inject constructor(
-        private val useCaseHandler: UseCaseHandler
-) : ProfileContract.Presenter {
+class ProfilePresenter @Inject constructor() : ProfileContract.Presenter {
 
     private var view: ProfileContract.View? = null
 

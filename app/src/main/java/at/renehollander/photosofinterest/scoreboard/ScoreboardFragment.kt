@@ -41,7 +41,7 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
         super.onActivityCreated(savedInstanceState)
 
         val layoutManager = LinearLayoutManager(activity)
-        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.getOrientation())
+        val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
         scoreboard_list.addItemDecoration(dividerItemDecoration)
         scoreboard_list.layoutManager = layoutManager
         scoreboard_list.adapter = this.adapter
