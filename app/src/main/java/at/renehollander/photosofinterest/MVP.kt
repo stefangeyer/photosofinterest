@@ -9,7 +9,7 @@ package at.renehollander.photosofinterest
 interface BasePresenter<in V : BaseView> {
 
     /**
-     * Binds presenter with a parentView when resumed. The Presenter will perform initialization here.
+     * Binds presenter with a parentView when resumed. The ViewHolderPresenter will perform initialization here.
      *
      * @param view the parentView associated with this presenter
      */

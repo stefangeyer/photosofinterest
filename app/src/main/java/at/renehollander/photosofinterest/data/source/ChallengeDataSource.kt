@@ -9,6 +9,10 @@ import at.renehollander.photosofinterest.data.Challenge
  * @version 1.0
  */
 interface ChallengeDataSource {
-    fun loadChallenges(callback: LoadRecordCallback<Challenge>)
+    fun loadChallenges(filter: Filter, callback: LoadRecordCallback<Challenge>)
     fun loadChallengeDetails(challenge: Challenge, callback: GetRecordCallback<Challenge>)
+
+    enum class Filter {
+        NEARBY, ONGOING, ALL
+    }
 }

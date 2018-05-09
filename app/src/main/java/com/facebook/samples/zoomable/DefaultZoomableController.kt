@@ -63,7 +63,7 @@ open class DefaultZoomableController(
      */
     var maxScaleFactor = 2.0f
 
-    // View bounds, in parentView-absolute coordinates
+    // ViewHolder bounds, in parentView-absolute coordinates
     /** Gets the parentView bounds.  */
     val viewBounds = RectF()
     // Non-transformed image bounds, in parentView-absolute coordinates

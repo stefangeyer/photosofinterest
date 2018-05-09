@@ -2,12 +2,12 @@ package at.renehollander.photosofinterest.challenges.overview
 
 class ChallengeOverviewViewHolderPresenter(
         private val adapter: ChallengeOverviewContract.Adapter
-) : ChallengeOverviewContract.Presenter {
+) : ChallengeOverviewContract.ViewHolderPresenter {
 
-    private var view: ChallengeOverviewContract.View? = null
+    private var view: ChallengeOverviewContract.ViewHolder? = null
     private var position: Int? = null
 
-    override fun takeView(view: ChallengeOverviewContract.View) {
+    override fun takeView(view: ChallengeOverviewContract.ViewHolder) {
         this.view = view
     }
 
