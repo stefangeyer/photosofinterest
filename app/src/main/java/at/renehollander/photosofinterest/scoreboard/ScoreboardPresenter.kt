@@ -1,19 +1,22 @@
 package at.renehollander.photosofinterest.scoreboard
 
-import at.renehollander.photosofinterest.UseCaseHandler
-import at.renehollander.photosofinterest.data.Image
-import at.renehollander.photosofinterest.data.ScoreboardEntry
-import at.renehollander.photosofinterest.data.User
+import at.renehollander.photosofinterest.data.Scoreboard
+import at.renehollander.photosofinterest.data.source.GetRecordCallback
+import at.renehollander.photosofinterest.data.source.ScoreboardDataSource
 import javax.inject.Inject
 
 class ScoreboardPresenter @Inject constructor(
+        private var scoreboardDataSource: ScoreboardDataSource
 ) : ScoreboardContract.Presenter {
     override fun fetchScores() {
-        this.view?.updateScores(mutableListOf(
-                ScoreboardEntry(null, User("user1@example.com", "User 1", Image("img1")), 20),
-                ScoreboardEntry(null, User("user2@example.com", "User 2", Image("img2")), 30),
-                ScoreboardEntry(null, User("user3@example.com", "User 3", Image("img2")), 100)
-        ))
+        scoreboardDataSource.loadGlobalScoreboard(object : GetRecordCallback<Scoreboard> {
+            override fun onRecordLoaded(record: Scoreboard) {
+                view?.updateScores(record.scores)
+            }
+
+            override fun onDataNotAvailable() {
+            }
+        })
     }
 
     private var view: ScoreboardContract.View? = null
