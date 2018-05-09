@@ -20,7 +20,7 @@ class ScoreboardEntryAdapter : RecyclerView.Adapter<ScoreboardEntryViewHolder>()
     override fun onBindViewHolder(holder: ScoreboardEntryViewHolder, position: Int) {
         val entry = getItemAt(position)
 
-        holder.updateRank(position)
+        holder.updateRank(position + 1)
         holder.updateUserImage(entry.user.image.uri)
         holder.updateName(entry.user.name)
         holder.updateScore(entry.score)
