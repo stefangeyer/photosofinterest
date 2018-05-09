@@ -9,6 +9,7 @@ import android.view.MenuItem
 import android.widget.Toast
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
+import at.renehollander.photosofinterest.challenge.ChallengeFragment
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
 import at.renehollander.photosofinterest.feed.FeedFragment
 import at.renehollander.photosofinterest.profile.ProfileFragment
@@ -31,7 +32,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     @Inject
     lateinit var scoreboardFragment: ScoreboardFragment
     @Inject
-    lateinit var challengeFragment: ChallengesFragment
+    lateinit var challengeFragment: ChallengeFragment
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
