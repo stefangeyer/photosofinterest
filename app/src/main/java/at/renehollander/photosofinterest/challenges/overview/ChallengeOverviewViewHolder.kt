@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenges.overview
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.view.View
@@ -8,8 +9,7 @@ import android.widget.TextView
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.image.ImageActivity
 import com.facebook.drawee.view.SimpleDraweeView
-import org.threeten.bp.LocalDateTime
-import org.threeten.bp.temporal.ChronoUnit
+import org.threeten.bp.Duration
 
 class ChallengeOverviewViewHolder(
         private val parentView: View,
@@ -49,22 +49,10 @@ class ChallengeOverviewViewHolder(
         this.title.text = title
     }
 
-    override fun updateEnd(end: LocalDateTime) {
-        val now = LocalDateTime.now()
-        val weeks = now.until(end, ChronoUnit.WEEKS)
-        val days = now.until(end, ChronoUnit.WEEKS)
-        val hours = now.until(end, ChronoUnit.WEEKS)
-
-        val res = this.parentView.context.resources
-        val endsIn = StringBuilder()
-
-        endsIn.append(res.getString(R.string.challenges_ends_in) + " ")
-
-        if (weeks > 0) endsIn.append(weeks).append(" ").append(res.getString(R.string.challenges_weeks) + " ")
-        if (days > 0) endsIn.append(days).append(" ").append(res.getString(R.string.challenges_days) + " ")
-        endsIn.append(hours).append(" ").append(res.getString(R.string.challenges_hours) + " ")
-
-        this.endsIn.text = endsIn.toString()
+    @SuppressLint("SetTextI18n")
+    override fun updateEnd(between: Duration) {
+        endsIn.text = parentView.context.resources?.getQuantityString(R.plurals.endsInHours, between.toHours().toInt(), between.toHours().toInt()) + " " +
+                parentView.context.resources?.getQuantityString(R.plurals.endsInMinutes, between.minusHours(between.toHours()).toMinutes().toInt(), between.minusHours(between.toHours()).toMinutes().toInt())
     }
 
     override fun updateLocations(locations: List<String>) {

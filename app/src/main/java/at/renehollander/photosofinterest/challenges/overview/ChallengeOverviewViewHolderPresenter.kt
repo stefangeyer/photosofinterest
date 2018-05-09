@@ -1,5 +1,7 @@
 package at.renehollander.photosofinterest.challenges.overview
 
+import org.threeten.bp.Duration
+
 class ChallengeOverviewViewHolderPresenter(
         private val adapter: ChallengeOverviewContract.Adapter
 ) : ChallengeOverviewContract.ViewHolderPresenter {
@@ -20,8 +22,8 @@ class ChallengeOverviewViewHolderPresenter(
         if (position != null) {
             val challenge = this.adapter.getItemAt(position)
             this.view?.updateTitle(challenge.title)
-            this.view?.updateEnd(challenge.end)
-            this.view?.updateLocations(challenge.pois.map { p -> p.name })
+            this.view?.updateEnd(Duration.between(org.threeten.bp.LocalDateTime.now(), challenge.end))
+            this.view?.updateLocations(challenge.regions.map { region -> region.description })
             this.view?.updateImage(challenge.image.uri)
         }
     }
