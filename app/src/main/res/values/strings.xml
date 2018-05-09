@@ -35,4 +35,7 @@
     <string name="challenges_action_uploads">Uploads</string>
     <string name="challenges_clock_desc">Clock icon</string>
     <string name="challenges_marker_desc">Marker icon</string>
+    <string name="challenges_category_nearby">Nearby</string>
+    <string name="challenges_category_ongoing">Ongoing</string>
+    <string name="challenges_category_all">All</string>
 </resources>
