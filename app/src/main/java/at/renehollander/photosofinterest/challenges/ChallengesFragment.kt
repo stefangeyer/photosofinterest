@@ -75,7 +75,7 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
     override fun showDetails(challenge: Challenge) {
         val fragment = challengeFragmentProvider.get()
         fragment.presenter.setChallenge(challenge)
-        val res = activity!!.supportFragmentManager.beginTransaction()
+        activity!!.supportFragmentManager.beginTransaction()
                 .replace(R.id.layout, fragment)
                 .addToBackStack(null).commit()
     }
