@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
-import at.renehollander.photosofinterest.data.Challenge
-import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.feed.FeedFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
@@ -68,6 +67,11 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         if (data != null && requestCode == REQUEST_IMAGE_CAPTURE) {
             this.presenter.photoTaken(data.extras!!["data"] as Bitmap)
         }
+    }
+
+    override fun startLogin() {
+        val intent = Intent(context, AuthActivity::class.java)
+        startActivity(intent)
     }
 
     override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
