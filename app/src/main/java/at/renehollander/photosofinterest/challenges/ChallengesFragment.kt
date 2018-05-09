@@ -68,6 +68,9 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
+
+        // TODO change
+        this.presenter.fetchNearbyChallenges()
     }
 
     override fun onDestroy() {

@@ -2,7 +2,6 @@ package at.renehollander.photosofinterest.feed
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
-import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Post
 
 /**

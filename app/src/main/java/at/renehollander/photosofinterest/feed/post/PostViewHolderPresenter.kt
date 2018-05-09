@@ -76,6 +76,7 @@ class PostViewHolderPresenter(
     fun checkLogin(): Boolean {
         if (!application.isLoggedIn()) {
             val intent = Intent(application, AuthActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(application, intent, null)
         }
         return application.isLoggedIn()
