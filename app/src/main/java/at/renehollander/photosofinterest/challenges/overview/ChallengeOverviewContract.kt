@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenges.overview
 
+import at.renehollander.photosofinterest.BaseAdapter
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Challenge
@@ -39,13 +40,7 @@ interface ChallengeOverviewContract {
         fun onUploadsButtonClicked()
     }
 
-    interface Adapter {
-        fun setAll(posts: List<Challenge>)
-        fun addItem(post: Challenge)
-        fun removeItem(post: Challenge)
-        fun getItemAt(position: Int): Challenge
-        fun getItems(): List<Challenge>
-        fun notifyAdapter()
+    interface Adapter: BaseAdapter<Challenge> {
         fun showChallenge(challenge: Challenge)
     }
 }
