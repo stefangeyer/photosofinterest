@@ -28,14 +28,18 @@ class ChallengeOverviewFragment @Inject constructor() : DaggerFragment(), Challe
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        recyclerView.adapter = this.adapter
-        recyclerView.layoutManager = this.layoutManager
-
         swipeRefreshLayout.setOnRefreshListener {
             this.reloadListener.onReload()
         }
 
         this.reloadListener.onReload()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        recyclerView.adapter = this.adapter
+        recyclerView.layoutManager = this.layoutManager
     }
 
     override fun onPause() {

@@ -26,12 +26,19 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
     private var all: ChallengeOverviewFragment? = null
     private var adapter: ChallengesFragmentPagerAdapter? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater.inflate(R.layout.fragment_challenges, container, false)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
 
         this.nearby = this.overviewFragmentProvider.get()
         this.ongoing = this.overviewFragmentProvider.get()
         this.all = this.overviewFragmentProvider.get()
+
+        this.adapter = ChallengesFragmentPagerAdapter(childFragmentManager, context!!,
+                this.nearby!!, this.ongoing!!, this.all!!)
 
         this.nearby?.setOnDataReloadListener(object : ChallengeOverviewContract.View.OnDataReloadListener {
             override fun onReload() {
@@ -50,20 +57,12 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
                 this@ChallengesFragment.presenter.fetchAllChallenges()
             }
         })
-    }
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_challenges, container, false)
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        this.adapter = ChallengesFragmentPagerAdapter(childFragmentManager, context!!,
-                this.nearby!!, this.ongoing!!, this.all!!)
 
         viewPager.adapter = this.adapter
         tabLayout.setupWithViewPager(viewPager)
+
+        // TODO change
+        this.presenter.fetchNearbyChallenges()
     }
 
     override fun onResume() {
