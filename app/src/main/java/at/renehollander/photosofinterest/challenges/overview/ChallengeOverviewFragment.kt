@@ -7,14 +7,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.data.Challenge
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_recycler_view.*
 import javax.inject.Inject
 
 class ChallengeOverviewFragment @Inject constructor() : DaggerFragment(), ChallengeOverviewContract.View {
+    override fun setOnShowDetailsListener(listener: ChallengeOverviewContract.View.OnShowDetailsListener) {
+        this.showDetailsListener = listener
+        this.adapter.sc = listener
+    }
+
+    var showDetailsListener = object : ChallengeOverviewContract.View.OnShowDetailsListener {
+        override fun showDetails(challenge: Challenge) {
+        }
+    }
 
     val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
-    val adapter: ChallengeOverviewAdapter = ChallengeOverviewAdapter()
+    val adapter: ChallengeOverviewAdapter = ChallengeOverviewAdapter(showDetailsListener)
 
     var reloadListener = object : ChallengeOverviewContract.View.OnDataReloadListener {
         override fun onReload() {
@@ -41,6 +51,7 @@ class ChallengeOverviewFragment @Inject constructor() : DaggerFragment(), Challe
         recyclerView.adapter = this.adapter
         recyclerView.layoutManager = this.layoutManager
     }
+
 
     override fun onPause() {
         super.onPause()

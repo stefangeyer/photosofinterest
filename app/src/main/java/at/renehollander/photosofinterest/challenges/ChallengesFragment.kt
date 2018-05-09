@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.challenge.ChallengeFragment
 import at.renehollander.photosofinterest.challenges.overview.ChallengeOverviewContract
 import at.renehollander.photosofinterest.challenges.overview.ChallengeOverviewFragment
 import at.renehollander.photosofinterest.data.Challenge
@@ -13,13 +14,16 @@ import kotlinx.android.synthetic.main.fragment_challenge.*
 import javax.inject.Inject
 import javax.inject.Provider
 
-class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesContract.View {
+class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesContract.View, ChallengeOverviewContract.View.OnShowDetailsListener {
 
     @Inject
     lateinit var presenter: ChallengesContract.Presenter
 
     @Inject
     lateinit var overviewFragmentProvider: Provider<ChallengeOverviewFragment>
+
+    @Inject
+    lateinit var challengeFragmentProvider: Provider<ChallengeFragment>
 
     private var nearby: ChallengeOverviewFragment? = null
     private var ongoing: ChallengeOverviewFragment? = null
@@ -45,24 +49,35 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
                 this@ChallengesFragment.presenter.fetchNearbyChallenges()
             }
         })
+        this.nearby?.setOnShowDetailsListener(this)
 
         this.ongoing?.setOnDataReloadListener(object : ChallengeOverviewContract.View.OnDataReloadListener {
             override fun onReload() {
                 this@ChallengesFragment.presenter.fetchOngoingChallenges()
             }
         })
+        this.ongoing?.setOnShowDetailsListener(this)
 
         this.all?.setOnDataReloadListener(object : ChallengeOverviewContract.View.OnDataReloadListener {
             override fun onReload() {
                 this@ChallengesFragment.presenter.fetchAllChallenges()
             }
         })
+        this.all?.setOnShowDetailsListener(this)
 
         viewPager.adapter = this.adapter
         tabLayout.setupWithViewPager(viewPager)
 
         // TODO change
         this.presenter.fetchNearbyChallenges()
+    }
+
+    override fun showDetails(challenge: Challenge) {
+        val fragment = challengeFragmentProvider.get()
+        fragment.presenter.setChallenge(challenge)
+        val res = activity!!.supportFragmentManager.beginTransaction()
+                .replace(R.id.layout, fragment)
+                .addToBackStack(null).commit()
     }
 
     override fun onResume() {

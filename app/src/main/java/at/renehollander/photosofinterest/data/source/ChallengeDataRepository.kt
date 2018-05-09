@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.data.source
 
 import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Image
+import at.renehollander.photosofinterest.data.Region
 import at.renehollander.photosofinterest.data.source.ChallengeDataSource.Filter.*
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import org.threeten.bp.LocalDateTime
@@ -20,21 +21,24 @@ class ChallengeDataRepository @Inject constructor(
 ) : ChallengeDataSource {
     override fun loadChallenges(filter: ChallengeDataSource.Filter, callback: LoadRecordCallback<Challenge>) {
         val challenge1 = Challenge(
-                "Challenge 1",
+                "Flüsse oder so",
                 Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"),
                 LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(1),
-                "Description 1", mutableListOf(), mutableListOf())
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())), mutableListOf())
         val challenge2 = Challenge(
-                "Challenge 2",
+                "Kärntner Seen",
                 Image("https://webheimat.at/aktiv/Urlaub/Tipps/Woerthersee-Sommer-Events/Woerthersee-Sommer_high.jpg"),
                 LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(4).plusHours(2),
-                "Description 2", mutableListOf(), mutableListOf())
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                mutableListOf(Region("Carinthia", mutableListOf())), mutableListOf())
 
         val challenge3 = Challenge(
-                "Challenge 3",
-                Image("https://www.presseteamaustria.at/wp-content/uploads/2016/07/04-Restaurant-Maria-Loretto-Klagenfurt-45.jpg"),
+                "Wiener Denkmäler",
+                Image("https://www.wien.info/media/images/altstadt-panorama-mit-stephansdom-und-karlskirche-19to1.jpeg"),
                 LocalDateTime.now().minusDays(4), LocalDateTime.now().plusDays(7).plusHours(2),
-                "Description 3", mutableListOf(), mutableListOf())
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
+                mutableListOf(Region("Wien oida", mutableListOf())), mutableListOf())
 
 
         val out = when (filter) {

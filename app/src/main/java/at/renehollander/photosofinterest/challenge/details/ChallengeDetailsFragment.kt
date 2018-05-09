@@ -46,7 +46,7 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     @SuppressLint("SetTextI18n")
     override fun updateEndTime(between: Duration) {
-        challengeEndTime.text = context?.resources?.getQuantityString(R.plurals.endsInHours, between.toHours().toInt(), R.plurals.endsInHours, between.toHours().toInt()) +
+        challengeEndTime.text = context?.resources?.getQuantityString(R.plurals.endsInHours, between.toHours().toInt(), between.toHours().toInt()) + " " +
                 context?.resources?.getQuantityString(R.plurals.endsInMinutes, between.minusHours(between.toHours()).toMinutes().toInt(), between.minusHours(between.toHours()).toMinutes().toInt())
     }
 

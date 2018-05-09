@@ -39,7 +39,12 @@ class ChallengeOverviewViewHolderPresenter(
     }
 
     override fun onDetailsButtonClicked() {
-        this.view?.showDetails()
+        val position = this.position
+        if (position != null) {
+            val challenge = this.adapter.getItemAt(position)
+            this.adapter.showChallenge(challenge)
+        }
+//        this.view?.showDetails()
     }
 
     override fun onUploadsButtonClicked() {
