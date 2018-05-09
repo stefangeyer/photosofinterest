@@ -18,7 +18,7 @@ class ScoreboardDataRepository @Inject constructor(
 
     override fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>) {
         callback.onRecordLoaded(Scoreboard("Global",
-                (1..50).map { ScoreboardEntry(null, User("user$it@example.com", "User $it", Image("http://i.pravatar.cc/256?img=$it")), it * 10) },
+                (1..50).map { ScoreboardEntry(null, User("user$it@example.com", "User $it", Image("http://i.pravatar.cc/256?img=$it")), it * 10) }.reversed(),
                 null))
     }
 
