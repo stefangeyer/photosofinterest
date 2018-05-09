@@ -65,6 +65,16 @@ class ImageActivity : DaggerAppCompatActivity(), ImageContract.View {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        this.presenter.dropView()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        this.finish()
+    }
+
     override fun titleProvided(): Boolean {
         return this.titleEditText.text.isNotBlank()
     }
