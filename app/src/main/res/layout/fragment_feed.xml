@@ -16,16 +16,19 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.design.widget.TabItem
+            android:id="@+id/risingTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_category_rising" />
 
         <android.support.design.widget.TabItem
+            android:id="@+id/recentTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_category_recent" />
 
         <android.support.design.widget.TabItem
+            android:id="@+id/topTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/feed_category_top" />

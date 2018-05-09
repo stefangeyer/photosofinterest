@@ -7,7 +7,7 @@ class PostViewHolderPresenter(
 ) : PostContract.ViewHolderPresenter {
 
     private var view: PostContract.ViewHolder? = null
-    var position: Int? = null
+    private var position: Int? = null
 
     override fun takeView(view: PostContract.ViewHolder) {
         this.view = view
