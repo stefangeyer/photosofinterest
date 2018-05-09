@@ -1,8 +1,9 @@
 package at.renehollander.photosofinterest.auth
 
+import at.renehollander.photosofinterest.PhotosOfInterest
 import javax.inject.Inject
 
-class AuthPresenter @Inject constructor() : AuthContract.Presenter {
+class AuthPresenter @Inject constructor(private var application: PhotosOfInterest) : AuthContract.Presenter {
 
     private var view: AuthContract.View? = null
 
@@ -15,10 +16,12 @@ class AuthPresenter @Inject constructor() : AuthContract.Presenter {
     }
 
     override fun facebookSignIn() {
+        application.login()
         view?.close() // TODO: not implemented
     }
 
     override fun googleSignIn() {
+        application.login()
         view?.close() // TODO: not implemented
     }
 
