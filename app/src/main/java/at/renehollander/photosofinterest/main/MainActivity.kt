@@ -44,9 +44,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
 
-        // TODO remove
-        this.presenter.performSomeAction()
-
         val selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_feed -> {
@@ -113,10 +110,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
         updateActionBar()
         return super.onMenuOpened(featureId, menu)
-    }
-
-    override fun displaySomething() {
-        Toast.makeText(this, "Hello World!", Toast.LENGTH_SHORT).show()
     }
 
     override fun startSignIn() {
