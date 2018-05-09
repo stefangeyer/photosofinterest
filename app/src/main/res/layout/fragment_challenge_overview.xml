@@ -98,6 +98,7 @@
                         app:srcCompat="@drawable/ic_location_marker_black_24dp" />
 
                     <TextView
+                        android:id="@+id/locations"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
