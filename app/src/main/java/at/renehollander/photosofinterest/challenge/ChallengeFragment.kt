@@ -1,6 +1,9 @@
 package at.renehollander.photosofinterest.challenge
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +32,9 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
+        takePhoto.setOnClickListener { this.presenter.takePhoto() }
+
         adapter = ChallengeFragmentPagerAdapter(childFragmentManager);
         adapter.context = context!!
         adapter.challengeDetailsFragment = challengeDetailsFragment
@@ -47,9 +53,21 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         presenter.dropView()
     }
 
-    override fun updatePosts(posts: List<Post>) {
+    override fun startPhotoTake() {
+        val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(activity?.packageManager) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
     }
 
-    override fun showCannotReload() {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (data != null && requestCode == REQUEST_IMAGE_CAPTURE) {
+            this.presenter.photoTaken(data.extras!!["data"] as Bitmap)
+        }
+    }
+
+    companion object {
+        const val REQUEST_IMAGE_CAPTURE = 1
     }
 }

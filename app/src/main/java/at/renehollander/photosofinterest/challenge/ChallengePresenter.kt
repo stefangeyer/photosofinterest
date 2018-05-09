@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenge
 
+import android.graphics.Bitmap
 import javax.inject.Inject
 
 class ChallengePresenter @Inject constructor(
@@ -15,6 +16,10 @@ class ChallengePresenter @Inject constructor(
         this.view = null
     }
 
-    override fun fetchPosts() {
+    override fun takePhoto() {
+        this.view?.startPhotoTake()
+    }
+
+    override fun photoTaken(photo: Bitmap) {
     }
 }

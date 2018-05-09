@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenge
 
+import android.graphics.Bitmap
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Post
@@ -12,13 +13,12 @@ import at.renehollander.photosofinterest.data.Post
  */
 interface ChallengeContract {
     interface View : BaseView {
-        fun updatePosts(posts: List<Post>)
-
-        // Errors
-        fun showCannotReload()
+        fun startPhotoTake()
     }
 
     interface Presenter : BasePresenter<View> {
-        fun fetchPosts()
+        fun takePhoto()
+
+        fun photoTaken(photo: Bitmap)
     }
 }
