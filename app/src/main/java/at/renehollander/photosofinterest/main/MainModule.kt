@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.main
 
+import at.renehollander.photosofinterest.challenge.ChallengeModule
 import at.renehollander.photosofinterest.challenges.ChallengesModule
 import at.renehollander.photosofinterest.feed.FeedModule
 import at.renehollander.photosofinterest.inject.scopes.ActivityScoped
@@ -10,6 +11,7 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
 @Module(includes = [
+    ChallengeModule::class,
     ChallengesModule::class,
     FeedModule::class,
     ProfileModule::class,

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@drawable/empty_10dp_divider"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:showDividers="middle"
+        tools:context=".feed.FeedFragment">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:context="com.textviewaboveimage_android_examples.com.MainActivity">
+
+                    <com.facebook.drawee.view.SimpleDraweeView
+                        android:id="@+id/challengeImage"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp" />
+
+                    <TextView
+                        android:id="@+id/challengeName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@id/challengeImage"
+                        android:layout_alignEnd="@+id/challengeImage"
+                        android:layout_alignStart="@+id/challengeImage"
+                        android:padding="10dp"
+                        android:textAppearance="?android:attr/textAppearanceLarge"
+                        android:textColor="#fdfcfc" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/challengeEndTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_access_time_black_24dp"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/challengePlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginTop="8dp"
+                    android:drawableStart="@drawable/ic_place_black_24dp"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_help_black_24dp"
+                    android:text="@string/description"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/challengeDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            card_view:cardCornerRadius="4dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_map_black_24dp"
+                    android:padding="10dp"
+                    android:text="@string/points_of_interest"
+                    android:textSize="24sp" />
+
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/pointsImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp" />
+            </LinearLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>
