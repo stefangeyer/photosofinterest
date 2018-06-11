@@ -14,27 +14,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
-<!--<<<<<<< HEAD-->
+        <!--<<<<<<< HEAD-->
         <!--<TextView-->
-            <!--android:id="@+id/titleLabel"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="@string/title"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:textSize="18sp" />-->
+        <!--android:id="@+id/titleLabel"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/title"-->
+        <!--android:textColor="@android:color/black"-->
+        <!--android:textSize="18sp" />-->
 
         <!--<android.support.constraint.ConstraintLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content">-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content">-->
 
-            <!--<ImageView-->
-                <!--android:id="@+id/challengeIcon"-->
-                <!--android:layout_width="16dp"-->
-                <!--android:layout_height="16dp"-->
-                <!--android:layout_marginEnd="8dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:contentDescription="@string/challenge_icon"-->
-<!--=======-->
+        <!--<ImageView-->
+        <!--android:id="@+id/challengeIcon"-->
+        <!--android:layout_width="16dp"-->
+        <!--android:layout_height="16dp"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_weight="1"-->
+        <!--android:contentDescription="@string/challenge_icon"-->
+        <!--=======-->
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

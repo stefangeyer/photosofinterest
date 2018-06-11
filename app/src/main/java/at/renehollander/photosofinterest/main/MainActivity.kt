@@ -51,7 +51,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
             }
             R.id.navigation_challenges -> {
                 selectedFragment = this.challengesFragment
-//                selectedFragment = this.challengeFragment
             }
             R.id.navigation_scoreboard -> {
                 selectedFragment = this.scoreboardFragment
@@ -90,11 +89,10 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
-        signIn = menu!!.findItem(R.id.sign_in)
+        signIn = menu.findItem(R.id.sign_in)
         signOut = menu.findItem(R.id.sign_out)
-        updateActionBar()
         return true
     }
 
@@ -107,9 +105,17 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         return true
     }
 
-    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
-        updateActionBar()
-        return super.onMenuOpened(featureId, menu)
+//    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+//        updateActionBar()
+//        return super.onMenuOpened(featureId, menu)
+//    }
+
+    override fun onSignIn(user: User) {
+        updateActionBar(true)
+    }
+
+    override fun onSignOut() {
+        updateActionBar(false)
     }
 
     override fun startSignIn() {
@@ -121,8 +127,8 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
     }
 
-    private fun updateActionBar() {
-        if (application.isLoggedIn()) {
+    private fun updateActionBar(loggedIn: Boolean) {
+        if (loggedIn) {
             signIn.isVisible = false
             signOut.isVisible = true
         } else {

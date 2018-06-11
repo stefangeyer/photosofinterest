@@ -13,7 +13,7 @@ class PostAdapter constructor(private val application: PhotosOfInterest) : Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PostViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.fragment_post, parent, false)
-        return PostViewHolder(item, this, application)
+        return PostViewHolder(item, this)
     }
 
     override fun getItemCount(): Int = this.itemList.size

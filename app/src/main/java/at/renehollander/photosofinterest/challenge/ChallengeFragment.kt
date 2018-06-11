@@ -113,6 +113,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         }
     }
 
+
     override fun startLogin() {
         val intent = Intent(context, AuthActivity::class.java)
         startActivity(intent)

@@ -2,24 +2,33 @@ package at.renehollander.photosofinterest.feed.post
 
 import android.content.Intent
 import android.support.v4.content.ContextCompat.startActivity
-import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.auth.AuthActivity
+import at.renehollander.photosofinterest.auth.SignInEvent
+import at.renehollander.photosofinterest.auth.SignOutEvent
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.User
+import at.renehollander.photosofinterest.main.PerformSignInEvent
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class PostViewHolderPresenter(
-        private val application: PhotosOfInterest,
         private val adapter: PostContract.Adapter
 ) : PostContract.ViewHolderPresenter {
 
     private var view: PostContract.ViewHolder? = null
+
     private var position: Int? = null
+    private var user: User? = null
 
     override fun takeView(view: PostContract.ViewHolder) {
         this.view = view
+        EventBus.getDefault().register(this)
     }
 
     override fun dropView() {
         this.view = null
+        EventBus.getDefault().unregister(this)
     }
 
     override fun onImageClicked() {
@@ -73,12 +82,24 @@ class PostViewHolderPresenter(
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLoginEvent(event: SignInEvent) {
+        this.user = event.user
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onLogoutEvent(event: SignOutEvent) {
+        this.user = null
+    }
+
     private fun checkLogin(): Boolean {
-        if (!application.isLoggedIn()) {
-            val intent = Intent(application, AuthActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
-            startActivity(application, intent, null)
+        val loggedIn = this.user != null
+        if (!loggedIn) {
+//            val intent = Intent(application, AuthActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+//            startActivity(application, intent, null)
+            EventBus.getDefault().post(PerformSignInEvent())
         }
-        return application.isLoggedIn()
+        return loggedIn
     }
 }
