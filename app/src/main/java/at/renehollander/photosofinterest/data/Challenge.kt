@@ -8,7 +8,7 @@ import org.threeten.bp.LocalDateTime
 
 data class Challenge(var id: String = "",
                      var title: String = "",
-                     var image: Image = Image(),
+                     var image: String = "",
                      @Exclude var start: LocalDateTime = LocalDateTime.of(1970, 1, 1, 0, 0, 0),
                      @Exclude var end: LocalDateTime = LocalDateTime.of(1970, 1, 1, 0, 0, 0),
                      var description: String = "",

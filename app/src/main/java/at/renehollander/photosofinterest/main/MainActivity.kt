@@ -75,7 +75,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
 
         challengeFragment.presenter.setChallenge(Challenge(
                 title = "Challenge 1",
-                image = Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"),
+                image = "http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg",
                 start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(2),
                 description = "This is the very awesome first challenge!",
                 regions = mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),

@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
+import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.image.ImageActivity
 import com.facebook.drawee.view.SimpleDraweeView
+import com.google.firebase.storage.FirebaseStorage
 import org.threeten.bp.Duration
 
 class ChallengeOverviewViewHolder(
@@ -42,7 +44,12 @@ class ChallengeOverviewViewHolder(
     }
 
     override fun updateImage(uri: String) {
-        this.image.setImageURI(uri)
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageReference = storageRef.child(uri)
+
+        GlideApp.with(this.parentView)
+                .load(imageReference)
+                .into(image)
     }
 
     override fun updateTitle(title: String) {
