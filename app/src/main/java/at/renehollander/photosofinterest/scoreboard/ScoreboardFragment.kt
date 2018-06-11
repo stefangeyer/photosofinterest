@@ -28,9 +28,6 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     @Inject
     lateinit var ownEntryFragment: ScoreboardOwnEntryFragment
 
-    @Inject
-    lateinit var application: PhotosOfInterest
-
     private val adapter: ScoreboardEntryAdapter = ScoreboardEntryAdapter()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -45,12 +42,6 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
         scoreboard_list.addItemDecoration(dividerItemDecoration)
         scoreboard_list.layoutManager = layoutManager
         scoreboard_list.adapter = this.adapter
-
-        if (application.isLoggedIn()) {
-            val ft = childFragmentManager.beginTransaction()
-            ft.replace(R.id.ownEntry_container, ownEntryFragment)
-            ft.commit()
-        }
     }
 
     override fun onResume() {
@@ -69,6 +60,15 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     override fun onDestroy() {
         super.onDestroy()
         presenter.dropView()
+    }
+
+    override fun onSignIn(user: User) {
+        val ft = childFragmentManager.beginTransaction()
+        ft.replace(R.id.ownEntry_container, ownEntryFragment)
+        ft.commit()
+    }
+
+    override fun onSignOut() {
     }
 
     override fun updateScores(scores: List<ScoreboardEntry>) {
