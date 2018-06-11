@@ -1,0 +1,59 @@
+{
+  "project_info": {
+    "project_number": "468546461017",
+    "firebase_url": "https://photosofinterest-518c3.firebaseio.com",
+    "project_id": "photosofinterest-518c3",
+    "storage_bucket": "photosofinterest-518c3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468546461017:android:43ec89c60a3e9348",
+        "android_client_info": {
+          "package_name": "at.renehollander.photosofinterest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468546461017-2uus7ifcsb6gjqsa63gce5ebhbq2s522.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "at.renehollander.photosofinterest",
+            "certificate_hash": "11c248a92c2d0223b69ff2033821f7f8f9c90ff1"
+          }
+        },
+        {
+          "client_id": "468546461017-dkmkkvtq9t6p0240549aqcc07ihq3ct2.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "468546461017-dkmkkvtq9t6p0240549aqcc07ihq3ct2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbQVlN2rzAcYwBRH0_ZCBo-IfJJrJaCxE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468546461017-dkmkkvtq9t6p0240549aqcc07ihq3ct2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
