@@ -6,12 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.OnMapReadyCallback
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import org.threeten.bp.Duration
 import javax.inject.Inject
 
-class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View {
+class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View, OnMapReadyCallback {
 
     @Inject
     lateinit var presenter: ChallengeDetailsContract.Presenter
@@ -22,18 +24,35 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        pointsImage.setImageURI("https://i.imgur.com/DgtBZ37.png")
+        map.onCreate(savedInstanceState)
+        map.getMapAsync(this)
     }
 
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
         presenter.update()
+        map.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.dropView()
+        map.onDestroy()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        map.onPause()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        map.onLowMemory()
+    }
+
+    override fun onMapReady(map: GoogleMap?) {
+
     }
 
     override fun updateTitle(title: String) {

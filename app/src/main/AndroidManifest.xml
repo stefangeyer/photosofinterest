@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDqNWCnLsOyjc6niTiwlKL4TAy-Dr7mAi8"/>
         <activity
             android:name=".main.MainActivity"
             android:label="@string/app_name">
