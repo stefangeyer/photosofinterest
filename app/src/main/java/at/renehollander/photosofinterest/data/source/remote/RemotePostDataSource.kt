@@ -14,7 +14,7 @@ class RemotePostDataSource @Inject constructor() : PostDataSource {
         val now = LocalDateTime.now()
         val challenge1 = Challenge(
                 title = "Challenge 1",
-                image = Image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg"),
+                image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg",
                 start = now.minusDays(4), end = now.plusDays(3), description = "Desc 123456", regions = listOf(Region("Some Region", getPoints())), pois = getPois())
         val user1 = User("user1@example.com", "User 1", Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
         val user2 = User("user2@example.com", "User 2", Image("http://www.christopherxjjensen.com/wp-content/gallery/profile-pics/thumbs/thumbs_Profile-Pic_2014-09-07_1000px.jpg"))

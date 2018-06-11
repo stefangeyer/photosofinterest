@@ -5,11 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
+import com.google.firebase.storage.FirebaseStorage
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import org.threeten.bp.Duration
 import javax.inject.Inject
+
 
 class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View {
 
@@ -41,7 +44,12 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
     }
 
     override fun updateImage(uri: String) {
-        challengeImage.setImageURI(uri)
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageReference = storageRef.child(uri)
+
+        GlideApp.with(this)
+                .load(imageReference)
+                .into(challengeImage)
     }
 
     @SuppressLint("SetTextI18n")

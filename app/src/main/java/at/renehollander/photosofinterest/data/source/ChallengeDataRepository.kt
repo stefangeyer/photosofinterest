@@ -65,7 +65,7 @@ class ChallengeDataRepository @Inject constructor(
     override fun loadChallengeDetails(challenge: Challenge, callback: GetRecordCallback<Challenge>) {
         callback.onRecordLoaded(Challenge(
                 title = "Challenge 2",
-                image = Image("https://webheimat.at/aktiv/Urlaub/Tipps/Woerthersee-Sommer-Events/Woerthersee-Sommer_high.jpg"),
+                image = "https://webheimat.at/aktiv/Urlaub/Tipps/Woerthersee-Sommer-Events/Woerthersee-Sommer_high.jpg",
                 start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(4).plusHours(2),
                 description = "Description 2", regions = mutableListOf(), pois = mutableListOf()))
     }

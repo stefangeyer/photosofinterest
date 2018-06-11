@@ -24,7 +24,7 @@ class ChallengeOverviewViewHolderPresenter(
             this.view?.updateTitle(challenge.title)
             this.view?.updateEnd(Duration.between(org.threeten.bp.LocalDateTime.now(), challenge.end))
             this.view?.updateLocations(challenge.regions.map { region -> region.description })
-            this.view?.updateImage(challenge.image.uri)
+            this.view?.updateImage(challenge.image)
         }
     }
 
@@ -36,7 +36,7 @@ class ChallengeOverviewViewHolderPresenter(
         val position = this.position
         if (position != null) {
             val challenge = this.adapter.getItemAt(position)
-            this.view?.showImage(challenge.title, challenge.image.uri)
+            this.view?.showImage(challenge.title, challenge.image)
         }
     }
 
