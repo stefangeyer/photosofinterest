@@ -26,31 +26,31 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        map.onCreate(savedInstanceState)
-        map.getMapAsync(this)
+        map?.onCreate(savedInstanceState)
+        map?.getMapAsync(this)
     }
 
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
         presenter.update()
-        map.onResume()
+        map?.onResume()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         presenter.dropView()
-        map.onDestroy()
+        map?.onDestroy()
     }
 
     override fun onPause() {
         super.onPause()
-        map.onPause()
+        map?.onPause()
     }
 
     override fun onLowMemory() {
         super.onLowMemory()
-        map.onLowMemory()
+        map?.onLowMemory()
     }
 
     override fun onMapReady(map: GoogleMap?) {
