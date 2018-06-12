@@ -4,5 +4,7 @@ sourceCompatibility = "1.8"
 targetCompatibility = "1.8"
 
 dependencies {
-    compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.1'
+    implementation 'de.micromata.jak:JavaAPIforKml:2.2.1'
+    implementation 'org.json:json:20180130'
+    implementation 'com.google.firebase:firebase-admin:6.2.0'
 }
