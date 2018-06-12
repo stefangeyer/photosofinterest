@@ -3,6 +3,7 @@ package at.renehollander.photosofinterest.scoreboard
 import at.renehollander.photosofinterest.auth.SignInEvent
 import at.renehollander.photosofinterest.auth.SignOutEvent
 import at.renehollander.photosofinterest.data.Scoreboard
+import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.data.source.GetRecordCallback
 import at.renehollander.photosofinterest.data.source.ScoreboardDataSource
 import org.greenrobot.eventbus.EventBus
@@ -15,6 +16,7 @@ class ScoreboardPresenter @Inject constructor(
 ) : ScoreboardContract.Presenter {
 
     private var view: ScoreboardContract.View? = null
+    private var user: User? = null
 
     override fun takeView(view: ScoreboardContract.View) {
         this.view = view
@@ -28,11 +30,13 @@ class ScoreboardPresenter @Inject constructor(
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoginEvent(event: SignInEvent) {
+        this.user = event.user
         view?.onSignIn(event.user)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogoutEvent(event: SignOutEvent) {
+        this.user = null
         view?.onSignOut()
     }
 
@@ -46,4 +50,6 @@ class ScoreboardPresenter @Inject constructor(
             }
         })
     }
+
+    override fun getUser(): User? = this.user
 }

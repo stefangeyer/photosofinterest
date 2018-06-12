@@ -22,5 +22,6 @@ interface ScoreboardContract {
 
     interface Presenter : BasePresenter<View> {
         fun fetchScores()
+        fun getUser(): User?
     }
 }

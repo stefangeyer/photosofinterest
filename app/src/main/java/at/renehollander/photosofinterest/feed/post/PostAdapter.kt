@@ -3,11 +3,10 @@ package at.renehollander.photosofinterest.feed.post
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 
-class PostAdapter constructor(private val application: PhotosOfInterest) : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter {
+class PostAdapter : RecyclerView.Adapter<PostViewHolder>(), PostContract.Adapter {
 
     override val itemList: MutableList<Post> = mutableListOf()
 
