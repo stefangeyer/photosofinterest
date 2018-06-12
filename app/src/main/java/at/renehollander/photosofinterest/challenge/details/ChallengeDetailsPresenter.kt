@@ -24,6 +24,10 @@ class ChallengeDetailsPresenter @Inject constructor(
         this.update()
     }
 
+    override fun getChallenge(): Challenge? {
+        return challenge;
+    }
+
     override fun update() {
         if (this.challenge != null) {
             this.view?.updateTitle(challenge!!.title)
