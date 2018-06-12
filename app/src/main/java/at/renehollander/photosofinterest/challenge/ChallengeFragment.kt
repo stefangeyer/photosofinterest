@@ -23,7 +23,6 @@ import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import at.renehollander.photosofinterest.image.ImageActivity
-import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
 import java.io.File
@@ -40,7 +39,8 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
 
     lateinit var adapter: ChallengeFragmentPagerAdapter
 
-    var uri: Uri? = null
+    private var uri: Uri? = null
+    private var initialDetailMode = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_challenge, container, false)
@@ -63,6 +63,8 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         adapter.postFragment = postFragment
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
+
+        tabLayout.getTabAt(if (this.initialDetailMode) 0 else 1)?.select()
     }
 
     override fun onResume() {
@@ -134,6 +136,20 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     override fun updateChallengePosts(posts: List<Post>) {
         this.adapter.postFragment.adapter.setAll(posts)
         this.adapter.postFragment.stopRefreshing()
+    }
+
+    override fun showDetails() {
+        if (tabLayout != null) {
+            tabLayout.getTabAt(0)?.select()
+        }
+        this.initialDetailMode = true
+    }
+
+    override fun showUploads() {
+        if (tabLayout != null) {
+            tabLayout.getTabAt(1)?.select()
+        }
+        this.initialDetailMode = false
     }
 
     override fun showCannotReload() {

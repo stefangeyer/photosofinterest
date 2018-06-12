@@ -14,7 +14,8 @@ import kotlinx.android.synthetic.main.fragment_challenge.*
 import javax.inject.Inject
 import javax.inject.Provider
 
-class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesContract.View, ChallengeOverviewContract.View.OnShowDetailsListener {
+class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesContract.View,
+        ChallengeOverviewContract.Adapter.OnShowDetailsListener {
 
     @Inject
     lateinit var presenter: ChallengesContract.Presenter
@@ -49,21 +50,21 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
                 this@ChallengesFragment.presenter.fetchNearbyChallenges()
             }
         })
-        this.nearby?.setOnShowDetailsListener(this)
+        this.nearby?.adapter?.setOnShowDetailsListener(this)
 
         this.ongoing?.setOnDataReloadListener(object : ChallengeOverviewContract.View.OnDataReloadListener {
             override fun onReload() {
                 this@ChallengesFragment.presenter.fetchOngoingChallenges()
             }
         })
-        this.ongoing?.setOnShowDetailsListener(this)
+        this.ongoing?.adapter?.setOnShowDetailsListener(this)
 
         this.all?.setOnDataReloadListener(object : ChallengeOverviewContract.View.OnDataReloadListener {
             override fun onReload() {
                 this@ChallengesFragment.presenter.fetchAllChallenges()
             }
         })
-        this.all?.setOnShowDetailsListener(this)
+        this.all?.adapter?.setOnShowDetailsListener(this)
 
         viewPager.adapter = this.adapter
         tabLayout.setupWithViewPager(viewPager)
@@ -72,9 +73,16 @@ class ChallengesFragment @Inject constructor() : DaggerFragment(), ChallengesCon
         this.presenter.fetchNearbyChallenges()
     }
 
-    override fun showDetails(challenge: Challenge) {
+    override fun showDetails(challenge: Challenge, showUploads: Boolean) {
         val fragment = challengeFragmentProvider.get()
         fragment.presenter.setChallenge(challenge)
+
+        if (showUploads) {
+            fragment.showUploads()
+        } else {
+            fragment.showDetails()
+        }
+
         activity!!.supportFragmentManager.beginTransaction()
                 .replace(R.id.layout, fragment)
                 .addToBackStack(null).commit()
