@@ -1,7 +1,9 @@
 package at.renehollander.photosofinterest.challenge
 
+import android.Manifest
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
@@ -74,13 +76,15 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         builder.setIcon(R.drawable.ic_photo_camera_black_24dp)
         builder.setMessage("Take a picture with your phone camera or upload an existing")
         builder.setPositiveButton("Take Picture", { _, _ ->
-            val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
-            val image = File.createTempFile("poi_upload", ".jpg", storageDir)
-            uri = Uri.fromFile(image)
-            val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
-            if (takePictureIntent.resolveActivity(activity?.packageManager) != null) {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+            if (checkWriteExternalPermission()) {
+                val storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+                val image = File.createTempFile("poi_upload_" + System.currentTimeMillis(), ".jpg", storageDir)
+                uri = Uri.fromFile(image)
+                val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri)
+                if (takePictureIntent.resolveActivity(activity?.packageManager) != null) {
+                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+                }
             }
         })
         builder.setNegativeButton("Select Picture", { _, _ ->
@@ -119,6 +123,17 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     }
 
     override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
+
+    private fun checkWriteExternalPermission(): Boolean {
+        val permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+        val res = context!!.checkCallingOrSelfPermission(permission)
+        if (res != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1);
+            return false
+        } else {
+            return true
+        }
+    }
 
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
