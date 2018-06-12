@@ -62,6 +62,8 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     }
 
     override fun onSignIn(user: User) {
+        ownEntryFragment.presenter.setEntry(ScoreboardEntry(null, user, 1000))
+        ownEntryFragment.presenter.setRank(42)
         val ft = childFragmentManager.beginTransaction()
         ft.replace(R.id.ownEntry_container, ownEntryFragment)
         ft.commit()
