@@ -77,10 +77,4 @@ class ChallengeOverviewViewHolder(
 
         context.startActivity(intent)
     }
-
-    override fun showDetails() {
-    }
-
-    override fun showUploads() {
-    }
 }

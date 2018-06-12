@@ -10,15 +10,10 @@ interface ChallengeOverviewContract {
     interface View : BaseView {
         fun stopRefreshing()
         fun setOnDataReloadListener(listener: OnDataReloadListener)
-        fun setOnShowDetailsListener(listener: OnShowDetailsListener)
         fun getAdapter(): Adapter
 
         interface OnDataReloadListener {
             fun onReload()
-        }
-
-        interface OnShowDetailsListener {
-            fun showDetails(challenge: Challenge)
         }
     }
 
@@ -28,8 +23,6 @@ interface ChallengeOverviewContract {
         fun updateEnd(between: Duration)
         fun updateLocations(locations: List<String>)
         fun showImage(title: String, uri: String)
-        fun showDetails()
-        fun showUploads()
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
@@ -41,6 +34,11 @@ interface ChallengeOverviewContract {
     }
 
     interface Adapter: BaseAdapter<Challenge> {
-        fun showChallenge(challenge: Challenge)
+        fun showChallenge(challenge: Challenge, showUploads: Boolean)
+        fun setOnShowDetailsListener(listener: OnShowDetailsListener)
+
+        interface OnShowDetailsListener {
+            fun showDetails(challenge: Challenge, showUploads: Boolean)
+        }
     }
 }

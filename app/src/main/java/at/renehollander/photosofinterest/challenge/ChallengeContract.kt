@@ -20,6 +20,8 @@ interface ChallengeContract {
         fun updateChallengePosts(posts: List<Post>)
         fun showCannotReload()
         fun startLogin()
+        fun showDetails()
+        fun showUploads()
     }
 
     interface Presenter : BasePresenter<View> {

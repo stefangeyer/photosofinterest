@@ -114,11 +114,8 @@
                             app:layout_constraintStart_toEndOf="@+id/imageView2"
                             app:layout_constraintTop_toTopOf="parent" />
                     </android.support.constraint.ConstraintLayout>
-
                 </android.support.constraint.ConstraintLayout>
-
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -128,11 +125,15 @@
             android:layout_gravity="center"
             app:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                app:ael_expanded="true"
+                app:ael_duration="500"
+                app:ael_interpolator="accelerate"
+                app:ael_orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -165,8 +166,7 @@
                     android:id="@+id/challengeDescription"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-            </LinearLayout>
-
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -176,10 +176,14 @@
             android:layout_gravity="center"
             app:cardCornerRadius="4dp">
 
-            <LinearLayout
+            <com.github.aakira.expandablelayout.ExpandableLinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:ael_expanded="true"
+                app:ael_duration="500"
+                app:ael_interpolator="accelerate"
+                app:ael_orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
@@ -213,10 +217,7 @@
                     android:id="@+id/map"
                     android:layout_width="match_parent"
                     android:layout_height="400dp" />
-            </LinearLayout>
-
+            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
         </android.support.v7.widget.CardView>
-
     </LinearLayout>
-
 </ScrollView>
