@@ -1,0 +1,8 @@
+apply plugin: 'java'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+    compile group: 'de.micromata.jak', name: 'JavaAPIforKml', version: '2.2.1'
+}
