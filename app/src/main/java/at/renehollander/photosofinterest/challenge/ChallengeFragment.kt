@@ -14,17 +14,20 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
-import at.renehollander.photosofinterest.feed.FeedFragment
+import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.feed.post.PostContract
+import at.renehollander.photosofinterest.feed.post.PostFragment
 import at.renehollander.photosofinterest.image.ImageActivity
+import com.google.firebase.auth.FirebaseAuth
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
 import java.io.File
 import javax.inject.Inject
-
 
 class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContract.View {
 
@@ -33,9 +36,11 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     @Inject
     lateinit var challengeDetailsFragment: ChallengeDetailsFragment
     @Inject
-    lateinit var feedFragment: FeedFragment
+    lateinit var postFragment: PostFragment
 
     lateinit var adapter: ChallengeFragmentPagerAdapter
+
+    var uri: Uri? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_challenge, container, false)
@@ -46,10 +51,16 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
 
         takePhoto.setOnClickListener { this.presenter.takePhoto() }
 
+        this.postFragment.setOnDataReloadListener(object : PostContract.View.OnDataReloadListener {
+            override fun onReload() {
+                this@ChallengeFragment.presenter.loadChallengePosts()
+            }
+        })
+
         adapter = ChallengeFragmentPagerAdapter(childFragmentManager)
         adapter.context = context!!
         adapter.challengeDetailsFragment = challengeDetailsFragment
-        adapter.feedFragment = feedFragment
+        adapter.postFragment = postFragment
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
     }
@@ -64,8 +75,6 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         super.onDestroy()
         presenter.dropView()
     }
-
-    var uri: Uri? = null
 
     override fun startPhotoTake() {
         val smBuilder = StrictMode.VmPolicy.Builder()
@@ -122,13 +131,22 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         startActivity(intent)
     }
 
+    override fun updateChallengePosts(posts: List<Post>) {
+        this.adapter.postFragment.adapter.setAll(posts)
+        this.adapter.postFragment.stopRefreshing()
+    }
+
+    override fun showCannotReload() {
+        Toast.makeText(activity, getString(R.string.feed_cannot_reload), Toast.LENGTH_SHORT).show()
+    }
+
     override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
 
     private fun checkWriteExternalPermission(): Boolean {
         val permission = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
         val res = context!!.checkCallingOrSelfPermission(permission)
         if (res != PackageManager.PERMISSION_GRANTED) {
-            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1);
+            requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
             return false
         } else {
             return true
