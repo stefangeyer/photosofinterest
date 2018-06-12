@@ -49,6 +49,7 @@ class ChallengeOverviewViewHolder(
 
         GlideApp.with(this.parentView)
                 .load(imageReference)
+                .centerCrop()
                 .into(image)
     }
 

@@ -74,6 +74,7 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
         GlideApp.with(this)
                 .load(imageReference)
+                .centerCrop()
                 .into(challengeImage)
     }
 
