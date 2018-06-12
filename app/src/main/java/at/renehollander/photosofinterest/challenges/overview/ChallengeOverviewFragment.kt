@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
-import at.renehollander.photosofinterest.data.Challenge
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_recycler_view.*
 import javax.inject.Inject
