@@ -7,9 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
-import com.google.firebase.storage.FirebaseStorage
+import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.MarkerOptions
+import com.google.firebase.storage.FirebaseStorage
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import org.threeten.bp.Duration
@@ -21,7 +25,7 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
     lateinit var presenter: ChallengeDetailsContract.Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_challenge_details, container, false)
+        return inflater.inflate(R.layout.fragment_challenge_details, container, false);
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -54,7 +58,10 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
     }
 
     override fun onMapReady(map: GoogleMap?) {
-
+        map?.moveCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(46.506763, 9.367204), LatLng(49.204010, 17.178483)), 0))
+        for (poi in presenter.getChallenge()!!.pois) {
+            map?.addMarker(MarkerOptions().position(LatLng(poi.location.latitude, poi.location.longitude)).title(poi.name))
+        }
     }
 
     override fun updateTitle(title: String) {

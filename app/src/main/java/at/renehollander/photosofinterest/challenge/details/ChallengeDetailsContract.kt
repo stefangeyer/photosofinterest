@@ -22,6 +22,7 @@ interface ChallengeDetailsContract {
 
     interface Presenter : BasePresenter<View> {
         fun setChallenge(challenge: Challenge?)
+        fun getChallenge(): Challenge?
         fun update()
     }
 }
