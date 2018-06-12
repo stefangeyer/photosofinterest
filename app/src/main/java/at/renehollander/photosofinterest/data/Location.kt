@@ -1,6 +1,6 @@
 package at.renehollander.photosofinterest.data
 
-data class Point(var lat: Double = 0.0, var long: Double = 0.0)
+data class Point(var latitude: Double = 0.0, var longitude: Double = 0.0)
 
 data class PointOfInterest(var name: String = "", var location: Point = Point(), var radius: Int = 0)
 
