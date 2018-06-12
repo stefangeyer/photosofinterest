@@ -9,6 +9,7 @@ import at.renehollander.photosofinterest.data.*
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_profile.*
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
@@ -24,6 +25,8 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
+    lateinit var user: User
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -31,9 +34,11 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         val challenge1 = Challenge("Challenge 1",
                 Image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg"),
                 now.minusDays(4), now.plusDays(3), "Desc 123456", listOf(Region("Some Region", getPoints())), getPois())
-        val user1 = User("user1@example.com", "User 1", Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
+        user = User("user1@example.com", "User 1", Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
         val image1 = Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg")
-        val post1 = Post(user1, challenge1, "Some Post Title", image1, 10, 5, getPoints()[0], getPois()[0])
+        val post1 = Post(user, challenge1, "Some Post Title", image1, 10, 5, getPoints()[0], getPois()[0])
+
+        presenter.setUser(user)
 
         this.postFragment.setOnDataReloadListener(object : PostContract.View.OnDataReloadListener {
             override fun onReload() {
@@ -47,6 +52,18 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.frameLayout, this.postFragment)
         ft?.commit()
+    }
+
+    override fun updateProfileImage(uri: String) {
+        imageDraweeView.setImageURI(uri)
+    }
+
+    override fun updateName(name: String) {
+        nameTextView.text = name
+    }
+
+    override fun updateScore(score: Int) {
+        scoreTextView.text = score.toString()
     }
 
     override fun onResume() {
