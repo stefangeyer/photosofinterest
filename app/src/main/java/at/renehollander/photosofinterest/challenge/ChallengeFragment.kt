@@ -78,6 +78,23 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         presenter.dropView()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_SELECT) {
+            Log.d("ChallengeFragment", data!!.toUri(0))
+            val intent = Intent(context, ImageActivity::class.java)
+            intent.putExtra("mode", ImageActivity.MODE_CREATE)
+            intent.putExtra("uri", data.toUri(0))
+            context!!.startActivity(intent)
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
+            Log.d("ChallengeFragment", uri.toString())
+            val intent = Intent(context, ImageActivity::class.java)
+            intent.putExtra("mode", ImageActivity.MODE_CREATE)
+            intent.putExtra("uri", uri.toString())
+            context!!.startActivity(intent)
+        }
+    }
+
     override fun startPhotoTake() {
         val smBuilder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(smBuilder.build())
@@ -109,23 +126,6 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         builder.setNeutralButton("Cancel", { _, _ ->
         })
         builder.create().show()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_SELECT) {
-            Log.d("ChallengeFragment", data!!.toUri(0))
-            val intent = Intent(context, ImageActivity::class.java)
-            intent.putExtra("mode", ImageActivity.MODE_CREATE)
-            intent.putExtra("uri", data.toUri(0))
-            context!!.startActivity(intent)
-        } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
-            Log.d("ChallengeFragment", uri.toString())
-            val intent = Intent(context, ImageActivity::class.java)
-            intent.putExtra("mode", ImageActivity.MODE_CREATE)
-            intent.putExtra("uri", uri.toString())
-            context!!.startActivity(intent)
-        }
     }
 
     override fun startLogin() {

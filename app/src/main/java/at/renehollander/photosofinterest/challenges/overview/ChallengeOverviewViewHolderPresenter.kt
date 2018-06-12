@@ -36,7 +36,8 @@ class ChallengeOverviewViewHolderPresenter(
         val position = this.position
         if (position != null) {
             val challenge = this.adapter.getItemAt(position)
-            this.view?.showImage(challenge.title, challenge.image)
+            // this.view?.showImage(challenge.title, challenge.image)
+            this.adapter.showChallenge(challenge, false)
         }
     }
 
