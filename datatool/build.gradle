@@ -1,0 +1,10 @@
+apply plugin: 'java'
+
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"
+
+dependencies {
+    implementation 'de.micromata.jak:JavaAPIforKml:2.2.1'
+    implementation 'org.json:json:20180130'
+    implementation 'com.google.firebase:firebase-admin:6.2.0'
+}
