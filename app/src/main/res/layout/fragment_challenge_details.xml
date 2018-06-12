@@ -29,8 +29,7 @@
                 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                     xmlns:tools="http://schemas.android.com/tools"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context="com.textviewaboveimage_android_examples.com.MainActivity">
+                    android:layout_height="wrap_content">
 
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/challengeImage"
@@ -44,9 +43,11 @@
                         android:layout_alignBottom="@id/challengeImage"
                         android:layout_alignEnd="@+id/challengeImage"
                         android:layout_alignStart="@+id/challengeImage"
+                        android:background="@color/colorWhiteTransparent"
                         android:padding="10dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#fdfcfc" />
+                        android:text="@string/placeholder"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="24sp" />
                 </RelativeLayout>
 
                 <TextView
