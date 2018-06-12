@@ -7,9 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
-import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.data.ScoreboardEntry
 import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.inject.scopes.ActivityScoped
@@ -17,6 +15,7 @@ import at.renehollander.photosofinterest.scoreboard.entry.ScoreboardEntryAdapter
 import at.renehollander.photosofinterest.scoreboard.ownentry.ScoreboardOwnEntryFragment
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_scoreboard.*
+import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 
 @ActivityScoped
@@ -50,15 +49,15 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
 
         this.presenter.fetchScores()
 
-        ownEntryFragment.presenter.setRank(100)
-        ownEntryFragment.presenter.setEntry(ScoreboardEntry(
-                null, User(
-                "test@example.com", "Arnold Schwarzenegger", Image("https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Arnold_Schwarzenegger_February_2015.jpg/433px-Arnold_Schwarzenegger_February_2015.jpg")
-        ), 400))
+        if (this.presenter.getUser() != null) {
+            onSignIn(this.presenter.getUser()!!)
+        }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
+        EventBus.getDefault().unregister(this)
+
         presenter.dropView()
     }
 
@@ -69,6 +68,9 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     }
 
     override fun onSignOut() {
+        val ft = childFragmentManager.beginTransaction()
+        ft.remove(this.ownEntryFragment)
+        ft.commit()
     }
 
     override fun updateScores(scores: List<ScoreboardEntry>) {

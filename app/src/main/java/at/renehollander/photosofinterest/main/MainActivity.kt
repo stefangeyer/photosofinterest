@@ -7,7 +7,6 @@ import android.support.v4.app.Fragment
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
-import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.ChallengeFragment
@@ -36,14 +35,11 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     lateinit var scoreboardFragment: ScoreboardFragment
     @Inject
     lateinit var challengeFragment: ChallengeFragment
-    @Inject
-    lateinit var application: PhotosOfInterest
 
     private lateinit var signIn: MenuItem
     private lateinit var signOut: MenuItem
 
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener { item ->
-
         val selectedFragment: Fragment
         when (item.itemId) {
             R.id.navigation_feed -> {
@@ -89,6 +85,21 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
+    override fun onResume() {
+        super.onResume()
+        this.presenter.enableAuthEvents()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        this.presenter.disableAuthEvents()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        this.presenter.dropView()
+    }
+
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         signIn = menu.findItem(R.id.sign_in)
@@ -105,17 +116,17 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         return true
     }
 
-//    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
-//        updateActionBar()
-//        return super.onMenuOpened(featureId, menu)
-//    }
+    override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
+        updateActionBar()
+        return super.onMenuOpened(featureId, menu)
+    }
 
     override fun onSignIn(user: User) {
-        updateActionBar(true)
+//        updateActionBar()
     }
 
     override fun onSignOut() {
-        updateActionBar(false)
+//        updateActionBar()
     }
 
     override fun startSignIn() {
@@ -124,11 +135,11 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     }
 
     override fun startSignOut() {
-        Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show() // TODO: not implemented
+        Toast.makeText(this, "Signed out!", Toast.LENGTH_SHORT).show()
     }
 
-    private fun updateActionBar(loggedIn: Boolean) {
-        if (loggedIn) {
+    private fun updateActionBar() {
+        if (presenter.getUser() != null) {
             signIn.isVisible = false
             signOut.isVisible = true
         } else {

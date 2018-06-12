@@ -24,8 +24,8 @@ class ScoreboardOwnEntryFragment @Inject constructor() : DaggerFragment(), Score
         presenter.update()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
+    override fun onPause() {
+        super.onPause()
         presenter.dropView()
     }
 

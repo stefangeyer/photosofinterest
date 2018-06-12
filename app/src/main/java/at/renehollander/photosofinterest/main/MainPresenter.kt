@@ -26,29 +26,11 @@ class MainPresenter @Inject constructor(
     override fun takeView(view: MainContract.View) {
         this.view = view
         EventBus.getDefault().register(this)
-
-        this.useCaseHandler.execute(
-                changeAuthStateListener,
-                RequestValues(
-                        Action.ADD,
-                        { user ->
-                            // Update user display
-                            EventBus.getDefault().post(SignInEvent(user))
-                        },
-                        {
-                            EventBus.getDefault().post(SignOutEvent())
-                        }),
-                {}, {})
     }
 
     override fun dropView() {
         this.view = null
         EventBus.getDefault().unregister(this)
-
-        this.useCaseHandler.execute(
-                changeAuthStateListener,
-                RequestValues(Action.REMOVE, null, null),
-                {}, {})
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -70,6 +52,28 @@ class MainPresenter @Inject constructor(
         }
     }
 
+    override fun enableAuthEvents() {
+        this.useCaseHandler.execute(
+                this.changeAuthStateListener,
+                RequestValues(
+                        Action.ADD,
+                        { user ->
+                            // Update user display
+                            EventBus.getDefault().post(SignInEvent(user))
+                        },
+                        {
+                            EventBus.getDefault().post(SignOutEvent())
+                        }),
+                {}, {})
+    }
+
+    override fun disableAuthEvents() {
+        this.useCaseHandler.execute(
+                this.changeAuthStateListener,
+                RequestValues(Action.REMOVE, null, null),
+                {}, {})
+    }
+
     override fun signIn() {
         this.view?.startSignIn()
     }
@@ -77,5 +81,9 @@ class MainPresenter @Inject constructor(
     override fun signOut() {
         this.useCaseHandler.execute(signOut, object : UseCase.RequestValues {}, {}, {})
         this.view?.startSignOut()
+    }
+
+    override fun getUser(): User? {
+        return this.user
     }
 }
