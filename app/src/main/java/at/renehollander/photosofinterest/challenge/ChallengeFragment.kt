@@ -85,13 +85,16 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             val intent = Intent(context, ImageActivity::class.java)
             intent.putExtra("mode", ImageActivity.MODE_CREATE)
             intent.putExtra("uri", data.toUri(0))
-            context!!.startActivity(intent)
+            activity?.startActivityForResult(intent, REQUEST_IMAGE_TITLE)
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
             Log.d("ChallengeFragment", uri.toString())
             val intent = Intent(context, ImageActivity::class.java)
             intent.putExtra("mode", ImageActivity.MODE_CREATE)
             intent.putExtra("uri", uri.toString())
-            context!!.startActivity(intent)
+            activity?.startActivityForResult(intent, REQUEST_IMAGE_TITLE)
+        } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_TITLE) {
+            val title = data?.getStringExtra("title")
+            val uri = data?.getStringExtra("uri")
         }
     }
 
@@ -152,6 +155,14 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         this.initialDetailMode = false
     }
 
+    override fun onPostCreation(post: Post) {
+        Toast.makeText(context, "Post was created!", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onPostCreationFailed() {
+        Toast.makeText(context, "Post could not be created!", Toast.LENGTH_SHORT).show()
+    }
+
     override fun showCannotReload() {
         Toast.makeText(activity, getString(R.string.feed_cannot_reload), Toast.LENGTH_SHORT).show()
     }
@@ -172,5 +183,6 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     companion object {
         const val REQUEST_IMAGE_CAPTURE = 1
         const val REQUEST_IMAGE_SELECT = 2
+        const val REQUEST_IMAGE_TITLE = 3
     }
 }
