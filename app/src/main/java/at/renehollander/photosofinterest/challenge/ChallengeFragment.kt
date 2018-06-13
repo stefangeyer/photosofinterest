@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.challenge
 
 import android.Manifest
 import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -9,7 +10,6 @@ import android.os.Bundle
 import android.os.Environment
 import android.os.StrictMode
 import android.provider.MediaStore
-import android.support.v7.app.AlertDialog
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -43,13 +43,11 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
 
     lateinit var adapter: ChallengeFragmentPagerAdapter
 
-    @Inject
-    lateinit var postDataRepository: PostDataRepository
-
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var uri: Uri? = null
     private var initialDetailMode = true
+    private var currentDialog: AlertDialog? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_challenge, container, false)
@@ -107,6 +105,7 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             val title = data?.getStringExtra("title")!!
             val uri = data.getStringExtra("uri")!!
             if (checkLocationPermission()) {
+                showProgress()
                 fusedLocationClient.lastLocation.addOnSuccessListener {
                     presenter.createPost(title, uri, GeoPoint(it.latitude, it.longitude))
                 }
@@ -173,12 +172,33 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         this.initialDetailMode = false
     }
 
+    private fun showProgress() {
+        currentDialog = AlertDialog.Builder(context!!)
+                .setTitle(getString(R.string.app_name))
+                .setMessage(getString(R.string.post_uploading))
+                .create().apply { show() }
+    }
+
+    private fun showMessage(message: String) {
+        currentDialog = android.app.AlertDialog.Builder(context!!).setTitle(getString(R.string.app_name))
+                .setMessage(message)
+                .setPositiveButton(R.string.button_ok, { d, _ -> d.dismiss() }).create().apply { show() }
+    }
+
+    private fun dismissDialog() {
+        if (currentDialog != null && currentDialog!!.isShowing) {
+            currentDialog!!.cancel()
+        }
+    }
+
     override fun onPostCreation(post: Post) {
-        Toast.makeText(context, getString(R.string.post_created), Toast.LENGTH_SHORT).show()
+        dismissDialog()
+        showMessage(getString(R.string.post_created))
     }
 
     override fun onPostCreationFailed() {
-        Toast.makeText(context, getString(R.string.post_cannot_create), Toast.LENGTH_SHORT).show()
+        dismissDialog()
+        showMessage(getString(R.string.post_cannot_create))
     }
 
     override fun showCannotReload() {
