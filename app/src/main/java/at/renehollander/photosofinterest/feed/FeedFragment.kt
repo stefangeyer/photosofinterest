@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import at.renehollander.photosofinterest.PhotosOfInterest
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.feed.post.PostContract
@@ -17,9 +16,6 @@ import javax.inject.Provider
 
 
 class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
-
-    @Inject
-    lateinit var application: PhotosOfInterest
 
     @Inject
     lateinit var presenter: FeedContract.Presenter
@@ -64,19 +60,13 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
             }
         })
 
-
         viewPager.adapter = this.adapter
         tabLayout.setupWithViewPager(viewPager)
-
-        // TODO change
-        this.presenter.fetchRisingPosts()
     }
 
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
-        // TODO change
-        this.presenter.fetchRisingPosts()
     }
 
     override fun onDestroy() {

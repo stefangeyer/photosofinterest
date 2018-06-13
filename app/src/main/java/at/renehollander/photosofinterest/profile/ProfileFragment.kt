@@ -1,15 +1,21 @@
 package at.renehollander.photosofinterest.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
-import at.renehollander.photosofinterest.data.*
+import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.User
+import at.renehollander.photosofinterest.data.source.LoadRecordCallback
+import at.renehollander.photosofinterest.data.source.PostDataRepository
+import at.renehollander.photosofinterest.data.source.UserManager
+import at.renehollander.photosofinterest.feed.domain.usecase.LoadPosts
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import dagger.android.support.DaggerFragment
-import org.threeten.bp.LocalDateTime
+import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.View {
@@ -20,33 +26,52 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
     @Inject
     lateinit var postFragment: PostFragment
 
+    @Inject
+    lateinit var postDataRepository: PostDataRepository
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
+    lateinit var user: User
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val now = LocalDateTime.now()
-        val challenge1 = Challenge("Challenge 1",
-                Image("https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg"),
-                now.minusDays(4), now.plusDays(3), "Desc 123456", listOf(Region("Some Region", getPoints())), getPois())
-        val user1 = User("user1@example.com", "User 1", Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
-        val image1 = Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg")
-        val post1 = Post(user1, challenge1, "Some Post Title", image1, 10, 5, getPoints()[0], getPois()[0])
+        user = UserManager.getInstance().getCurrentUser()!!
+        presenter.setUser(user)
 
         this.postFragment.setOnDataReloadListener(object : PostContract.View.OnDataReloadListener {
             override fun onReload() {
-                this@ProfileFragment.postFragment.adapter.setAll(listOf(
-                        post1
-                ))
-                this@ProfileFragment.postFragment.stopRefreshing()
+                postDataRepository.loadPosts(user, object : LoadRecordCallback<Post> {
+                    override fun onRecordsLoaded(records: List<Post>) {
+                        this@ProfileFragment.postFragment.adapter.setAll(records)
+                        this@ProfileFragment.postFragment.stopRefreshing()
+                    }
+
+                    override fun onDataNotAvailable() {
+                        this@ProfileFragment.postFragment.stopRefreshing()
+                        Log.d(LoadPosts.TAG, "Fetching challenges did not produce any data")
+                    }
+                })
             }
         })
 
         val ft = fragmentManager?.beginTransaction()
         ft?.replace(R.id.frameLayout, this.postFragment)
         ft?.commit()
+    }
+
+    override fun updateProfileImage(uri: String) {
+        imageDraweeView.setImageURI(uri)
+    }
+
+    override fun updateName(name: String) {
+        nameTextView.text = name
+    }
+
+    override fun updateScore(score: Int) {
+//        scoreTextView.text = score.toString()
     }
 
     override fun onResume() {
@@ -59,10 +84,4 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         presenter.dropView()
     }
 
-    private fun getPoints() = listOf(Point(0.1, 23.7), Point(45.2, 99.9), Point(55.8, 12.789))
-
-    private fun getPois() = listOf(
-            PointOfInterest("POI 1", getPoints()[0], 50),
-            PointOfInterest("POI 2", getPoints()[1], 30),
-            PointOfInterest("POI 3", getPoints()[2], 66))
 }
