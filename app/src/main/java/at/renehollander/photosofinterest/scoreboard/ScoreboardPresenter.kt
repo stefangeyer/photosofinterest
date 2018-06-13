@@ -16,8 +16,19 @@ class ScoreboardPresenter @Inject constructor(
         private val scoreboardDataSource: ScoreboardDataSource,
         private val userManager: UserManager
 ) : ScoreboardContract.Presenter {
+    override fun getUser(): User? {
+        return userManager.getCurrentUser()
+    }
+
+    override fun updateView() {
+        val scoreboard = this.scoreboard
+        if (scoreboard != null) {
+            view?.updateScores(scoreboard.scores)
+        }
+    }
 
     private var view: ScoreboardContract.View? = null
+    private var scoreboard: Scoreboard? = null
 
     override fun takeView(view: ScoreboardContract.View) {
         this.view = view
@@ -42,13 +53,12 @@ class ScoreboardPresenter @Inject constructor(
     override fun fetchScores() {
         scoreboardDataSource.loadGlobalScoreboard(object : GetRecordCallback<Scoreboard> {
             override fun onRecordLoaded(record: Scoreboard) {
-                view?.updateScores(record.scores)
+                scoreboard = record
+                updateView()
             }
 
             override fun onDataNotAvailable() {
             }
         })
     }
-
-    override fun getUser(): User? = this.userManager.getCurrentUser()
 }

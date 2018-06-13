@@ -62,11 +62,8 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     }
 
     override fun onSignIn(user: User) {
-        ownEntryFragment.presenter.setEntry(ScoreboardEntry(null, user, 1000))
-        ownEntryFragment.presenter.setRank(42)
-        val ft = childFragmentManager.beginTransaction()
-        ft.replace(R.id.ownEntry_container, ownEntryFragment)
-        ft.commit()
+        presenter.updateView()
+
     }
 
     override fun onSignOut() {
@@ -76,6 +73,23 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     }
 
     override fun updateScores(scores: List<ScoreboardEntry>) {
+        val user = presenter.getUser()
+        if (user != null) {
+            val index = scores.indexOfFirst {
+                it.user.id == user.id
+            }
+            if (index != -1) {
+                ownEntryFragment.presenter.setEntry(ScoreboardEntry(user = user, score = scores[index].score, post = null))
+                ownEntryFragment.presenter.setRank(index + 1)
+                val ft = childFragmentManager.beginTransaction()
+                ft.replace(R.id.ownEntry_container, ownEntryFragment)
+                ft.commit()
+            }
+        } else {
+            val ft = childFragmentManager.beginTransaction()
+            ft.remove(ownEntryFragment)
+            ft.commit()
+        }
         this.adapter.setAll(scores)
     }
 
