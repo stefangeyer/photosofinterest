@@ -248,15 +248,9 @@ class PostDataRepository @Inject constructor(
     }
 
     override fun uploadPostImage(file: String, callback: GetRecordCallback<String>) {
-        // Filename must contain extension
-        if (!file.contains(".")) {
-            callback.onDataNotAvailable()
-            return
-        }
         val storageRef = this.storage.reference
         val id = UUID.randomUUID().toString().replace("-", "")
-        val extension = file.substringAfterLast('.', "")
-        val internal = "posts/$id.$extension"
+        val internal = "posts/$id.jpg"
         val imageRef = storageRef.child(internal)
         val uploadTask = imageRef.putFile(Uri.parse(file))
 
