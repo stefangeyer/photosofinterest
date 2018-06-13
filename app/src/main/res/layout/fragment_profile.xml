@@ -37,28 +37,28 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageDraweeView" />
 
-            <TextView
-                android:id="@+id/score_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="4sp"
-                android:text="@string/score"
-                android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/scoreTextView"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/nameTextView" />
+            <!--<TextView-->
+                <!--android:id="@+id/score_label"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginEnd="4sp"-->
+                <!--android:text="@string/score"-->
+                <!--android:textSize="16sp"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toStartOf="@id/scoreTextView"-->
+                <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                <!--app:layout_constraintStart_toStartOf="parent"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/nameTextView" />-->
 
-            <TextView
-                android:id="@+id/scoreTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/score_label"
-                app:layout_constraintTop_toBottomOf="@id/nameTextView" />
+            <!--<TextView-->
+                <!--android:id="@+id/scoreTextView"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--app:layout_constraintBottom_toBottomOf="parent"-->
+                <!--app:layout_constraintEnd_toEndOf="parent"-->
+                <!--app:layout_constraintHorizontal_chainStyle="packed"-->
+                <!--app:layout_constraintStart_toEndOf="@id/score_label"-->
+                <!--app:layout_constraintTop_toBottomOf="@id/nameTextView" />-->
 
         </android.support.constraint.ConstraintLayout>
 
