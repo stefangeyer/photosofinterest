@@ -214,4 +214,5 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         const val REQUEST_IMAGE_SELECT = 2
         const val REQUEST_IMAGE_TITLE = 3
     }
+
 }
