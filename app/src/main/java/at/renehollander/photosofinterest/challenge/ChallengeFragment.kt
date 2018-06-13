@@ -174,15 +174,15 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     }
 
     override fun onPostCreation(post: Post) {
-        Toast.makeText(context, "Post was created!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.post_created), Toast.LENGTH_SHORT).show()
     }
 
     override fun onPostCreationFailed() {
-        Toast.makeText(context, "Post could not be created!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, getString(R.string.post_cannot_create), Toast.LENGTH_SHORT).show()
     }
 
     override fun showCannotReload() {
-        Toast.makeText(activity, getString(R.string.feed_cannot_reload), Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, getString(R.string.post_cannot_reload), Toast.LENGTH_SHORT).show()
     }
 
     override fun getDetailsPresenter(): ChallengeDetailsContract.Presenter = challengeDetailsFragment.presenter
