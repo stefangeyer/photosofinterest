@@ -78,7 +78,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
                 start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(2),
                 description = "This is the very awesome first challenge!",
                 regions = mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),
-                pois = mutableListOf(PointOfInterest(name = "Point 1", location = GeoPoint(10.0, 10.0), radius = 20))))
+                pois = mutableListOf(PointOfInterest(name = "Point 1", location = GeoPoint(10.0, 10.0), radius = 20.0))))
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

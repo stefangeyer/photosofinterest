@@ -2,13 +2,13 @@ package at.renehollander.photosofinterest.data.source
 
 import android.util.Log
 import at.renehollander.photosofinterest.data.Challenge
+import at.renehollander.photosofinterest.data.PointOfInterest
 import at.renehollander.photosofinterest.data.Region
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import at.renehollander.photosofinterest.timestampToLocalDateTime
 import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
-import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
 /**
@@ -21,10 +21,9 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class ChallengeDataRepository @Inject constructor(
+        val db: FirebaseFirestore
 ) : ChallengeDataSource {
     override fun loadChallenges(filter: ChallengeDataSource.Filter, callback: LoadRecordCallback<Challenge>) {
-        val db = FirebaseFirestore.getInstance()
-
         db.collection("challenges").get().addOnSuccessListener {
             @Suppress("UNCHECKED_CAST")
             val challenges = it.documents.map {
@@ -80,11 +79,21 @@ class ChallengeDataRepository @Inject constructor(
     }
 
     override fun loadChallengeDetails(challenge: Challenge, callback: GetRecordCallback<Challenge>) {
-        callback.onRecordLoaded(Challenge(
-                title = "Challenge 2",
-                image = "https://webheimat.at/aktiv/Urlaub/Tipps/Woerthersee-Sommer-Events/Woerthersee-Sommer_high.jpg",
-                start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(4).plusHours(2),
-                description = "Description 2", regions = mutableListOf(), pois = mutableListOf()))
+        db.collection("challenges").document(challenge.id).collection("pois").get().addOnSuccessListener {
+            @Suppress("UNCHECKED_CAST")
+            challenge.pois = it.documents.map {
+                val poi = PointOfInterest()
+                poi.id = it.id
+                poi.name = it["name"] as String
+                poi.location = it["location"] as GeoPoint
+                poi.radius = it["radius"] as Double
+                return@map poi
+            }.toList()
+            callback.onRecordLoaded(challenge)
+            Log.d("ChallengeDataRepository", challenge.pois.toString())
+        }.addOnFailureListener {
+            callback.onDataNotAvailable()
+        }
     }
 
 }

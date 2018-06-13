@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.data.source
 
 import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
+import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
 
 /**
@@ -13,7 +14,9 @@ import javax.inject.Inject
  * @version 1.0
  */
 @ApplicationScoped
-class PostDataRepository @Inject constructor() : PostDataSource {
+class PostDataRepository @Inject constructor(
+        val db: FirebaseFirestore
+) : PostDataSource {
     override fun loadPosts(filter: PostDataSource.Filter, callback: LoadRecordCallback<Post>) {
         callback.onRecordsLoaded(mutableListOf())
     }
