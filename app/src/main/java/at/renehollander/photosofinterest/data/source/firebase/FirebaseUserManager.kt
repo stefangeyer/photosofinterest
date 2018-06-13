@@ -24,7 +24,7 @@ class FirebaseUserManager @Inject constructor(
             val email = fbUser.email ?: ""
             val name = fbUser.displayName ?: ""
             val image = Image(fbUser.photoUrl.toString())
-            this.user = User(email, name, image)
+            this.user = User(email = email, name = name, image = image)
 
             EventBus.getDefault().post(SignInEvent(user!!))
         } else {
@@ -38,11 +38,9 @@ class FirebaseUserManager @Inject constructor(
         this.auth.addAuthStateListener(this.listener)
     }
 
-    override fun getCurrentUser(): User? {
-        return this.user
-    }
+    override fun getCurrentUser(): User? = this.user
 
-    override fun logout() {
-        this.auth.signOut()
-    }
+    override fun isLoggedIn(): Boolean = this.user != null
+
+    override fun logout() = this.auth.signOut()
 }
