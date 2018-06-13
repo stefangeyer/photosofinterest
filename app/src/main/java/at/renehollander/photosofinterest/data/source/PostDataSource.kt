@@ -19,4 +19,5 @@ interface PostDataSource {
     }
 
     fun addPost(challenge: Challenge, poi: PointOfInterest, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
+    fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>)
 }

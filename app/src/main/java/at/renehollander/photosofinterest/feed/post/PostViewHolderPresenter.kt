@@ -24,7 +24,7 @@ class PostViewHolderPresenter(
     override fun onImageClicked() {
         if (position == null) return
         val post = this.adapter.getItemAt(position!!)
-        this.view?.showImageDetails(post.title, post.image.uri)
+        this.view?.showImageDetails(post.title, post.image)
     }
 
     override fun onInformationClicked() {
@@ -67,7 +67,7 @@ class PostViewHolderPresenter(
             this.view?.updateChallengeName(post.challenge.title)
             this.view?.updateLocationName(post.poi.name)
             updateVotes(post)
-            this.view?.updateImage(post.image.uri)
+            this.view?.updateImage(post.image)
             this.view?.updateUserImage(post.user.image.uri)
         }
     }
