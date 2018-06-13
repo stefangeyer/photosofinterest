@@ -4,6 +4,7 @@ import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.PointOfInterest
 import at.renehollander.photosofinterest.data.Post
 import com.google.firebase.firestore.GeoPoint
+import java.io.InputStream
 
 /**
  * Example data source that provides operations for a sample entity
@@ -18,5 +19,7 @@ interface PostDataSource {
         RISING, RECENT, TOP
     }
 
-    fun addPost(challenge: Challenge, poi: PointOfInterest, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
+    fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
+
+    fun uploadPostImage(file: String, callback: GetRecordCallback<String>)
 }

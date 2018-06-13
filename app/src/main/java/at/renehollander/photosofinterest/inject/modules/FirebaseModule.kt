@@ -4,6 +4,7 @@ import at.renehollander.photosofinterest.data.source.UserManager
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
 import dagger.Module
 import dagger.Provides
 
@@ -23,5 +24,10 @@ object FirebaseModule {
     @Provides
     @ApplicationScoped
     fun provideFirebaseFirestore(): FirebaseFirestore = FirebaseFirestore.getInstance()
+
+    @JvmStatic
+    @Provides
+    @ApplicationScoped
+    fun provideFirebaseStorage(): FirebaseStorage = FirebaseStorage.getInstance()
 
 }
