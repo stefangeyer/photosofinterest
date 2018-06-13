@@ -20,8 +20,4 @@ abstract class DataModule {
     @Binds
     @ApplicationScoped
     abstract fun bindChallengeDataSource(repository: ChallengeDataRepository): ChallengeDataSource
-
-    @Binds
-    @ApplicationScoped
-    abstract fun bindUserManager(userManager: FirebaseUserManager): UserManager
 }
