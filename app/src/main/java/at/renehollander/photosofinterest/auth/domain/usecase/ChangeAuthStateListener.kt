@@ -1,7 +1,6 @@
 package at.renehollander.photosofinterest.auth.domain.usecase
 
 import at.renehollander.photosofinterest.UseCase
-import at.renehollander.photosofinterest.data.Image
 import at.renehollander.photosofinterest.data.User
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
@@ -22,8 +21,7 @@ class ChangeAuthStateListener @Inject constructor(
             // User is signed in
             val email = fbUser.email ?: ""
             val name = fbUser.displayName ?: ""
-            val image = Image(fbUser.photoUrl.toString())
-            val user = User(email = email, name = name, image = image)
+            val user = User(email = email, name = name, image = fbUser.photoUrl.toString())
             loggedIn(user)
         } else {
             // User is signed out

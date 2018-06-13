@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.scoreboard_item.*
 import javax.inject.Inject
 
 class ScoreboardOwnEntryFragment @Inject constructor() : DaggerFragment(), ScoreboardOwnEntryContract.View {

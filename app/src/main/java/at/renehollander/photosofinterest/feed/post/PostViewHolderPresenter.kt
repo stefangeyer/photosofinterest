@@ -68,7 +68,7 @@ class PostViewHolderPresenter(
             this.view?.updateLocationName(post.poi.name)
             updateVotes(post)
             this.view?.updateImage(post.image)
-            this.view?.updateUserImage(post.user.image.uri)
+            this.view?.updateUserImage(post.user.image)
         }
     }
 

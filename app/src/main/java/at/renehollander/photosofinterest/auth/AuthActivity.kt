@@ -8,7 +8,6 @@ import at.renehollander.photosofinterest.auth.domain.error.AuthError
 import at.renehollander.photosofinterest.auth.domain.error.AuthError.*
 import com.google.android.gms.common.SignInButton
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_auth.*
 import javax.inject.Inject
 
 class AuthActivity : DaggerAppCompatActivity(), AuthContract.View {
