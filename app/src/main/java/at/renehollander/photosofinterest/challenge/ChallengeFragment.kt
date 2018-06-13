@@ -20,6 +20,7 @@ import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.source.PostDataRepository
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import at.renehollander.photosofinterest.image.ImageActivity
