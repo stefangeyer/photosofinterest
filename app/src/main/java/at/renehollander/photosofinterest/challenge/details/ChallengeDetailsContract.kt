@@ -3,6 +3,7 @@ package at.renehollander.photosofinterest.challenge.details
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Challenge
+import at.renehollander.photosofinterest.data.PointOfInterest
 import org.threeten.bp.Duration
 
 /**
@@ -18,6 +19,7 @@ interface ChallengeDetailsContract {
         fun updateEndTime(between: Duration)
         fun updateRegion(region: List<String>)
         fun updateDescription(description: String)
+        fun updateMarkers(pois: List<PointOfInterest>)
     }
 
     interface Presenter : BasePresenter<View> {
