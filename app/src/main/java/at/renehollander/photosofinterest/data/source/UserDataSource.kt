@@ -10,7 +10,7 @@ import at.renehollander.photosofinterest.data.User
  * @version 1.0
  */
 interface UserDataSource {
-    fun hasUser(email: String, callback: GetRecordCallback<Boolean>)
-    fun addUser(user: User, callback: GetRecordCallback<String>)
+    fun hasUser(id: String, callback: GetRecordCallback<Boolean>)
+    fun addUser(user: User, callback: GetRecordCallback<User>)
     fun loadUser(id: String, callback: GetRecordCallback<User>)
 }

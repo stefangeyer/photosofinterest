@@ -3,6 +3,7 @@ package at.renehollander.photosofinterest.data.source
 import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.data.source.firebase.FirebaseUserManager
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 interface UserManager {
 
@@ -11,7 +12,7 @@ interface UserManager {
 
         fun getInstance(): UserManager {
             if (instance == null) {
-                instance = FirebaseUserManager(FirebaseAuth.getInstance())
+                instance = FirebaseUserManager(FirebaseAuth.getInstance(), UserDataRepository(FirebaseFirestore.getInstance()))
             }
             return instance!!
         }
