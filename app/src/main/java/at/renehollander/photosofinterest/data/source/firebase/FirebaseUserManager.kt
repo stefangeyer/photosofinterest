@@ -28,8 +28,7 @@ class FirebaseUserManager @Inject constructor(
             // User is signed in
             val email = fbUser.email ?: ""
             val name = fbUser.displayName ?: ""
-            val image = Image(fbUser.photoUrl.toString())
-            val user = User(id = fbUser.uid, email = email, name = name, image = image)
+            val user = User(id = fbUser.uid, email = email, name = name, image = fbUser.photoUrl.toString())
 
             val metadata = fbUser.metadata!!
             if (metadata.creationTimestamp == metadata.lastSignInTimestamp) {
