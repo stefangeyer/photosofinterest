@@ -29,17 +29,17 @@ class UserDataRepository @Inject constructor(
         }
     }
 
-    override fun hasUser(email: String, callback: GetRecordCallback<Boolean>) {
-        db.collection("users").whereEqualTo("email", email).get().addOnSuccessListener {
-            callback.onRecordLoaded(!it.isEmpty)
+    override fun hasUser(id: String, callback: GetRecordCallback<Boolean>) {
+        db.collection("users").document(id).get().addOnSuccessListener {
+            callback.onRecordLoaded(it.exists())
         }.addOnFailureListener {
             callback.onDataNotAvailable()
         }
     }
 
-    override fun addUser(user: User, callback: GetRecordCallback<String>) {
-        db.collection("users").add(user).addOnSuccessListener {
-            callback.onRecordLoaded(it.id)
+    override fun addUser(user: User, callback: GetRecordCallback<User>) {
+        db.collection("users").document(user.id).set(user).addOnSuccessListener {
+            callback.onRecordLoaded(user)
         }.addOnFailureListener {
             callback.onDataNotAvailable()
         }
