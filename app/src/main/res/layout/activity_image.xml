@@ -73,6 +73,7 @@
             android:ems="10"
             android:hint="@string/image_title_placeholder"
             android:inputType="textPersonName"
+            android:textColor="@color/colorWhite"
             app:layout_constraintEnd_toStartOf="@+id/confirmButton"
             app:layout_constraintStart_toEndOf="@+id/backButton"
             app:layout_constraintTop_toTopOf="parent" />
