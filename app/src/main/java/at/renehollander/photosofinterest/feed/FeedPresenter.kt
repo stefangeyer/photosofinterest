@@ -36,7 +36,7 @@ class FeedPresenter @Inject constructor(
         this.useCaseHandler.execute(this.loadPosts, LoadPosts.RequestValues(filter), {
             // Success
             response ->
-            when (filter) {
+            when (response.filter) {
                 RequestFilter.RISING -> this.view?.updateRisingPosts(response.posts)
                 RequestFilter.RECENT -> this.view?.updateRecentPosts(response.posts)
                 RequestFilter.TOP -> this.view?.updateTopPosts(response.posts)

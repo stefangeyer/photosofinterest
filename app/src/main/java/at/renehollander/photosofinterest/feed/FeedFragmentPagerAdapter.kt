@@ -9,28 +9,18 @@ import at.renehollander.photosofinterest.R
 class FeedFragmentPagerAdapter(
         fragmentManager: FragmentManager,
         val context: Context,
-        val rising: Fragment,
-        val recent: Fragment,
-        val top: Fragment
+        rising: Fragment,
+        recent: Fragment,
+        top: Fragment
 ) : FragmentPagerAdapter(fragmentManager) {
 
-    override fun getItem(position: Int): Fragment {
-        return when (position) {
-            0 -> rising
-            1 -> recent
-            2 -> top
-            else -> throw IllegalStateException("not implemented")
-        }
-    }
+    private val screens = arrayOf(rising, recent, top)
+    private val titles = arrayOf(R.string.feed_category_rising, R.string.feed_category_recent, R.string.feed_category_top)
 
-    override fun getPageTitle(position: Int): CharSequence? {
-        return when (position) {
-            0 -> context.getString(R.string.feed_category_rising)
-            1 -> context.getString(R.string.feed_category_recent)
-            2 -> context.getString(R.string.feed_category_top)
-            else -> throw IllegalStateException("not implemented")
-        }
-    }
+    override fun getItem(position: Int): Fragment = this.screens[position]
 
-    override fun getCount(): Int = 3
+    override fun getPageTitle(position: Int): CharSequence? =
+            this.context.getString(this.titles[position])
+
+    override fun getCount(): Int = screens.size
 }

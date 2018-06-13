@@ -1,6 +1,5 @@
 package at.renehollander.photosofinterest
 
-import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.inject.DaggerApplicationComponent
 import com.facebook.drawee.backends.pipeline.Fresco
 import com.google.firebase.firestore.FirebaseFirestore
@@ -11,8 +10,6 @@ import dagger.android.support.DaggerApplication
 
 
 class PhotosOfInterest : DaggerApplication() {
-
-    private var user: User? = null
 
     override fun onCreate() {
         super.onCreate()
