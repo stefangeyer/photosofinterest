@@ -2,9 +2,12 @@ package at.renehollander.photosofinterest.data.source
 
 import android.util.Log
 import at.renehollander.photosofinterest.data.Challenge
-import at.renehollander.photosofinterest.data.Image
+import at.renehollander.photosofinterest.data.Region
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
+import at.renehollander.photosofinterest.timestampToLocalDateTime
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
@@ -20,17 +23,31 @@ import javax.inject.Inject
 class ChallengeDataRepository @Inject constructor(
 ) : ChallengeDataSource {
     override fun loadChallenges(filter: ChallengeDataSource.Filter, callback: LoadRecordCallback<Challenge>) {
-
         val db = FirebaseFirestore.getInstance()
 
         db.collection("challenges").get().addOnSuccessListener {
-            val challenges = it.toObjects(Challenge::class.java)
-            Log.d("ChallengeDataRepository", challenges.toString())
+            @Suppress("UNCHECKED_CAST")
+            val challenges = it.documents.map {
+                val challenge = Challenge()
+                challenge.id = it.id
+                challenge.title = it["title"] as String
+                challenge.image = it["image"] as String
+                challenge.start = timestampToLocalDateTime(it["start"] as Timestamp)
+                challenge.end = timestampToLocalDateTime(it["end"] as Timestamp)
+                challenge.description = it["description"] as String
+                challenge.regions = (it["regions"] as List<Map<String, Any?>>).map mapi@{
+                    val region = Region()
+                    region.description = it["description"] as String
+                    region.region = it["region"] as List<GeoPoint>
+                    return@mapi region
+                }
+                return@map challenge
+            }.toList()
             callback.onRecordsLoaded(challenges)
+            Log.d("ChallengeDataRepository", challenges.toString())
         }.addOnFailureListener {
             callback.onDataNotAvailable()
         }
-
 
 //        val challenge1 = Challenge(
 //                title = "Flüsse oder so",
