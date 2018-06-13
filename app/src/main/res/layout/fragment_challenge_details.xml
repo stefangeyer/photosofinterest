@@ -11,6 +11,7 @@
         android:layout_margin="8dp"
         android:divider="@drawable/empty_10dp_divider"
         android:orientation="vertical"
+        android:paddingBottom="10dp"
         android:showDividers="middle"
         tools:context=".feed.FeedFragment">
 
@@ -178,7 +179,7 @@
                     android:id="@+id/descriptionExpandableLayout"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:ael_duration="400"
+                    app:ael_duration="200"
                     app:ael_expanded="false">
 
                     <TextView
@@ -198,6 +199,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingBottom="4dp"
             app:cardCornerRadius="4dp">
 
             <LinearLayout
