@@ -32,6 +32,9 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
             this.reloadListener.onReload()
         }
 
+        if (this.adapter.itemCount == 0) {
+            swipeRefreshLayout.isRefreshing = true
+        }
         this.reloadListener.onReload()
     }
 
