@@ -96,13 +96,13 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             val intent = Intent(context, ImageActivity::class.java)
             intent.putExtra("mode", ImageActivity.MODE_CREATE)
             intent.putExtra("uri", data.toUri(0))
-            activity?.startActivityForResult(intent, REQUEST_IMAGE_TITLE)
+            startActivityForResult(intent, REQUEST_IMAGE_TITLE)
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_CAPTURE) {
             Log.d("ChallengeFragment", uri.toString())
             val intent = Intent(context, ImageActivity::class.java)
             intent.putExtra("mode", ImageActivity.MODE_CREATE)
             intent.putExtra("uri", uri.toString())
-            activity?.startActivityForResult(intent, REQUEST_IMAGE_TITLE)
+            startActivityForResult(intent, REQUEST_IMAGE_TITLE)
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_TITLE) {
             val title = data?.getStringExtra("title")!!
             val uri = data.getStringExtra("uri")!!
@@ -214,4 +214,5 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         const val REQUEST_IMAGE_SELECT = 2
         const val REQUEST_IMAGE_TITLE = 3
     }
+
 }
