@@ -29,6 +29,12 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
 
     private val adapter: ScoreboardEntryAdapter = ScoreboardEntryAdapter()
 
+    var reloadListener = object : ScoreboardContract.View.OnDataReloadListener {
+        override fun onReload() {
+            this@ScoreboardFragment.presenter.fetchScores()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_scoreboard, container, false)
     }
@@ -36,18 +42,27 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        swipeRefreshLayout.setOnRefreshListener {
+            swipeRefreshLayout.isRefreshing = true
+            this.reloadListener.onReload()
+        }
+
         val layoutManager = LinearLayoutManager(activity)
         val dividerItemDecoration = DividerItemDecoration(context, layoutManager.orientation)
         scoreboard_list.addItemDecoration(dividerItemDecoration)
         scoreboard_list.layoutManager = layoutManager
         scoreboard_list.adapter = this.adapter
+
+        if (this.adapter.itemCount == 0) {
+            swipeRefreshLayout.isRefreshing = true
+        }
     }
 
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
 
-        this.presenter.fetchScores()
+        this.reloadListener.onReload()
 
         if (this.presenter.getUser() != null) {
             onSignIn(this.presenter.getUser()!!)
@@ -91,6 +106,8 @@ class ScoreboardFragment @Inject constructor() : DaggerFragment(), ScoreboardCon
             ft.commit()
         }
         this.adapter.setAll(scores)
+
+        swipeRefreshLayout.isRefreshing = false
     }
 
     override fun showCannotReload() {

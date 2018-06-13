@@ -18,6 +18,10 @@ interface ScoreboardContract {
         fun showCannotReload()
         fun onSignIn(user: User)
         fun onSignOut()
+
+        interface OnDataReloadListener {
+            fun onReload()
+        }
     }
 
     interface Presenter : BasePresenter<View> {
