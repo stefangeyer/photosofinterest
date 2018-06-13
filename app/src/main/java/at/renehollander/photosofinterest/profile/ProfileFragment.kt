@@ -81,7 +81,7 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
     private fun getPoints() = listOf(GeoPoint(0.1, 23.7), GeoPoint(45.2, 99.9), GeoPoint(55.8, 12.789))
 
     private fun getPois() = listOf(
-            PointOfInterest(name = "POI 1", location = getPoints()[0], radius = 50),
-            PointOfInterest(name = "POI 2", location = getPoints()[1], radius = 30),
-            PointOfInterest(name = "POI 3", location = getPoints()[2], radius = 66))
+            PointOfInterest(name = "POI 1", location = getPoints()[0], radius = 50.0),
+            PointOfInterest(name = "POI 2", location = getPoints()[1], radius = 30.0),
+            PointOfInterest(name = "POI 3", location = getPoints()[2], radius = 66.0))
 }
