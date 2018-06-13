@@ -60,19 +60,13 @@ class FeedFragment @Inject constructor() : DaggerFragment(), FeedContract.View {
             }
         })
 
-
         viewPager.adapter = this.adapter
         tabLayout.setupWithViewPager(viewPager)
-
-        // TODO change
-        this.presenter.fetchRisingPosts()
     }
 
     override fun onResume() {
         super.onResume()
         presenter.takeView(this)
-        // TODO change
-        this.presenter.fetchRisingPosts()
     }
 
     override fun onDestroy() {
