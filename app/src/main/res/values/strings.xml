@@ -51,6 +51,7 @@
     <string name="post_created">Post was created</string>
     <string name="post_cannot_create">Post could not be created</string>
     <string name="post_cannot_reload">Cannot fetch posts</string>
+    <string name="post_uploading">Uploading your photo…</string>
 
     <!-- Challenge Details -->
     <string name="challenge_category_details">Details</string>
