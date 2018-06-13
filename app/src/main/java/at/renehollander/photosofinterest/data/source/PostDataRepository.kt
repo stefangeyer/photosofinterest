@@ -26,29 +26,29 @@ class PostDataRepository @Inject constructor(
 
     override fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>) {
         db.collection("challenges").document(challenge.id).collection("posts").get().continueWithTask {
-            return@continueWithTask Tasks.whenAllSuccess<Post>(it.result.documents.map {
+            return@continueWithTask Tasks.whenAllSuccess<Post>(it.result.documents.map { postData ->
                 val post = Post(
-                        id = it.id,
-                        user = User(id = (it["user"] as DocumentReference).id),
+                        id = postData.id,
+                        user = User(),
                         challenge = challenge,
-                        title = it["title"] as String,
-                        image = it["image"] as String,
-                        upvotes = (it["upvotes"] as Long).toInt(),
-                        downvotes = (it["downvotes"] as Long).toInt(),
-                        origin = it["origin"] as GeoPoint,
-                        timestamp = it["timestamp"] as Timestamp,
-                        poi = PointOfInterest(id = (it["poi"] as DocumentReference).id)
+                        title = postData["title"] as String,
+                        image = postData["image"] as String,
+                        upvotes = (postData["upvotes"] as Long).toInt(),
+                        downvotes = (postData["downvotes"] as Long).toInt(),
+                        origin = postData["origin"] as GeoPoint,
+                        timestamp = postData["timestamp"] as Timestamp,
+                        poi = PointOfInterest()
                 )
-                return@map db.collection("users").document(post.user.id).get().continueWith {
+                return@map (postData["user"] as DocumentReference).get().continueWith {
                     post.user = User(
                             id = it.result.id,
                             email = it.result["email"] as String,
                             name = it.result["name"] as String,
-                            image = Image(uri = it.result["image"] as String)
+                            image = it.result["image"] as String
                     )
                     return@continueWith post
                 }.continueWithTask inner@{
-                    return@inner db.collection("challenge").document(post.challenge.id).collection("pois").document(post.poi.id).get().continueWith {
+                    return@inner (postData["poi"] as DocumentReference).get().continueWith {
                         post.poi = PointOfInterest(
                                 id = it.result.id,
                                 name = it.result["name"] as String? ?: "",

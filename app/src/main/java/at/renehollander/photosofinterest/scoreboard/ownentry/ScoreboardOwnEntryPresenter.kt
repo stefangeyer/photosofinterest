@@ -43,7 +43,7 @@ class ScoreboardOwnEntryPresenter @Inject constructor(
     override fun update() {
         if (rank != null && entry != null) {
             view?.updateRank(rank!!)
-            view?.updateUserImage(entry!!.user.image.uri)
+            view?.updateUserImage(entry!!.user.image)
             view?.updateName(entry!!.user.name)
             view?.updateScore(entry!!.score)
             view?.updateIsLeader(rank == 1)

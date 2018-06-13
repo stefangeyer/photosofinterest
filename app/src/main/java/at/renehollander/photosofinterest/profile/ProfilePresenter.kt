@@ -21,7 +21,7 @@ class ProfilePresenter @Inject constructor() : ProfileContract.Presenter {
 
     override fun updateUser() {
         if (user != null) {
-            view?.updateProfileImage(user!!.image.uri)
+            view?.updateProfileImage(user!!.image)
             view?.updateName(user!!.name)
             view?.updateScore(1234)
         }

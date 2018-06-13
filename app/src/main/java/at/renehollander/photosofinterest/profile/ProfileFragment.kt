@@ -36,7 +36,7 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
                 title = "Challenge 1",
                 image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg",
                 start = now.minusDays(4), end = now.plusDays(3), description = "Desc 123456", regions = listOf(Region("Some Region", getPoints())), pois = getPois())
-        user = User(email = "user1@example.com", name = "User 1", image = Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
+        user = User(email = "user1@example.com", name = "User 1", image = "http://tal.am/bc/wm.php?id=tal-ami-profile-1")
         val image1 = "http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"
         val post1 = Post(user = user, challenge = challenge1, title = "Some Post Title", image = image1, upvotes = 10, downvotes = 5, origin = getPoints()[0], poi = getPois()[0])
 

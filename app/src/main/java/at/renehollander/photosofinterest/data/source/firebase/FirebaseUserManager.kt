@@ -23,8 +23,7 @@ class FirebaseUserManager @Inject constructor(
             // User is signed in
             val email = fbUser.email ?: ""
             val name = fbUser.displayName ?: ""
-            val image = Image(fbUser.photoUrl.toString())
-            this.user = User(email = email, name = name, image = image)
+            this.user = User(email = email, name = name, image = fbUser.photoUrl.toString())
 
             EventBus.getDefault().post(SignInEvent(user!!))
         } else {
