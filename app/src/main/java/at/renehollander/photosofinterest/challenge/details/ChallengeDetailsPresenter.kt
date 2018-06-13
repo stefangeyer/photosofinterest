@@ -21,14 +21,17 @@ class ChallengeDetailsPresenter @Inject constructor(
 
     override fun setChallenge(challenge: Challenge?) {
         this.challenge = challenge
-        this.update()
+    }
+
+    override fun getChallenge(): Challenge? {
+        return challenge;
     }
 
     override fun update() {
         if (this.challenge != null) {
             this.view?.updateTitle(challenge!!.title)
             this.view?.updateDescription(challenge!!.description)
-            this.view?.updateImage(challenge!!.image.uri)
+            this.view?.updateImage(challenge!!.image)
             this.view?.updateEndTime(Duration.between(LocalDateTime.now(), challenge!!.end))
             this.view?.updateRegion(challenge!!.regions.map { region -> region.description })
         }

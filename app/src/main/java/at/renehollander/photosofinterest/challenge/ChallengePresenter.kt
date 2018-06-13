@@ -8,9 +8,14 @@ import at.renehollander.photosofinterest.data.User
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import at.renehollander.photosofinterest.UseCaseHandler
+import at.renehollander.photosofinterest.feed.domain.model.RequestFilter
+import at.renehollander.photosofinterest.feed.domain.usecase.LoadPosts
 import javax.inject.Inject
 
 class ChallengePresenter @Inject constructor(
+        private val useCaseHandler: UseCaseHandler,
+        private val loadPosts: LoadPosts
 ) : ChallengeContract.Presenter {
 
     private var view: ChallengeContract.View? = null
@@ -54,8 +59,18 @@ class ChallengePresenter @Inject constructor(
         this.view?.getDetailsPresenter()?.setChallenge(challenge)
     }
 
+    override fun loadChallengePosts() {
+        this.useCaseHandler.execute(this.loadPosts, LoadPosts.RequestValues(RequestFilter.TOP), {
+            // Success
+            response ->
+            this.view?.updateChallengePosts(response.posts)
+        }, {
+            // Failure
+            this.view?.showCannotReload()
+        })
+    }
+
     override fun update() {
         this.view?.getDetailsPresenter()?.setChallenge(challenge)
-        this.view?.getDetailsPresenter()?.update()
     }
 }
