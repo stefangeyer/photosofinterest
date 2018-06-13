@@ -58,6 +58,7 @@ dependencies {
 
     // Google Play Services
     implementation 'com.google.android.gms:play-services-auth:15.0.1'
+    implementation 'com.google.android.gms:play-services-location:15.0.1'
 
     // Google Maps
     implementation 'com.google.android.gms:play-services-maps:15.0.1'
