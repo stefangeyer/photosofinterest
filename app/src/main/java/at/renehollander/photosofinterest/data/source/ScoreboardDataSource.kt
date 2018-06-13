@@ -11,5 +11,4 @@ import at.renehollander.photosofinterest.data.Scoreboard
  */
 interface ScoreboardDataSource {
     fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>)
-    fun loadChallengeScoreboard(challenge: Challenge, callback: GetRecordCallback<Scoreboard>)
 }

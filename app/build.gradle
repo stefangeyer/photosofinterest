@@ -24,6 +24,9 @@ android {
                     'proguard-fresco.pro'
         }
     }
+    lintOptions {
+        abortOnError false
+    }
 }
 
 ext {
@@ -74,6 +77,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:16.0.1'
     implementation 'com.google.firebase:firebase-firestore:17.0.1'
     implementation 'com.google.firebase:firebase-storage:16.0.1'
+    implementation 'com.google.firebase:firebase-functions:16.0.1'
     implementation 'com.firebaseui:firebase-ui-database:4.0.1'
     implementation 'com.firebaseui:firebase-ui-firestore:4.0.1'
     implementation 'com.firebaseui:firebase-ui-auth:4.0.1'
