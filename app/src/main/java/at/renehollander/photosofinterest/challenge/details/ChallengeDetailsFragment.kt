@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
+import at.renehollander.photosofinterest.data.PointOfInterest
 import com.github.aakira.expandablelayout.ExpandableLayout
 import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter
 import com.github.aakira.expandablelayout.Utils
@@ -16,6 +17,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.storage.FirebaseStorage
 import dagger.android.support.DaggerFragment
@@ -28,6 +30,9 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     @Inject
     lateinit var presenter: ChallengeDetailsContract.Presenter
+
+    var googleMap: GoogleMap? = null
+    var markers: MutableList<Marker> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_challenge_details, container, false);
@@ -87,10 +92,10 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
     }
 
     override fun onMapReady(map: GoogleMap?) {
-        map?.moveCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(46.506763, 9.367204), LatLng(49.204010, 17.178483)), 0))
-        for (poi in presenter.getChallenge()!!.pois) {
-            map?.addMarker(MarkerOptions().position(LatLng(poi.location.latitude, poi.location.longitude)).title(poi.name))
-        }
+        googleMap = map
+        googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(46.506763, 9.367204), LatLng(49.204010, 17.178483)), 0))
+        presenter.update()
+
     }
 
     override fun updateTitle(title: String) {
@@ -123,6 +128,15 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     private fun onClickButton(expandableLayout: ExpandableLayout) {
         expandableLayout.toggle()
+    }
+
+    override fun updateMarkers(pois: List<PointOfInterest>) {
+        markers.forEach { it.remove() }
+        if (googleMap != null) {
+            for (poi in pois) {
+                markers.add(googleMap!!.addMarker(MarkerOptions().position(LatLng(poi.location.latitude, poi.location.longitude)).title(poi.name)))
+            }
+        }
     }
 
     fun createRotateAnimator(target: View, from: Float, to: Float): ObjectAnimator {
