@@ -1,6 +1,7 @@
 package at.renehollander.photosofinterest.inject.modules
 
 import at.renehollander.photosofinterest.data.source.*
+import at.renehollander.photosofinterest.data.source.firebase.FirebaseUserManager
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import dagger.Binds
 import dagger.Module
@@ -19,4 +20,8 @@ abstract class DataModule {
     @Binds
     @ApplicationScoped
     abstract fun bindChallengeDataSource(repository: ChallengeDataRepository): ChallengeDataSource
+
+    @Binds
+    @ApplicationScoped
+    abstract fun bindUserManager(userManager: FirebaseUserManager): UserManager
 }

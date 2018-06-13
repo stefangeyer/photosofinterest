@@ -25,26 +25,6 @@ class PhotosOfInterest : DaggerApplication() {
         firestore.firestoreSettings = settings
     }
 
-//    fun login() {
-//        user = User(
-//                "user@example.com",
-//                "Max Mustermann",
-//                Image("https://pbs.twimg.com/profile_images/547371527855828992/qSbjhsoI_400x400.jpeg")
-//        )
-//    }
-//
-//    fun isLoggedIn(): Boolean {
-//        return user != null
-//    }
-//
-//    fun logout() {
-//        user = null
-//    }
-//
-//    fun getUser(): User {
-//        return user!!
-//    }
-
     override fun applicationInjector(): AndroidInjector<out DaggerApplication>? =
             DaggerApplicationComponent.builder().create(this)
 }

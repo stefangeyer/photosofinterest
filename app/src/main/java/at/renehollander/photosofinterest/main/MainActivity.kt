@@ -85,16 +85,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         this.presenter.takeView(this)
     }
 
-    override fun onResume() {
-        super.onResume()
-        this.presenter.enableAuthEvents()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        this.presenter.disableAuthEvents()
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         this.presenter.dropView()
@@ -119,14 +109,6 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
         updateActionBar()
         return super.onMenuOpened(featureId, menu)
-    }
-
-    override fun onSignIn(user: User) {
-//        updateActionBar()
-    }
-
-    override fun onSignOut() {
-//        updateActionBar()
     }
 
     override fun startSignIn() {
