@@ -40,7 +40,7 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         val image1 = "http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"
         val post1 = Post(user = user, challenge = challenge1, title = "Some Post Title", image = image1, upvotes = 10, downvotes = 5, origin = getPoints()[0], poi = getPois()[0])
 
-        presenter.setUser(user)
+        presenter.setUser(at.renehollander.photosofinterest.data.source.UserManager.getInstance().getCurrentUser()!!)
 
         this.postFragment.setOnDataReloadListener(object : PostContract.View.OnDataReloadListener {
             override fun onReload() {
