@@ -10,9 +10,14 @@ import com.google.firebase.Timestamp
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
+import com.google.firebase.functions.FirebaseFunctions
 import com.google.firebase.storage.FirebaseStorage
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 import javax.inject.Inject
+
 
 /**
  * Implementation of DataSource using a Repository Pattern.
@@ -26,8 +31,13 @@ import javax.inject.Inject
 class PostDataRepository @Inject constructor(
         private val db: FirebaseFirestore,
         private val storage: FirebaseStorage,
-        private val userManager: UserManager
+        private val userManager: UserManager,
+        val fbFunctions: FirebaseFunctions
 ) : PostDataSource {
+
+    init {
+        EventBus.getDefault().register(this);
+    }
 
     override fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>) {
         db.collection("challenges").document(challenge.id).collection("posts").get().continueWithTask {
@@ -193,6 +203,36 @@ class PostDataRepository @Inject constructor(
             Log.e(TAG, "Error fetching posts", it)
             callback.onDataNotAvailable()
         }
+    }
+
+    private fun executeVote(type: String, post: Post, callback: GetRecordCallback<Post>) {
+        fbFunctions.getHttpsCallable(type)
+                .call(mapOf(Pair("challenge", post.challenge.id), Pair("post", post.id)))
+                .addOnSuccessListener {
+                    val postData = it.data as Map<String, Any>
+                    callback.onRecordLoaded(Post(upvotes = postData["upvotes"] as Int, downvotes = postData["downvotes"] as Int))
+                }.addOnFailureListener {
+                    Log.e(ScoreboardDataRepository.TAG, "Error upvoting post", it)
+                    callback.onDataNotAvailable()
+                }
+    }
+
+    override fun upvotePost(post: Post, callback: GetRecordCallback<Post>) {
+        executeVote("upvote", post, callback)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onUpvoteEvent(event: UpvoteEvent) {
+        upvotePost(event.post, event.callback)
+    }
+
+    override fun downvotePost(post: Post, callback: GetRecordCallback<Post>) {
+        executeVote("downvote", post, callback)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDownvoteEvent(event: DownvoteEvent) {
+        downvotePost(event.post, event.callback)
     }
 
     override fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>) {

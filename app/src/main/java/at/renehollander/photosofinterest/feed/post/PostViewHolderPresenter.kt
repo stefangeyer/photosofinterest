@@ -1,6 +1,9 @@
 package at.renehollander.photosofinterest.feed.post
 
+import at.renehollander.photosofinterest.data.DownvoteEvent
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.UpvoteEvent
+import at.renehollander.photosofinterest.data.source.GetRecordCallback
 import at.renehollander.photosofinterest.data.source.UserManager
 import at.renehollander.photosofinterest.main.PerformSignInEvent
 import com.google.firebase.storage.FirebaseStorage
@@ -8,6 +11,7 @@ import org.greenrobot.eventbus.EventBus
 
 class PostViewHolderPresenter(
         private val adapter: PostContract.Adapter
+
 ) : PostContract.ViewHolderPresenter {
 
     private var view: PostContract.ViewHolder? = null
@@ -36,21 +40,35 @@ class PostViewHolderPresenter(
 
     override fun onUpvoteButtonClicked() {
         if (checkLogin()) {
-            // TODO vote use case
             if (position == null) return
             val post = this.adapter.getItemAt(position!!)
-            post.upvotes++
-            updateVotes(post)
+            EventBus.getDefault().post(UpvoteEvent(post, object : GetRecordCallback<Post> {
+                override fun onRecordLoaded(record: Post) {
+                    post.upvotes = record.upvotes
+                    post.downvotes = record.downvotes
+                    updateVotes(post)
+                }
+
+                override fun onDataNotAvailable() {
+                }
+            }))
         }
     }
 
     override fun onDownvoteButtonClicked() {
         if (checkLogin()) {
-            // TODO vote use case
             if (position == null) return
             val post = this.adapter.getItemAt(position!!)
-            post.downvotes++
-            updateVotes(post)
+            EventBus.getDefault().post(DownvoteEvent(post, object : GetRecordCallback<Post> {
+                override fun onRecordLoaded(record: Post) {
+                    post.upvotes = record.upvotes
+                    post.downvotes = record.downvotes
+                    updateVotes(post)
+                }
+
+                override fun onDataNotAvailable() {
+                }
+            }))
         }
     }
 
