@@ -22,6 +22,6 @@ interface PostDataSource {
     fun uploadPostImage(file: String, callback: GetRecordCallback<String>)
     fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>)
     fun loadPosts(user: User, callback: LoadRecordCallback<Post>)
-    fun downvotePost(post: Post, callback: GetRecordCallback<Post>)
-    fun upvotePost(post: Post, callback: GetRecordCallback<Post>)
+    fun downvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>)
+    fun upvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>)
 }

@@ -214,35 +214,39 @@ class PostDataRepository @Inject constructor(
         }
     }
 
-    private fun executeVote(type: String, post: Post, callback: GetRecordCallback<Post>) {
+    private fun executeVote(type: String, post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>) {
         fbFunctions.getHttpsCallable(type)
                 .call(mapOf(Pair("challenge", post.challenge.id), Pair("post", post.id)))
                 .addOnSuccessListener {
                     @Suppress("UNCHECKED_CAST")
                     val postData = it.data as Map<String, Any>
-                    callback.onRecordLoaded(Post(upvotes = postData["upvotes"] as Int, downvotes = postData["downvotes"] as Int))
+                    if (postData.containsKey("already_voted")) {
+                        alreadyVoted.onRecordLoaded(true)
+                    } else {
+                        callback.onRecordLoaded(Post(upvotes = postData["upvotes"] as Int, downvotes = postData["downvotes"] as Int))
+                    }
                 }.addOnFailureListener {
                     Log.e(TAG, "Error upvoting post", it)
                     callback.onDataNotAvailable()
                 }
     }
 
-    override fun upvotePost(post: Post, callback: GetRecordCallback<Post>) {
-        executeVote("upvote", post, callback)
+    override fun upvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>) {
+        executeVote("upvote", post, callback, alreadyVoted)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onUpvoteEvent(event: UpvoteEvent) {
-        upvotePost(event.post, event.callback)
+        upvotePost(event.post, event.callback, event.alreadyVoted)
     }
 
-    override fun downvotePost(post: Post, callback: GetRecordCallback<Post>) {
-        executeVote("downvote", post, callback)
+    override fun downvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>) {
+        executeVote("downvote", post, callback, alreadyVoted)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onDownvoteEvent(event: DownvoteEvent) {
-        downvotePost(event.post, event.callback)
+        downvotePost(event.post, event.callback, event.alreadyVoted)
     }
 
     override fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>) {

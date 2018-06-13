@@ -28,6 +28,8 @@ interface PostContract {
         fun enableVoteButtons(enabled: Boolean)
         fun showImageDetails(title: String, uri: String)
         fun updateViewHolderPosition(position: Int)
+        fun showVotedToast()
+        fun showAlreadyVotedToast()
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
