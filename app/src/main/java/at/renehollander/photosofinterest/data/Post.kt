@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.data
 
+import com.google.firebase.Timestamp
 import com.google.firebase.firestore.GeoPoint
 
 data class Post(var id: String = "",
@@ -10,4 +11,5 @@ data class Post(var id: String = "",
                 var upvotes: Int,
                 var downvotes: Int,
                 var origin: GeoPoint,
+                var timestamp: Timestamp = Timestamp.now(),
                 var poi: PointOfInterest)

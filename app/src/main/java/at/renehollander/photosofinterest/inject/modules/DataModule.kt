@@ -1,7 +1,6 @@
 package at.renehollander.photosofinterest.inject.modules
 
 import at.renehollander.photosofinterest.data.source.*
-import at.renehollander.photosofinterest.data.source.firebase.FirebaseUserManager
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import dagger.Binds
 import dagger.Module

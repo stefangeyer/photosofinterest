@@ -33,7 +33,7 @@ interface ChallengeOverviewContract {
         fun onUploadsButtonClicked()
     }
 
-    interface Adapter: BaseAdapter<Challenge> {
+    interface Adapter : BaseAdapter<Challenge> {
         fun showChallenge(challenge: Challenge, showUploads: Boolean)
         fun setOnShowDetailsListener(listener: OnShowDetailsListener)
 

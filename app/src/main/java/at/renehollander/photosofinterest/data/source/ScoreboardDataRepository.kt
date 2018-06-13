@@ -1,6 +1,9 @@
 package at.renehollander.photosofinterest.data.source
 
-import at.renehollander.photosofinterest.data.*
+import at.renehollander.photosofinterest.data.Challenge
+import at.renehollander.photosofinterest.data.Scoreboard
+import at.renehollander.photosofinterest.data.ScoreboardEntry
+import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import com.google.firebase.firestore.FirebaseFirestore
 import javax.inject.Inject
@@ -20,15 +23,15 @@ class ScoreboardDataRepository @Inject constructor(
 
     override fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>) {
         callback.onRecordLoaded(Scoreboard("Global",
-                (1..50).map { ScoreboardEntry(null, User(email = "user$it@example.com", name = "User $it", image = Image("http://i.pravatar.cc/256?img=$it")), it * 10) }.reversed(),
+                (1..50).map { ScoreboardEntry(null, User(email = "user$it@example.com", name = "User $it", image = "http://i.pravatar.cc/256?img=$it"), it * 10) }.reversed(),
                 null))
     }
 
     override fun loadChallengeScoreboard(challenge: Challenge, callback: GetRecordCallback<Scoreboard>) {
         callback.onRecordLoaded(Scoreboard("Global", mutableListOf(
-                ScoreboardEntry(null, User(email = "user1@example.com", name = "User 1", image = Image("img1")), 20),
-                ScoreboardEntry(null, User(email = "user2@example.com", name = "User 2", image = Image("img2")), 30),
-                ScoreboardEntry(null, User(email = "user3@example.com", name = "User 3", image = Image("img2")), 100)
+                ScoreboardEntry(null, User(email = "user1@example.com", name = "User 1", image = "img1"), 20),
+                ScoreboardEntry(null, User(email = "user2@example.com", name = "User 2", image = "img2"), 30),
+                ScoreboardEntry(null, User(email = "user3@example.com", name = "User 3", image = "img2"), 100)
         ), challenge))
     }
 

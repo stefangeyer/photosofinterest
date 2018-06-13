@@ -14,7 +14,6 @@ import at.renehollander.photosofinterest.inject.scopes.ActivityScoped
 import at.renehollander.photosofinterest.scoreboard.entry.ScoreboardEntryAdapter
 import at.renehollander.photosofinterest.scoreboard.ownentry.ScoreboardOwnEntryFragment
 import dagger.android.support.DaggerFragment
-import kotlinx.android.synthetic.main.fragment_scoreboard.*
 import org.greenrobot.eventbus.EventBus
 import javax.inject.Inject
 

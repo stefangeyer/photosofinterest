@@ -20,8 +20,6 @@ import at.renehollander.photosofinterest.profile.ProfileFragment
 import at.renehollander.photosofinterest.scoreboard.ScoreboardFragment
 import com.google.firebase.firestore.GeoPoint
 import dagger.android.support.DaggerAppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_feed.*
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
