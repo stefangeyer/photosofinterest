@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.feed.post
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -7,6 +8,8 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
+import android.widget.Toast.LENGTH_SHORT
 import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.image.ImageActivity
@@ -17,6 +20,14 @@ class PostViewHolder(
         private val parentView: View,
         private val adapter: PostContract.Adapter
 ) : RecyclerView.ViewHolder(parentView), PostContract.ViewHolder {
+    override fun showVotedToast() {
+        Toast.makeText(parentView.context, R.string.voted, LENGTH_SHORT).show()
+    }
+
+    @SuppressLint("ShowToast")
+    override fun showAlreadyVotedToast() {
+        Toast.makeText(parentView.context, R.string.already_voted, LENGTH_LONG).show()
+    }
 
     val title: TextView = this.parentView.findViewById(R.id.titleLabel)
     val challenge: TextView = this.parentView.findViewById(R.id.challengeLabel)

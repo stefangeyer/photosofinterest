@@ -47,6 +47,14 @@ class PostViewHolderPresenter(
                     post.upvotes = record.upvotes
                     post.downvotes = record.downvotes
                     updateVotes(post)
+                    view?.showVotedToast()
+                }
+
+                override fun onDataNotAvailable() {
+                }
+            }, object : GetRecordCallback<Boolean> {
+                override fun onRecordLoaded(record: Boolean) {
+                    view?.showAlreadyVotedToast()
                 }
 
                 override fun onDataNotAvailable() {
@@ -64,6 +72,14 @@ class PostViewHolderPresenter(
                     post.upvotes = record.upvotes
                     post.downvotes = record.downvotes
                     updateVotes(post)
+                    view?.showVotedToast()
+                }
+
+                override fun onDataNotAvailable() {
+                }
+            }, object : GetRecordCallback<Boolean> {
+                override fun onRecordLoaded(record: Boolean) {
+                    view?.showAlreadyVotedToast()
                 }
 
                 override fun onDataNotAvailable() {

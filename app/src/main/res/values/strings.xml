@@ -90,5 +90,7 @@
     <string name="icon">Icon</string>
     <string name="upvote">Upvote</string>
     <string name="downvote">Downvote</string>
+    <string name="already_voted">You already voted for that post!</string>
+    <string name="voted">Voted!</string>
 
 </resources>
