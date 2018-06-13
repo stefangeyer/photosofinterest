@@ -20,9 +20,13 @@ import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsContract
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.source.PostDataRepository
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import at.renehollander.photosofinterest.image.ImageActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.firebase.firestore.GeoPoint
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge.*
 import java.io.File
@@ -38,6 +42,11 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
     lateinit var postFragment: PostFragment
 
     lateinit var adapter: ChallengeFragmentPagerAdapter
+
+    @Inject
+    lateinit var postDataRepository: PostDataRepository
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     private var uri: Uri? = null
     private var initialDetailMode = true
@@ -65,6 +74,8 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         tabLayout.setupWithViewPager(viewPager)
 
         tabLayout.getTabAt(if (this.initialDetailMode) 0 else 1)?.select()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this.activity!!)
     }
 
     override fun onResume() {
@@ -93,12 +104,19 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
             intent.putExtra("uri", uri.toString())
             activity?.startActivityForResult(intent, REQUEST_IMAGE_TITLE)
         } else if (resultCode == RESULT_OK && requestCode == REQUEST_IMAGE_TITLE) {
-            val title = data?.getStringExtra("title")
-            val uri = data?.getStringExtra("uri")
+            val title = data?.getStringExtra("title")!!
+            val uri = data.getStringExtra("uri")!!
+            if (checkLocationPermission()) {
+                fusedLocationClient.lastLocation.addOnSuccessListener {
+                    presenter.createPost(title, uri, GeoPoint(it.latitude, it.longitude))
+                }
+            }
+
         }
     }
 
     override fun startPhotoTake() {
+        if (!checkLocationPermission()) return
         val smBuilder = StrictMode.VmPolicy.Builder()
         StrictMode.setVmPolicy(smBuilder.build())
 
@@ -174,6 +192,17 @@ class ChallengeFragment @Inject constructor() : DaggerFragment(), ChallengeContr
         val res = context!!.checkCallingOrSelfPermission(permission)
         if (res != PackageManager.PERMISSION_GRANTED) {
             requestPermissions(arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE), 1)
+            return false
+        } else {
+            return true
+        }
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
+        val res = context!!.checkCallingOrSelfPermission(permission)
+        if (res != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
             return false
         } else {
             return true
