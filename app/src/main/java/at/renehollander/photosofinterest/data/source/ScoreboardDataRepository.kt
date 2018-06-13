@@ -33,7 +33,7 @@ class ScoreboardDataRepository @Inject constructor(
                                 user = User(
                                         id = userData["id"] as String,
                                         name = userData["name"] as String,
-                                        image = userData["id"] as String
+                                        image = userData["image"] as String
                                 ),
                                 score = entryData["score"] as Int,
                                 post = null
