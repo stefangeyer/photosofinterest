@@ -11,10 +11,14 @@ import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.auth.AuthActivity
 import at.renehollander.photosofinterest.challenge.ChallengeFragment
 import at.renehollander.photosofinterest.challenges.ChallengesFragment
-import at.renehollander.photosofinterest.data.*
+import at.renehollander.photosofinterest.data.Challenge
+import at.renehollander.photosofinterest.data.PointOfInterest
+import at.renehollander.photosofinterest.data.Region
+import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.feed.FeedFragment
 import at.renehollander.photosofinterest.profile.ProfileFragment
 import at.renehollander.photosofinterest.scoreboard.ScoreboardFragment
+import com.google.firebase.firestore.GeoPoint
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import org.threeten.bp.LocalDateTime
@@ -74,7 +78,7 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
                 start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(2),
                 description = "This is the very awesome first challenge!",
                 regions = mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),
-                pois = mutableListOf(PointOfInterest("Point 1", Point(10.0, 10.0), 20))))
+                pois = mutableListOf(PointOfInterest(name = "Point 1", location = GeoPoint(10.0, 10.0), radius = 20))))
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

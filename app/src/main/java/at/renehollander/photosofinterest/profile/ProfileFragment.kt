@@ -8,6 +8,7 @@ import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.*
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
+import com.google.firebase.firestore.GeoPoint
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
 import org.threeten.bp.LocalDateTime
@@ -35,9 +36,9 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
                 title = "Challenge 1",
                 image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg",
                 start = now.minusDays(4), end = now.plusDays(3), description = "Desc 123456", regions = listOf(Region("Some Region", getPoints())), pois = getPois())
-        user = User("user1@example.com", "User 1", Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
+        user = User(email = "user1@example.com", name = "User 1", image = Image("http://tal.am/bc/wm.php?id=tal-ami-profile-1"))
         val image1 = Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg")
-        val post1 = Post(user, challenge1, "Some Post Title", image1, 10, 5, getPoints()[0], getPois()[0])
+        val post1 = Post(user = user, challenge = challenge1, title = "Some Post Title", image = image1, upvotes = 10, downvotes = 5, origin = getPoints()[0], poi = getPois()[0])
 
         presenter.setUser(user)
 
@@ -77,10 +78,10 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         presenter.dropView()
     }
 
-    private fun getPoints() = listOf(Point(0.1, 23.7), Point(45.2, 99.9), Point(55.8, 12.789))
+    private fun getPoints() = listOf(GeoPoint(0.1, 23.7), GeoPoint(45.2, 99.9), GeoPoint(55.8, 12.789))
 
     private fun getPois() = listOf(
-            PointOfInterest("POI 1", getPoints()[0], 50),
-            PointOfInterest("POI 2", getPoints()[1], 30),
-            PointOfInterest("POI 3", getPoints()[2], 66))
+            PointOfInterest(name = "POI 1", location = getPoints()[0], radius = 50),
+            PointOfInterest(name = "POI 2", location = getPoints()[1], radius = 30),
+            PointOfInterest(name = "POI 3", location = getPoints()[2], radius = 66))
 }

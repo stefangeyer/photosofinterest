@@ -1,7 +1,6 @@
 package at.renehollander.photosofinterest.data.source
 
 import at.renehollander.photosofinterest.data.Post
-import at.renehollander.photosofinterest.data.source.remote.RemotePostDataSource
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
 import javax.inject.Inject
 
@@ -14,10 +13,8 @@ import javax.inject.Inject
  * @version 1.0
  */
 @ApplicationScoped
-class PostDataRepository @Inject constructor(
-        private val remoteDataSource: RemotePostDataSource
-) : PostDataSource {
+class PostDataRepository @Inject constructor() : PostDataSource {
     override fun loadPosts(filter: PostDataSource.Filter, callback: LoadRecordCallback<Post>) {
-        return this.remoteDataSource.loadPosts(filter, callback)
+        callback.onRecordsLoaded(mutableListOf())
     }
 }

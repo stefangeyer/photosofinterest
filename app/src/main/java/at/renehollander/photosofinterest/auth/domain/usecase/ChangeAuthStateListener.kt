@@ -23,7 +23,7 @@ class ChangeAuthStateListener @Inject constructor(
             val email = fbUser.email ?: ""
             val name = fbUser.displayName ?: ""
             val image = Image(fbUser.photoUrl.toString())
-            val user = User(email, name, image)
+            val user = User(email = email, name = name, image = image)
             loggedIn(user)
         } else {
             // User is signed out
