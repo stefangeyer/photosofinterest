@@ -21,6 +21,7 @@ import at.renehollander.photosofinterest.scoreboard.ScoreboardFragment
 import com.google.firebase.firestore.GeoPoint
 import dagger.android.support.DaggerAppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_feed.*
 import org.threeten.bp.LocalDateTime
 import javax.inject.Inject
 
@@ -113,6 +114,23 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
     override fun onMenuOpened(featureId: Int, menu: Menu?): Boolean {
         updateActionBar()
         return super.onMenuOpened(featureId, menu)
+    }
+
+    override fun onSignIn(user: User) {
+        if (navigation.menu.findItem(R.id.navigation_profile) == null) {
+            navigation.menu.removeItem(R.id.navigation_feed)
+            navigation.menu.removeItem(R.id.navigation_challenges)
+            navigation.menu.removeItem(R.id.navigation_scoreboard)
+            navigation.inflateMenu(R.menu.navigation)
+        }
+    }
+
+    override fun onSignOut() {
+        // Check for profile tab
+        if (navigation.selectedItemId == R.id.navigation_profile) {
+            navigation.selectedItemId = R.id.navigation_feed
+        }
+        navigation.menu.removeItem(R.id.navigation_profile)
     }
 
     override fun startSignIn() {

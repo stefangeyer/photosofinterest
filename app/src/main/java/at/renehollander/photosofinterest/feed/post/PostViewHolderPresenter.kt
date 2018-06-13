@@ -15,12 +15,10 @@ class PostViewHolderPresenter(
 
     override fun takeView(view: PostContract.ViewHolder) {
         this.view = view
-        EventBus.getDefault().register(this)
     }
 
     override fun dropView() {
         this.view = null
-        EventBus.getDefault().unregister(this)
     }
 
     override fun onImageClicked() {
