@@ -50,7 +50,7 @@ class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
     }
 
     override fun stopRefreshing() {
-        swipeRefreshLayout.isRefreshing = false
+        swipeRefreshLayout?.isRefreshing = false
     }
 
     override fun setOnDataReloadListener(listener: PostContract.View.OnDataReloadListener) {
