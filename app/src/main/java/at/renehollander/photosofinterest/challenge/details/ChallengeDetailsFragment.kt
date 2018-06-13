@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenge.details
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
+import com.github.aakira.expandablelayout.ExpandableLayout
+import com.github.aakira.expandablelayout.ExpandableLayoutListenerAdapter
+import com.github.aakira.expandablelayout.Utils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -18,6 +22,7 @@ import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import org.threeten.bp.Duration
 import javax.inject.Inject
+
 
 class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View, OnMapReadyCallback {
 
@@ -32,6 +37,30 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
         super.onActivityCreated(savedInstanceState)
         map?.onCreate(savedInstanceState)
         map?.getMapAsync(this)
+
+        descriptionHeader.setOnClickListener { onClickButton(descriptionExpandableLayout) }
+
+        mapHeader.setOnClickListener { onClickButton(mapExpandableLayout) }
+
+        descriptionExpandableLayout.setListener(object : ExpandableLayoutListenerAdapter() {
+            override fun onPreOpen() {
+                createRotateAnimator(descriptionExpanded, 0f, 180f).start()
+            }
+
+            override fun onPreClose() {
+                createRotateAnimator(descriptionExpanded, 180f, 0f).start()
+            }
+        })
+
+        mapExpandableLayout.setListener(object : ExpandableLayoutListenerAdapter() {
+            override fun onPreOpen() {
+                createRotateAnimator(mapExpanded, 0f, 180f).start()
+            }
+
+            override fun onPreClose() {
+                createRotateAnimator(mapExpanded, 180f, 0f).start()
+            }
+        })
     }
 
     override fun onResume() {
@@ -92,4 +121,14 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
         challengeDescription.text = description
     }
 
+    private fun onClickButton(expandableLayout: ExpandableLayout) {
+        expandableLayout.toggle()
+    }
+
+    fun createRotateAnimator(target: View, from: Float, to: Float): ObjectAnimator {
+        val animator = ObjectAnimator.ofFloat(target, "rotation", from, to)
+        animator.duration = 300
+        animator.interpolator = Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR)
+        return animator
+    }
 }

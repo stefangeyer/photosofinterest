@@ -34,7 +34,7 @@
                         android:id="@+id/challengeImage"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
-                        android:background="@android:color/black"/>
+                        android:background="@android:color/black" />
 
                     <TextView
                         android:id="@+id/challengeName"
@@ -125,19 +125,30 @@
             android:layout_gravity="center"
             app:cardCornerRadius="4dp">
 
-            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp"
-                app:ael_expanded="true"
                 app:ael_duration="500"
+                app:ael_expanded="true"
                 app:ael_interpolator="accelerate"
                 app:ael_orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/descriptionHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:paddingBottom="0dp">
+
+                    <ImageView
+                        android:id="@+id/descriptionExpanded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -150,6 +161,7 @@
                         app:srcCompat="@drawable/ic_help_black_24dp" />
 
                     <TextView
+                        android:id="@+id/textView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -162,11 +174,23 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/challengeDescription"
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/descriptionExpandableLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+                    android:layout_height="match_parent"
+                    app:ael_duration="400"
+                    app:ael_expanded="false">
+
+                    <TextView
+                        android:id="@+id/challengeDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/placeholder" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+            </LinearLayout>
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -176,19 +200,29 @@
             android:layout_gravity="center"
             app:cardCornerRadius="4dp">
 
-            <com.github.aakira.expandablelayout.ExpandableLinearLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:ael_expanded="true"
                 app:ael_duration="500"
+                app:ael_expanded="true"
                 app:ael_interpolator="accelerate"
                 app:ael_orientation="vertical">
 
                 <android.support.constraint.ConstraintLayout
+                    android:id="@+id/mapHeader"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:padding="10dp">
+
+                    <ImageView
+                        android:id="@+id/mapExpanded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView2"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -201,6 +235,7 @@
                         app:srcCompat="@drawable/ic_map_black_24dp" />
 
                     <TextView
+                        android:id="@+id/textView2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -213,11 +248,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
                 </android.support.constraint.ConstraintLayout>
 
-                <at.renehollander.photosofinterest.view.AppMapView
-                    android:id="@+id/map"
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/mapExpandableLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp" />
-            </com.github.aakira.expandablelayout.ExpandableLinearLayout>
+                    android:layout_height="match_parent"
+                    app:ael_duration="400"
+                    app:ael_expanded="true">
+
+                    <at.renehollander.photosofinterest.view.AppMapView
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
+            </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>
 </ScrollView>
