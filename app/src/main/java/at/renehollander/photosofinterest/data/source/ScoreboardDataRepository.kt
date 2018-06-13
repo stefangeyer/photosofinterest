@@ -19,13 +19,14 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class ScoreboardDataRepository @Inject constructor(
-        val fbFunctions: FirebaseFunctions
+        private val fbFunctions: FirebaseFunctions
 ) : ScoreboardDataSource {
 
     override fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>) {
         fbFunctions.getHttpsCallable("getGlobalScoreboard")
                 .call()
                 .addOnSuccessListener {
+                    @Suppress("UNCHECKED_CAST")
                     callback.onRecordLoaded(Scoreboard(title = "Global", scores = (it.data as List<Map<String, Any>>).map { entryData ->
                         val userData = entryData["user"] as Map<String, Any>
                         return@map ScoreboardEntry(
@@ -45,6 +46,6 @@ class ScoreboardDataRepository @Inject constructor(
     }
 
     companion object {
-        const val TAG = "ScoreboardDataRepository"
+        const val TAG = "ScoreboardDataRepo"
     }
 }

@@ -1,6 +1,5 @@
 package at.renehollander.photosofinterest.data.source
 
-import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Scoreboard
 
 /**

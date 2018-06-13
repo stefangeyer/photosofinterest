@@ -86,5 +86,9 @@
     <string name="challenge">Challenge</string>
     <string name="location">Location</string>
     <string name="score">Score:</string>
+    <string name="expand">Expand</string>
+    <string name="icon">Icon</string>
+    <string name="upvote">Upvote</string>
+    <string name="downvote">Downvote</string>
 
 </resources>

@@ -15,7 +15,7 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class UserDataRepository @Inject constructor(
-        val db: FirebaseFirestore
+        private val db: FirebaseFirestore
 ) : UserDataSource {
     override fun loadUser(id: String, callback: GetRecordCallback<User>) {
         db.collection("users").document(id).get().addOnSuccessListener {

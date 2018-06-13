@@ -7,11 +7,11 @@ import android.support.v4.app.FragmentPagerAdapter
 import at.renehollander.photosofinterest.R
 
 class ChallengesFragmentPagerAdapter(
-        fragmentManager: FragmentManager,
-        val context: Context,
-        val nearby: Fragment,
-        val ongoing: Fragment,
-        val all: Fragment
+        private val fragmentManager: FragmentManager,
+        private val context: Context,
+        private val nearby: Fragment,
+        private val ongoing: Fragment,
+        private val all: Fragment
 ) : FragmentPagerAdapter(fragmentManager) {
 
     override fun getItem(position: Int): Fragment {

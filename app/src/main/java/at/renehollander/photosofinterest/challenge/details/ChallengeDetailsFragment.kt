@@ -33,11 +33,11 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
     @Inject
     lateinit var presenter: ChallengeDetailsContract.Presenter
 
-    var googleMap: GoogleMap? = null
-    var markers: MutableList<Marker> = mutableListOf()
+    private var googleMap: GoogleMap? = null
+    private var markers: MutableList<Marker> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_challenge_details, container, false);
+        return inflater.inflate(R.layout.fragment_challenge_details, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
