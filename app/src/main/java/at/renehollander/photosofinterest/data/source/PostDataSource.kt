@@ -21,7 +21,6 @@ interface PostDataSource {
 
     fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
     fun uploadPostImage(file: String, callback: GetRecordCallback<String>)
-    fun addPost(challenge: Challenge, poi: PointOfInterest, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
     fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>)
     fun loadPosts(user: User, callback: LoadRecordCallback<Post>)
 }

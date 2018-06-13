@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.data.source
 
+import android.net.Uri
 import android.util.Log
 import at.renehollander.photosofinterest.data.*
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
@@ -10,7 +11,6 @@ import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.storage.FirebaseStorage
-import java.io.FileInputStream
 import java.util.*
 import javax.inject.Inject
 
@@ -195,46 +195,30 @@ class PostDataRepository @Inject constructor(
         }
     }
 
-    override fun addPost(challenge: Challenge, poi: PointOfInterest, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>) {
-        val timestamp = Timestamp.now()
-        val data = mutableMapOf<String, Any>()
-        val poi = PointOfInterest() // TODO calculate!
-
-        data["user"] = db.collection("users").document(userManager.getCurrentUser()!!.id)
-        data["poi"] = db.collection("challenges").document(challenge.id).collection("pois").document(poi.id)
-        data["title"] = title
-        data["origin"] = origin
-        data["timestamp"] = timestamp
-        data["upvotes"] = 0
-        data["downvotes"] = 0
-        db.collection("challenges").document(challenge.id).collection("posts").add(data).addOnSuccessListener {
-            callback.onRecordLoaded(Post(
-                    id = it.id,
-                    challenge = challenge,
-                    poi = poi,
-                    upvotes = 0,
-                    downvotes = 0,
-                    image = image,
-                    title = title,
-                    timestamp = timestamp,
-                    user = userManager.getCurrentUser()!!,
-                    origin = origin
-            ))
-        }.addOnFailureListener {
-            callback.onDataNotAvailable()
-        }
-    }
-
     override fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>) {
-        val data = mutableMapOf<String, Any>()
-        val poi = PointOfInterest() // TODO calculate!
+        var nearest: PointOfInterest? = null
+        var nearestDist: Double = Double.MAX_VALUE
+        for (poi in challenge.pois) {
+            val dist = haversine(poi.location, origin)
+            if (dist < nearestDist) {
+                nearestDist = dist
+                nearest = poi
+            }
+        }
+        // TODO: check radius!!!!
 
+        if (nearest == null) callback.onDataNotAvailable()
+        nearest!!
+
+
+        val data = mutableMapOf<String, Any>()
         data["user"] = db.collection("users").document(userManager.getCurrentUser()!!.id)
-        data["poi"] = db.collection("challenges").document(challenge.id).collection("pois").document(poi.id)
+        data["poi"] = db.collection("challenges").document(challenge.id).collection("pois").document(nearest.id)
         data["title"] = title
         data["origin"] = origin
         data["upvotes"] = 0
         data["downvotes"] = 0
+        data["timestamp"] = Timestamp.now()
 
         uploadPostImage(image, object : GetRecordCallback<String> {
             override fun onRecordLoaded(record: String) {
@@ -244,7 +228,7 @@ class PostDataRepository @Inject constructor(
                     callback.onRecordLoaded(Post(
                             id = it.id,
                             challenge = challenge,
-                            poi = poi,
+                            poi = nearest,
                             upvotes = 0,
                             downvotes = 0,
                             image = image,
@@ -270,17 +254,35 @@ class PostDataRepository @Inject constructor(
             return
         }
         val storageRef = this.storage.reference
-        val id = UUID.randomUUID()
-        val extension = file.substring(file.lastIndexOf(".") + 1..file.length)
+        val id = UUID.randomUUID().toString().replace("-", "")
+        val extension = file.substringAfterLast('.', "")
         val internal = "posts/$id.$extension"
         val imageRef = storageRef.child(internal)
-        val uploadTask = imageRef.putStream(FileInputStream(file))
+        val uploadTask = imageRef.putFile(Uri.parse(file))
 
         uploadTask.addOnSuccessListener {
             callback.onRecordLoaded(internal)
         }.addOnFailureListener {
             callback.onDataNotAvailable()
         }
+    }
+
+    private fun haversine(c1: GeoPoint, c2: GeoPoint): Double {
+        return haversine(c1.latitude, c2.latitude, c1.longitude, c2.longitude)
+    }
+
+    private fun haversine(lat1: Double, lat2: Double, lon1: Double, lon2: Double): Double {
+        val R = 6371e3 // metres
+        val phi1 = Math.toRadians(lat1)
+        val phi2 = Math.toRadians(lat2)
+        val deltaphi = Math.toRadians(lat2 - lat1)
+        val deltalambda = Math.toRadians(lon2 - lon1)
+
+        val a = Math.sin(deltaphi / 2) * Math.sin(deltaphi / 2) + Math.cos(phi1) * Math.cos(phi2) *
+                Math.sin(deltalambda / 2) * Math.sin(deltalambda / 2)
+        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+
+        return R * c
     }
 
     companion object {
