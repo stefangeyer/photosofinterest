@@ -48,7 +48,6 @@ class ChallengePresenter @Inject constructor(
     }
 
     override fun loadChallengePosts() {
-
         postDataRepository.loadPosts(challenge!!, object : LoadRecordCallback<Post> {
             override fun onRecordsLoaded(records: List<Post>) {
                 view?.updateChallengePosts(records)

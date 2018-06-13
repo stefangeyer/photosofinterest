@@ -7,9 +7,11 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import at.renehollander.photosofinterest.GlideApp
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.image.ImageActivity
 import com.facebook.drawee.view.SimpleDraweeView
+import com.google.firebase.storage.FirebaseStorage
 
 class PostViewHolder(
         private val parentView: View,
@@ -69,7 +71,13 @@ class PostViewHolder(
     }
 
     override fun updateImage(uri: String) {
-        this.image.setImageURI(uri)
+        val storageRef = FirebaseStorage.getInstance().reference
+        val imageReference = storageRef.child(uri)
+
+        GlideApp.with(this.parentView)
+                .load(imageReference)
+                .centerCrop()
+                .into(image)
     }
 
     override fun updateVotes(votes: Int) {
