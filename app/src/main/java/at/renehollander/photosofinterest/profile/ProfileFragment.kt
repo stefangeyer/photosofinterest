@@ -1,17 +1,21 @@
 package at.renehollander.photosofinterest.profile
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
-import at.renehollander.photosofinterest.data.*
+import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.User
+import at.renehollander.photosofinterest.data.source.LoadRecordCallback
+import at.renehollander.photosofinterest.data.source.PostDataRepository
+import at.renehollander.photosofinterest.data.source.UserManager
+import at.renehollander.photosofinterest.feed.domain.usecase.LoadPosts
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
-import com.google.firebase.firestore.GeoPoint
-import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_profile.*
-import org.threeten.bp.LocalDateTime
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.View {
@@ -22,6 +26,9 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
     @Inject
     lateinit var postFragment: PostFragment
 
+    @Inject
+    lateinit var postDataRepository: PostDataRepository
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
@@ -31,23 +38,22 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        val now = LocalDateTime.now()
-        val challenge1 = Challenge(
-                title = "Challenge 1",
-                image = "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Poertschach_von_Gloriette_04.jpg/1920px-Poertschach_von_Gloriette_04.jpg",
-                start = now.minusDays(4), end = now.plusDays(3), description = "Desc 123456", regions = listOf(Region("Some Region", getPoints())), pois = getPois())
-        user = User(email = "user1@example.com", name = "User 1", image = "http://tal.am/bc/wm.php?id=tal-ami-profile-1")
-        val image1 = "http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"
-        val post1 = Post(user = user, challenge = challenge1, title = "Some Post Title", image = image1, upvotes = 10, downvotes = 5, origin = getPoints()[0], poi = getPois()[0])
-
-        presenter.setUser(at.renehollander.photosofinterest.data.source.UserManager.getInstance().getCurrentUser()!!)
+        user = UserManager.getInstance().getCurrentUser()!!
+        presenter.setUser(user)
 
         this.postFragment.setOnDataReloadListener(object : PostContract.View.OnDataReloadListener {
             override fun onReload() {
-                this@ProfileFragment.postFragment.adapter.setAll(listOf(
-                        post1
-                ))
-                this@ProfileFragment.postFragment.stopRefreshing()
+                postDataRepository.loadPosts(user, object : LoadRecordCallback<Post> {
+                    override fun onRecordsLoaded(records: List<Post>) {
+                        this@ProfileFragment.postFragment.adapter.setAll(records)
+                        this@ProfileFragment.postFragment.stopRefreshing()
+                    }
+
+                    override fun onDataNotAvailable() {
+                        this@ProfileFragment.postFragment.stopRefreshing()
+                        Log.d(LoadPosts.TAG, "Fetching challenges did not produce any data")
+                    }
+                })
             }
         })
 
@@ -78,10 +84,4 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
         presenter.dropView()
     }
 
-    private fun getPoints() = listOf(GeoPoint(0.1, 23.7), GeoPoint(45.2, 99.9), GeoPoint(55.8, 12.789))
-
-    private fun getPois() = listOf(
-            PointOfInterest(name = "POI 1", location = getPoints()[0], radius = 50.0),
-            PointOfInterest(name = "POI 2", location = getPoints()[1], radius = 30.0),
-            PointOfInterest(name = "POI 3", location = getPoints()[2], radius = 66.0))
 }
