@@ -1,7 +1,9 @@
 package at.renehollander.photosofinterest.challenge.details
 
+import android.Manifest
 import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -26,7 +28,7 @@ import org.threeten.bp.Duration
 import javax.inject.Inject
 
 
-class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View, OnMapReadyCallback {
+class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), ChallengeDetailsContract.View, OnMapReadyCallback, GoogleMap.OnMapLoadedCallback {
 
     @Inject
     lateinit var presenter: ChallengeDetailsContract.Presenter
@@ -93,9 +95,15 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
 
     override fun onMapReady(map: GoogleMap?) {
         googleMap = map
+        googleMap?.setOnMapLoadedCallback(this)
+        if (checkLocationPermission()) {
+            googleMap?.isMyLocationEnabled = true
+        }
+    }
+
+    override fun onMapLoaded() {
         googleMap?.moveCamera(CameraUpdateFactory.newLatLngBounds(LatLngBounds(LatLng(46.506763, 9.367204), LatLng(49.204010, 17.178483)), 0))
         presenter.update()
-
     }
 
     override fun updateTitle(title: String) {
@@ -144,5 +152,16 @@ class ChallengeDetailsFragment @Inject constructor() : DaggerFragment(), Challen
         animator.duration = 300
         animator.interpolator = Utils.createInterpolator(Utils.LINEAR_INTERPOLATOR)
         return animator
+    }
+
+    private fun checkLocationPermission(): Boolean {
+        val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
+        val res = context!!.checkCallingOrSelfPermission(permission)
+        if (res != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), 1)
+            return false
+        } else {
+            return true
+        }
     }
 }
