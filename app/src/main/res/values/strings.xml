@@ -5,9 +5,6 @@
     <string name="title_scoreboard">Scoreboard</string>
     <string name="title_profile">Profile</string>
 
-    <string name="sign_in">Sign In</string>
-    <string name="sign_out">Sign Out</string>
-
     <string name="button_ok">OK</string>
 
     <string name="placeholder">PLACEHOLDER</string>
@@ -18,6 +15,26 @@
     </plurals>
 
     <string name="current_leader">Current Leader</string>
+
+    <!-- Auth -->
+    <string name="auth_sign_in">Sign In</string>
+    <string name="auth_sign_out">Sign Out</string>
+    <string name="auth_pending">Authenticating…</string>
+
+    <string name="error_auth">The auth process was not successful: </string>
+    <string name="error_other">An error occurred. Please try again later.</string>
+    <string name="error_no_email">Please enter your email address</string>
+    <string name="error_no_password">Please enter your password</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_email_already_in_use">This email address is already associated with a different user account</string>
+    <string name="error_password_too_short">This password is too short</string>
+    <string name="error_incorrect_credentials">You provided incorrect user credentials</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="error_user_not_available">This user account does not exist or has been disabled by an administrator</string>
+    <string name="error_wrong_provider">This email address already has been used with a different provider</string>
+
+    <string name="error_google_not_successful">The Google authentication was not successful</string>
+    <string name="error_google_connection_failed">The connection to the Google servers was interrupted. Please try again later</string>
 
     <!-- Image Viewer -->
     <string name="image_cannot_load">Cannot load image</string>
@@ -30,6 +47,11 @@
     <string name="feed_category_top">Top</string>
     <string name="feed_cannot_reload">Cannot fetch posts</string>
 
+    <!-- Post -->
+    <string name="post_created">Post was created</string>
+    <string name="post_cannot_create">Post could not be created</string>
+    <string name="post_cannot_reload">Cannot fetch posts</string>
+    <string name="post_uploading">Uploading your photo…</string>
 
     <!-- Challenge Details -->
     <string name="challenge_category_details">Details</string>
@@ -63,5 +85,12 @@
     <string name="title">Title</string>
     <string name="challenge">Challenge</string>
     <string name="location">Location</string>
+    <string name="score">Score:</string>
+    <string name="expand">Expand</string>
+    <string name="icon">Icon</string>
+    <string name="upvote">Upvote</string>
+    <string name="downvote">Downvote</string>
+    <string name="already_voted">You already voted for that post!</string>
+    <string name="voted">Voted!</string>
 
 </resources>

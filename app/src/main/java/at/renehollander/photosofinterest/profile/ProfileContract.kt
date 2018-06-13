@@ -2,6 +2,7 @@ package at.renehollander.photosofinterest.profile
 
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
+import at.renehollander.photosofinterest.data.User
 
 /**
  * Contract for the profile parentView
@@ -11,6 +12,14 @@ import at.renehollander.photosofinterest.BaseView
  */
 interface ProfileContract {
 
-    interface View : BaseView
-    interface Presenter : BasePresenter<View>
+    interface View : BaseView {
+        fun updateProfileImage(uri: String)
+        fun updateName(name: String)
+        fun updateScore(score: Int)
+    }
+
+    interface Presenter : BasePresenter<View> {
+        fun setUser(user: User)
+        fun updateUser()
+    }
 }

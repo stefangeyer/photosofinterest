@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.feed.post
 
+import at.renehollander.photosofinterest.BaseAdapter
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Post
@@ -27,6 +28,8 @@ interface PostContract {
         fun enableVoteButtons(enabled: Boolean)
         fun showImageDetails(title: String, uri: String)
         fun updateViewHolderPosition(position: Int)
+        fun showVotedToast()
+        fun showAlreadyVotedToast()
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
@@ -38,12 +41,5 @@ interface PostContract {
         fun onBind()
     }
 
-    interface Adapter : BaseView {
-        fun setAll(posts: List<Post>)
-        fun addItem(post: Post)
-        fun removeItem(post: Post)
-        fun getItemAt(position: Int): Post
-        fun getItems(): List<Post>
-        fun notifyAdapter()
-    }
+    interface Adapter : BaseAdapter<Post>
 }

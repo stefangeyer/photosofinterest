@@ -1,8 +1,13 @@
 package at.renehollander.photosofinterest.data.source
 
-import at.renehollander.photosofinterest.data.*
+import android.util.Log
+import at.renehollander.photosofinterest.data.Scoreboard
+import at.renehollander.photosofinterest.data.ScoreboardEntry
+import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.inject.scopes.ApplicationScoped
+import com.google.firebase.functions.FirebaseFunctions
 import javax.inject.Inject
+
 
 /**
  * Implementation of DataSource using a Repository Pattern.
@@ -14,20 +19,33 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class ScoreboardDataRepository @Inject constructor(
+        private val fbFunctions: FirebaseFunctions
 ) : ScoreboardDataSource {
 
     override fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>) {
-        callback.onRecordLoaded(Scoreboard("Global",
-                (1..50).map { ScoreboardEntry(null, User("user$it@example.com", "User $it", Image("http://i.pravatar.cc/256?img=$it")), it * 10) }.reversed(),
-                null))
+        fbFunctions.getHttpsCallable("getGlobalScoreboard")
+                .call()
+                .addOnSuccessListener {
+                    @Suppress("UNCHECKED_CAST")
+                    callback.onRecordLoaded(Scoreboard(title = "Global", scores = (it.data as List<Map<String, Any>>).map { entryData ->
+                        val userData = entryData["user"] as Map<String, Any>
+                        return@map ScoreboardEntry(
+                                user = User(
+                                        id = userData["id"] as String,
+                                        name = userData["name"] as String,
+                                        image = userData["image"] as String
+                                ),
+                                score = entryData["score"] as Int,
+                                post = null
+                        )
+                    }, challenge = null))
+                }.addOnFailureListener {
+                    Log.e(TAG, "Error getting scoreboard", it)
+                    callback.onDataNotAvailable()
+                }
     }
 
-    override fun loadChallengeScoreboard(challenge: Challenge, callback: GetRecordCallback<Scoreboard>) {
-        callback.onRecordLoaded(Scoreboard("Global", mutableListOf(
-                ScoreboardEntry(null, User("user1@example.com", "User 1", Image("img1")), 20),
-                ScoreboardEntry(null, User("user2@example.com", "User 2", Image("img2")), 30),
-                ScoreboardEntry(null, User("user3@example.com", "User 3", Image("img2")), 100)
-        ), challenge))
+    companion object {
+        const val TAG = "ScoreboardDataRepo"
     }
-
 }

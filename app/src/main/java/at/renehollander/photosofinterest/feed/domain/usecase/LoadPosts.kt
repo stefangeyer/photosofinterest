@@ -20,9 +20,10 @@ class LoadPosts @Inject constructor(
     override fun executeUseCase(requestValues: RequestValues?) {
         Log.d(TAG, "Fetching challenges from remote")
 
+        val requestFilter = requestValues?.filter
         var remoteFilter: Filter = Filter.RISING
 
-        when (requestValues?.filter) {
+        when (requestFilter) {
             RequestFilter.RISING -> remoteFilter = Filter.RISING
             RequestFilter.RECENT -> remoteFilter = Filter.RECENT
             RequestFilter.TOP -> remoteFilter = Filter.TOP
@@ -30,7 +31,7 @@ class LoadPosts @Inject constructor(
 
         this.dataSource.loadPosts(remoteFilter, object : LoadRecordCallback<Post> {
             override fun onRecordsLoaded(records: List<Post>) {
-                this@LoadPosts.useCaseCallback?.onSuccess(ResponseValue(records))
+                this@LoadPosts.useCaseCallback?.onSuccess(ResponseValue(requestFilter, records))
                 Log.d(TAG, "Fetching challenges was successful")
             }
 
@@ -43,5 +44,5 @@ class LoadPosts @Inject constructor(
 
     class RequestValues(val filter: RequestFilter) : UseCase.RequestValues
 
-    class ResponseValue(val posts: List<Post>) : UseCase.ResponseValue
+    class ResponseValue(val filter: RequestFilter?, val posts: List<Post>) : UseCase.ResponseValue
 }

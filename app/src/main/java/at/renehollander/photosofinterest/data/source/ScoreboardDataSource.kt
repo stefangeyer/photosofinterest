@@ -1,6 +1,5 @@
 package at.renehollander.photosofinterest.data.source
 
-import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Scoreboard
 
 /**
@@ -11,5 +10,4 @@ import at.renehollander.photosofinterest.data.Scoreboard
  */
 interface ScoreboardDataSource {
     fun loadGlobalScoreboard(callback: GetRecordCallback<Scoreboard>)
-    fun loadChallengeScoreboard(challenge: Challenge, callback: GetRecordCallback<Scoreboard>)
 }

@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.challenge.details.ChallengeDetailsFragment
-import at.renehollander.photosofinterest.feed.FeedFragment
+import at.renehollander.photosofinterest.feed.post.PostFragment
 
 class ChallengeFragmentPagerAdapter constructor(
         fragmentManager: FragmentManager
@@ -14,7 +14,7 @@ class ChallengeFragmentPagerAdapter constructor(
 
     lateinit var context: Context
     lateinit var challengeDetailsFragment: ChallengeDetailsFragment
-    lateinit var feedFragment: FeedFragment
+    lateinit var postFragment: PostFragment
 
     override fun getCount(): Int {
         return 2
@@ -23,7 +23,7 @@ class ChallengeFragmentPagerAdapter constructor(
     override fun getItem(position: Int): Fragment {
         return when (position) {
             0 -> challengeDetailsFragment
-            1 -> feedFragment
+            1 -> this.postFragment
             else -> throw IllegalStateException("not implemented")
         }
     }

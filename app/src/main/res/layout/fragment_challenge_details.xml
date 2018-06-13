@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -11,6 +11,7 @@
         android:layout_margin="8dp"
         android:divider="@drawable/empty_10dp_divider"
         android:orientation="vertical"
+        android:paddingBottom="10dp"
         android:showDividers="middle"
         tools:context=".feed.FeedFragment">
 
@@ -19,23 +20,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp">
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    xmlns:tools="http://schemas.android.com/tools"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    tools:context="com.textviewaboveimage_android_examples.com.MainActivity">
+                    android:layout_height="wrap_content">
 
                     <com.facebook.drawee.view.SimpleDraweeView
                         android:id="@+id/challengeImage"
                         android:layout_width="match_parent"
-                        android:layout_height="200dp" />
+                        android:layout_height="200dp"
+                        android:background="@android:color/black" />
 
                     <TextView
                         android:id="@+id/challengeName"
@@ -44,32 +44,79 @@
                         android:layout_alignBottom="@id/challengeImage"
                         android:layout_alignEnd="@+id/challengeImage"
                         android:layout_alignStart="@+id/challengeImage"
+                        android:background="@color/colorWhiteTransparent"
                         android:padding="10dp"
-                        android:textAppearance="?android:attr/textAppearanceLarge"
-                        android:textColor="#fdfcfc" />
+                        android:text="@string/placeholder"
+                        android:textColor="@color/colorBlack"
+                        android:textSize="24sp" />
                 </RelativeLayout>
 
-                <TextView
-                    android:id="@+id/challengeEndTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/ic_access_time_black_24dp"
-                    android:textSize="20sp" />
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
 
-                <TextView
-                    android:id="@+id/challengePlace"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="8dp"
-                    android:layout_marginTop="8dp"
-                    android:drawableStart="@drawable/ic_place_black_24dp"
-                    android:textSize="16sp" />
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2">
 
+                        <ImageView
+                            android:id="@+id/imageView1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/challenges_clock_desc"
+                            app:layout_constraintEnd_toStartOf="@+id/challengePlace"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:srcCompat="@drawable/ic_place_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/challengePlace"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/placeholder"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toEndOf="@+id/imageView1" />
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/constraintLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.502"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="@string/challenges_clock_desc"
+                            app:layout_constraintEnd_toStartOf="@+id/challengeEndTime"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:srcCompat="@drawable/ic_access_time_black_24dp" />
+
+                        <TextView
+                            android:id="@+id/challengeEndTime"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="@string/placeholder"
+                            android:textColor="@android:color/black"
+                            android:textSize="18sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/imageView2"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </android.support.constraint.ConstraintLayout>
+                </android.support.constraint.ConstraintLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -77,27 +124,75 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp">
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="10dp">
+                app:ael_duration="500"
+                app:ael_expanded="true"
+                app:ael_interpolator="accelerate"
+                app:ael_orientation="vertical">
 
-                <TextView
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/descriptionHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_help_black_24dp"
-                    android:text="@string/description"
-                    android:textSize="24sp" />
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:paddingBottom="0dp">
 
-                <TextView
-                    android:id="@+id/challengeDescription"
+                    <ImageView
+                        android:id="@+id/descriptionExpanded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/expand"
+                        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/challenges_clock_desc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_help_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/description"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView3"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/descriptionExpandableLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="match_parent"
+                    app:ael_duration="200"
+                    app:ael_expanded="false">
+
+                    <TextView
+                        android:id="@+id/challengeDescription"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:text="@string/placeholder" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
@@ -105,29 +200,71 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            card_view:cardCornerRadius="4dp">
+            android:paddingBottom="4dp"
+            app:cardCornerRadius="4dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:ael_duration="500"
+                app:ael_expanded="true"
+                app:ael_interpolator="accelerate"
+                app:ael_orientation="vertical">
 
-                <TextView
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/mapHeader"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:drawableStart="@drawable/ic_map_black_24dp"
-                    android:padding="10dp"
-                    android:text="@string/points_of_interest"
-                    android:textSize="24sp" />
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
 
-                <com.facebook.drawee.view.SimpleDraweeView
-                    android:id="@+id/pointsImage"
+                    <ImageView
+                        android:id="@+id/mapExpanded"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/textView2"
+                        android:contentDescription="@string/expand"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/challenges_clock_desc"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@drawable/ic_map_black_24dp" />
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:text="@string/points_of_interest"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/imageView4"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </android.support.constraint.ConstraintLayout>
+
+                <com.github.aakira.expandablelayout.ExpandableRelativeLayout
+                    android:id="@+id/mapExpandableLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
+                    android:layout_height="match_parent"
+                    app:ael_duration="400"
+                    app:ael_expanded="true">
+
+                    <at.renehollander.photosofinterest.view.AppMapView
+                        android:id="@+id/map"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp" />
+                </com.github.aakira.expandablelayout.ExpandableRelativeLayout>
             </LinearLayout>
-
         </android.support.v7.widget.CardView>
-
     </LinearLayout>
-
 </ScrollView>

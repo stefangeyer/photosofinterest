@@ -1,5 +1,6 @@
 package at.renehollander.photosofinterest.challenges.overview
 
+import at.renehollander.photosofinterest.BaseAdapter
 import at.renehollander.photosofinterest.BasePresenter
 import at.renehollander.photosofinterest.BaseView
 import at.renehollander.photosofinterest.data.Challenge
@@ -9,15 +10,10 @@ interface ChallengeOverviewContract {
     interface View : BaseView {
         fun stopRefreshing()
         fun setOnDataReloadListener(listener: OnDataReloadListener)
-        fun setOnShowDetailsListener(listener: OnShowDetailsListener)
         fun getAdapter(): Adapter
 
         interface OnDataReloadListener {
             fun onReload()
-        }
-
-        interface OnShowDetailsListener {
-            fun showDetails(challenge: Challenge)
         }
     }
 
@@ -27,8 +23,6 @@ interface ChallengeOverviewContract {
         fun updateEnd(between: Duration)
         fun updateLocations(locations: List<String>)
         fun showImage(title: String, uri: String)
-        fun showDetails()
-        fun showUploads()
     }
 
     interface ViewHolderPresenter : BasePresenter<ViewHolder> {
@@ -39,13 +33,12 @@ interface ChallengeOverviewContract {
         fun onUploadsButtonClicked()
     }
 
-    interface Adapter {
-        fun setAll(posts: List<Challenge>)
-        fun addItem(post: Challenge)
-        fun removeItem(post: Challenge)
-        fun getItemAt(position: Int): Challenge
-        fun getItems(): List<Challenge>
-        fun notifyAdapter()
-        fun showChallenge(challenge: Challenge)
+    interface Adapter : BaseAdapter<Challenge> {
+        fun showChallenge(challenge: Challenge, showUploads: Boolean)
+        fun setOnShowDetailsListener(listener: OnShowDetailsListener)
+
+        interface OnShowDetailsListener {
+            fun showDetails(challenge: Challenge, showUploads: Boolean)
+        }
     }
 }

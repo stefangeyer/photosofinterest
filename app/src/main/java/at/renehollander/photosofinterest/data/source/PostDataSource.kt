@@ -1,6 +1,9 @@
 package at.renehollander.photosofinterest.data.source
 
+import at.renehollander.photosofinterest.data.Challenge
 import at.renehollander.photosofinterest.data.Post
+import at.renehollander.photosofinterest.data.User
+import com.google.firebase.firestore.GeoPoint
 
 /**
  * Example data source that provides operations for a sample entity
@@ -14,4 +17,11 @@ interface PostDataSource {
     enum class Filter {
         RISING, RECENT, TOP
     }
+
+    fun createPost(challenge: Challenge, title: String, image: String, origin: GeoPoint, callback: GetRecordCallback<Post>)
+    fun uploadPostImage(file: String, callback: GetRecordCallback<String>)
+    fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>)
+    fun loadPosts(user: User, callback: LoadRecordCallback<Post>)
+    fun downvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>)
+    fun upvotePost(post: Post, callback: GetRecordCallback<Post>, alreadyVoted: GetRecordCallback<Boolean>)
 }

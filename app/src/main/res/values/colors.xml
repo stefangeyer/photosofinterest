@@ -7,4 +7,5 @@
     <color name="colorWhiteTransparent">#99FFFFFF</color>
 
     <color name="colorLeader">#FFC400</color>
+    <color name="colorBlack">#000000</color>
 </resources>
