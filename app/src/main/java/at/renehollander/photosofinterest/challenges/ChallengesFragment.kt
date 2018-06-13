@@ -10,6 +10,7 @@ import at.renehollander.photosofinterest.challenges.overview.ChallengeOverviewCo
 import at.renehollander.photosofinterest.challenges.overview.ChallengeOverviewFragment
 import at.renehollander.photosofinterest.data.Challenge
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_challenges.*
 import javax.inject.Inject
 import javax.inject.Provider
 

@@ -14,6 +14,7 @@ import com.facebook.drawee.backends.pipeline.Fresco
 import com.facebook.drawee.controller.BaseControllerListener
 import com.facebook.imagepipeline.image.ImageInfo
 import dagger.android.support.DaggerAppCompatActivity
+import kotlinx.android.synthetic.main.activity_image.*
 import javax.inject.Inject
 
 

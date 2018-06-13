@@ -21,6 +21,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.storage.FirebaseStorage
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_challenge_details.*
 import org.threeten.bp.Duration
 import javax.inject.Inject
 

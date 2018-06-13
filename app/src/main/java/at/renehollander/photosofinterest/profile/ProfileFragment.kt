@@ -15,6 +15,7 @@ import at.renehollander.photosofinterest.feed.domain.usecase.LoadPosts
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_profile.*
 import javax.inject.Inject
 
 class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.View {
