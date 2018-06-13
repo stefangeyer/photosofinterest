@@ -55,6 +55,5 @@ class ChallengePresenter @Inject constructor(
 
     override fun update() {
         this.view?.getDetailsPresenter()?.setChallenge(challenge)
-        this.view?.getDetailsPresenter()?.update()
     }
 }

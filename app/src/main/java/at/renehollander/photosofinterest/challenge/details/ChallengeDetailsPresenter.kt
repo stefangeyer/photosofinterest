@@ -21,7 +21,6 @@ class ChallengeDetailsPresenter @Inject constructor(
 
     override fun setChallenge(challenge: Challenge?) {
         this.challenge = challenge
-        this.update()
     }
 
     override fun getChallenge(): Challenge? {
