@@ -1,7 +1,9 @@
 package at.hollander.datatool;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.GeoPoint;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -36,7 +38,6 @@ public class DataTool {
         public Date startTime;
         public Date endTime;
         public String image;
-        public List<PointOfInterest> pois;
         public List<Region> regions;
 
         @Override
@@ -47,7 +48,6 @@ public class DataTool {
                     ", startTime=" + startTime +
                     ", endTime=" + endTime +
                     ", image='" + image + '\'' +
-                    ", pois=" + pois +
                     ", regions=" + regions +
                     '}';
         }
@@ -68,7 +68,7 @@ public class DataTool {
 
     public static class PointOfInterest {
         public String name;
-        public Point location;
+        public GeoPoint location;
         public double radius;
 
         @Override
@@ -112,9 +112,10 @@ public class DataTool {
 
         Firestore fs = FirestoreClient.getFirestore();
 
-        Challenge challenge = fs.document("challenges/BK99EjGsYIyGK44KqJ3V").get().get().toObject(Challenge.class);
+//        Challenge challenge = fs.document("challenges/BK99EjGsYIyGK44KqJ3V").get().get().toObject(Challenge.class);
+//        System.out.println(challenge);
 
-        System.out.println(challenge);
+        CollectionReference cr = fs.collection("challenges/BK99EjGsYIyGK44KqJ3V/pois");
 
         Kml kml = Kml.unmarshal(new File("data/seen.kml"));
         Folder folder = (Folder) (((Document) kml.getFeature()).getFeature()).get(0);
@@ -157,19 +158,12 @@ public class DataTool {
                     outArr.put(o);
 
                     PointOfInterest poi = new PointOfInterest();
-                    poi.location = new Point();
-                    poi.location.latitude = center.getLatitude();
-                    poi.location.longitude = center.getLongitude();
+                    poi.location = new GeoPoint(center.getLatitude(), center.getLongitude());
                     poi.name = name;
                     poi.radius = radius;
-                    challenge.pois.add(poi);
+                    cr.add(poi).get();
                 }
             }
-        }
-        System.out.println(challenge);
-
-        if (true) {
-            fs.document("challenges/BK99EjGsYIyGK44KqJ3V").set(challenge);
         }
 
         outArr.write(new FileWriter(new File("data/points.json")));
