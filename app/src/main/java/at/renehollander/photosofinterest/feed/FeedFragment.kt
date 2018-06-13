@@ -10,6 +10,7 @@ import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_feed.*
 import javax.inject.Inject
 import javax.inject.Provider
 

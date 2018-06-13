@@ -24,6 +24,7 @@ import at.renehollander.photosofinterest.feed.post.PostContract
 import at.renehollander.photosofinterest.feed.post.PostFragment
 import at.renehollander.photosofinterest.image.ImageActivity
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_challenge.*
 import java.io.File
 import javax.inject.Inject
 

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import dagger.android.support.DaggerFragment
+import kotlinx.android.synthetic.main.fragment_recycler_view.*
 import javax.inject.Inject
 
 class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
