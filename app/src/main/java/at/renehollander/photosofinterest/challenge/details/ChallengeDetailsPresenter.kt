@@ -38,11 +38,12 @@ class ChallengeDetailsPresenter @Inject constructor(
                 }
             })
         }
-        this.update()
+
+        // DO NOT PERFORM AN UI UPDATE HERE
     }
 
     override fun getChallenge(): Challenge? {
-        return challenge;
+        return challenge
     }
 
     override fun update() {

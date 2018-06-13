@@ -6,17 +6,18 @@ import at.renehollander.photosofinterest.data.Scoreboard
 import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.data.source.GetRecordCallback
 import at.renehollander.photosofinterest.data.source.ScoreboardDataSource
+import at.renehollander.photosofinterest.data.source.UserManager
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import javax.inject.Inject
 
 class ScoreboardPresenter @Inject constructor(
-        private var scoreboardDataSource: ScoreboardDataSource
+        private val scoreboardDataSource: ScoreboardDataSource,
+        private val userManager: UserManager
 ) : ScoreboardContract.Presenter {
 
     private var view: ScoreboardContract.View? = null
-    private var user: User? = null
 
     override fun takeView(view: ScoreboardContract.View) {
         this.view = view
@@ -30,13 +31,11 @@ class ScoreboardPresenter @Inject constructor(
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLoginEvent(event: SignInEvent) {
-        this.user = event.user
         view?.onSignIn(event.user)
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onLogoutEvent(event: SignOutEvent) {
-        this.user = null
         view?.onSignOut()
     }
 
@@ -51,5 +50,5 @@ class ScoreboardPresenter @Inject constructor(
         })
     }
 
-    override fun getUser(): User? = this.user
+    override fun getUser(): User? = this.userManager.getCurrentUser()
 }

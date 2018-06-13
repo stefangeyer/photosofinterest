@@ -1,5 +1,7 @@
 package at.renehollander.photosofinterest.main
 
+import at.renehollander.photosofinterest.auth.SignInEvent
+import at.renehollander.photosofinterest.auth.SignOutEvent
 import at.renehollander.photosofinterest.data.User
 import at.renehollander.photosofinterest.data.source.UserManager
 import org.greenrobot.eventbus.EventBus
@@ -15,11 +17,22 @@ class MainPresenter @Inject constructor(
 
     override fun takeView(view: MainContract.View) {
         this.view = view
+        EventBus.getDefault().register(this)
     }
 
     override fun dropView() {
         this.view = null
         EventBus.getDefault().unregister(this)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSignInEvent(event: SignInEvent) {
+        this.view?.onSignIn(event.user)
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onSignOutEvent(event: SignOutEvent) {
+        this.view?.onSignOut()
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -38,7 +51,5 @@ class MainPresenter @Inject constructor(
         this.view?.startSignOut()
     }
 
-    override fun getUser(): User? {
-        return this.userManager.getCurrentUser()
-    }
+    override fun getUser(): User? = this.userManager.getCurrentUser()
 }
