@@ -15,15 +15,11 @@ interface MainContract {
     interface View : BaseView {
         fun startSignIn()
         fun startSignOut()
-        fun onSignIn(user: User)
-        fun onSignOut()
     }
 
     interface Presenter : BasePresenter<View> {
         fun signIn()
         fun signOut()
         fun getUser(): User?
-        fun enableAuthEvents()
-        fun disableAuthEvents()
     }
 }
