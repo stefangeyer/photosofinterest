@@ -21,10 +21,9 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class ChallengeDataRepository @Inject constructor(
+        val db: FirebaseFirestore
 ) : ChallengeDataSource {
     override fun loadChallenges(filter: ChallengeDataSource.Filter, callback: LoadRecordCallback<Challenge>) {
-        val db = FirebaseFirestore.getInstance()
-
         db.collection("challenges").get().addOnSuccessListener {
             @Suppress("UNCHECKED_CAST")
             val challenges = it.documents.map {
@@ -80,8 +79,6 @@ class ChallengeDataRepository @Inject constructor(
     }
 
     override fun loadChallengeDetails(challenge: Challenge, callback: GetRecordCallback<Challenge>) {
-        val db = FirebaseFirestore.getInstance()
-
         db.collection("challenges").document(challenge.id).collection("pois").get().addOnSuccessListener {
             @Suppress("UNCHECKED_CAST")
             challenge.pois = it.documents.map {
