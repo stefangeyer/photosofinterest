@@ -3,6 +3,7 @@ package at.renehollander.photosofinterest.feed.post
 import at.renehollander.photosofinterest.data.Post
 import at.renehollander.photosofinterest.data.source.UserManager
 import at.renehollander.photosofinterest.main.PerformSignInEvent
+import com.google.firebase.storage.FirebaseStorage
 import org.greenrobot.eventbus.EventBus
 
 class PostViewHolderPresenter(
@@ -24,7 +25,9 @@ class PostViewHolderPresenter(
     override fun onImageClicked() {
         if (position == null) return
         val post = this.adapter.getItemAt(position!!)
-        this.view?.showImageDetails(post.title, post.image)
+        FirebaseStorage.getInstance().reference.child(post.image).downloadUrl.addOnSuccessListener {
+            this.view?.showImageDetails(post.title, it.toString())
+        }
     }
 
     override fun onInformationClicked() {
