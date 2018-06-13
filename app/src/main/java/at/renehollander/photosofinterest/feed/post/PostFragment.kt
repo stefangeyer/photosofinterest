@@ -13,7 +13,7 @@ import javax.inject.Inject
 
 class PostFragment @Inject constructor() : DaggerFragment(), PostContract.View {
 
-    val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
+    private val layoutManager: RecyclerView.LayoutManager = LinearLayoutManager(activity)
     val adapter: PostAdapter = PostAdapter()
 
     var reloadListener = object : PostContract.View.OnDataReloadListener {

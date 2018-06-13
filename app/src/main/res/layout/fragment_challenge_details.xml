@@ -149,6 +149,7 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView"
                         app:layout_constraintTop_toTopOf="parent"
+                        android:contentDescription="@string/expand"
                         app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 
                     <ImageView
@@ -223,6 +224,7 @@
                         android:layout_height="wrap_content"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="@+id/textView2"
+                        android:contentDescription="@string/expand"
                         app:layout_constraintTop_toTopOf="parent"
                         app:srcCompat="@drawable/ic_arrow_drop_down_black_24dp" />
 

@@ -21,7 +21,7 @@ import javax.inject.Inject
  */
 @ApplicationScoped
 class ChallengeDataRepository @Inject constructor(
-        val db: FirebaseFirestore
+        private val db: FirebaseFirestore
 ) : ChallengeDataSource {
     override fun loadChallenges(filter: ChallengeDataSource.Filter, callback: LoadRecordCallback<Challenge>) {
         db.collection("challenges").get().addOnSuccessListener {

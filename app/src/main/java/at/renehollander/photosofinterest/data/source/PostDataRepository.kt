@@ -32,11 +32,11 @@ class PostDataRepository @Inject constructor(
         private val db: FirebaseFirestore,
         private val storage: FirebaseStorage,
         private val userManager: UserManager,
-        val fbFunctions: FirebaseFunctions
+        private val fbFunctions: FirebaseFunctions
 ) : PostDataSource {
 
     init {
-        EventBus.getDefault().register(this);
+        EventBus.getDefault().register(this)
     }
 
     override fun loadPosts(challenge: Challenge, callback: LoadRecordCallback<Post>) {
@@ -84,7 +84,6 @@ class PostDataRepository @Inject constructor(
     override fun loadPosts(filter: PostDataSource.Filter, callback: LoadRecordCallback<Post>) {
         db.collection("challenges").get().continueWithTask { challengesData ->
             return@continueWithTask Tasks.whenAllSuccess<List<Post>>(challengesData.result.documents.map { challengeData ->
-                @Suppress("UNCHECKED_CAST")
                 val challenge = Challenge()
                 challenge.id = challengeData.id
                 challenge.title = challengeData["title"] as String
@@ -92,6 +91,7 @@ class PostDataRepository @Inject constructor(
                 challenge.start = timestampToLocalDateTime(challengeData["start"] as Timestamp)
                 challenge.end = timestampToLocalDateTime(challengeData["end"] as Timestamp)
                 challenge.description = challengeData["description"] as String
+                @Suppress("UNCHECKED_CAST")
                 challenge.regions = (challengeData["regions"] as List<Map<String, Any?>>).map mapi@{
                     val region = Region()
                     region.description = it["description"] as String
@@ -155,7 +155,6 @@ class PostDataRepository @Inject constructor(
     override fun loadPosts(user: User, callback: LoadRecordCallback<Post>) {
         db.collection("challenges").get().continueWithTask { challengesData ->
             return@continueWithTask Tasks.whenAllSuccess<List<Post>>(challengesData.result.documents.map { challengeData ->
-                @Suppress("UNCHECKED_CAST")
                 val challenge = Challenge()
                 challenge.id = challengeData.id
                 challenge.title = challengeData["title"] as String
@@ -163,6 +162,7 @@ class PostDataRepository @Inject constructor(
                 challenge.start = timestampToLocalDateTime(challengeData["start"] as Timestamp)
                 challenge.end = timestampToLocalDateTime(challengeData["end"] as Timestamp)
                 challenge.description = challengeData["description"] as String
+                @Suppress("UNCHECKED_CAST")
                 challenge.regions = (challengeData["regions"] as List<Map<String, Any?>>).map mapi@{
                     val region = Region()
                     region.description = it["description"] as String
@@ -171,7 +171,7 @@ class PostDataRepository @Inject constructor(
                 }
 
                 return@map challengeData.reference.collection("posts").get().continueWithTask inner@{
-                    return@inner Tasks.whenAllSuccess<Post>(it.result.documents.filter { (it["user"] as DocumentReference).id.equals(user.id) }.map postDataMap@{ postData ->
+                    return@inner Tasks.whenAllSuccess<Post>(it.result.documents.filter { (it["user"] as DocumentReference).id == user.id }.map postDataMap@{ postData ->
                         val post = Post(
                                 id = postData.id,
                                 user = User(),
@@ -218,10 +218,11 @@ class PostDataRepository @Inject constructor(
         fbFunctions.getHttpsCallable(type)
                 .call(mapOf(Pair("challenge", post.challenge.id), Pair("post", post.id)))
                 .addOnSuccessListener {
+                    @Suppress("UNCHECKED_CAST")
                     val postData = it.data as Map<String, Any>
                     callback.onRecordLoaded(Post(upvotes = postData["upvotes"] as Int, downvotes = postData["downvotes"] as Int))
                 }.addOnFailureListener {
-                    Log.e(ScoreboardDataRepository.TAG, "Error upvoting post", it)
+                    Log.e(TAG, "Error upvoting post", it)
                     callback.onDataNotAvailable()
                 }
     }
@@ -315,7 +316,7 @@ class PostDataRepository @Inject constructor(
     }
 
     private fun haversine(lat1: Double, lat2: Double, lon1: Double, lon2: Double): Double {
-        val R = 6371e3 // metres
+        val radius = 6371e3 // metres
         val phi1 = Math.toRadians(lat1)
         val phi2 = Math.toRadians(lat2)
         val deltaphi = Math.toRadians(lat2 - lat1)
@@ -325,7 +326,7 @@ class PostDataRepository @Inject constructor(
                 Math.sin(deltalambda / 2) * Math.sin(deltalambda / 2)
         val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
 
-        return R * c
+        return radius * c
     }
 
     companion object {
