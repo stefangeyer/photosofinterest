@@ -69,12 +69,12 @@ class MainActivity : DaggerAppCompatActivity(), MainContract.View {
         setContentView(R.layout.activity_main)
 
         challengeFragment.presenter.setChallenge(Challenge(
-                "Challenge 1",
-                Image("http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg"),
-                LocalDateTime.now().minusDays(1), LocalDateTime.now().plusDays(2),
-                "This is the very awesome first challenge!",
-                mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),
-                mutableListOf(PointOfInterest("Point 1", Point(10.0, 10.0), 20))))
+                title = "Challenge 1",
+                image = "http://ferienstar.de/wp-content/uploads/2017/02/sieghart-reisen-woerthersee.jpg",
+                start = LocalDateTime.now().minusDays(1), end = LocalDateTime.now().plusDays(2),
+                description = "This is the very awesome first challenge!",
+                regions = mutableListOf(Region("Carinthia", mutableListOf()), Region("Lower Austria", mutableListOf())),
+                pois = mutableListOf(PointOfInterest("Point 1", Point(10.0, 10.0), 20))))
 
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 

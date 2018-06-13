@@ -6,10 +6,16 @@ import android.view.ViewGroup
 import at.renehollander.photosofinterest.R
 import at.renehollander.photosofinterest.data.Challenge
 
-class ChallengeOverviewAdapter(var sc: ChallengeOverviewContract.View.OnShowDetailsListener) :
+class ChallengeOverviewAdapter :
         RecyclerView.Adapter<ChallengeOverviewViewHolder>(), ChallengeOverviewContract.Adapter {
 
     override val itemList = mutableListOf<Challenge>()
+
+    private var showDetailsListener: ChallengeOverviewContract.Adapter.OnShowDetailsListener =
+            object : ChallengeOverviewContract.Adapter.OnShowDetailsListener {
+                override fun showDetails(challenge: Challenge, showUploads: Boolean) {
+                }
+            }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ChallengeOverviewViewHolder {
         val item = LayoutInflater.from(parent.context).inflate(R.layout.fragment_challenge_overview, parent, false)
@@ -27,7 +33,11 @@ class ChallengeOverviewAdapter(var sc: ChallengeOverviewContract.View.OnShowDeta
         notifyDataSetChanged()
     }
 
-    override fun showChallenge(challenge: Challenge) {
-        sc.showDetails(challenge)
+    override fun setOnShowDetailsListener(listener: ChallengeOverviewContract.Adapter.OnShowDetailsListener) {
+        this.showDetailsListener = listener
+    }
+
+    override fun showChallenge(challenge: Challenge, showUploads: Boolean) {
+        this.showDetailsListener.showDetails(challenge, showUploads)
     }
 }
