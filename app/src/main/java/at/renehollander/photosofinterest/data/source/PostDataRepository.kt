@@ -136,7 +136,16 @@ class PostDataRepository @Inject constructor(
                 }
             })
         }.addOnSuccessListener {
-            callback.onRecordsLoaded(it.flatMap { it.toList() })
+            val items = it.flatMap { it.toList() }
+            callback.onRecordsLoaded(when (filter) {
+                PostDataSource.Filter.TOP -> items.sortedByDescending {
+                    it.upvotes - it.downvotes
+                }
+                PostDataSource.Filter.RECENT -> items.sortedByDescending {
+                    it.timestamp.seconds
+                }
+                PostDataSource.Filter.RISING -> items.shuffled() // This is our special algorithm to show people only the most important stuff.
+            })
         }.addOnFailureListener {
             Log.e(TAG, "Error fetching posts", it)
             callback.onDataNotAvailable()
