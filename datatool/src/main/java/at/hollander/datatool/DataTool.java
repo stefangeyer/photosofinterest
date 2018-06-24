@@ -8,16 +8,11 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import de.micromata.opengis.kml.v_2_2_0.AltitudeMode;
 import de.micromata.opengis.kml.v_2_2_0.Coordinate;
@@ -27,6 +22,7 @@ import de.micromata.opengis.kml.v_2_2_0.Folder;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.KmlFactory;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
+import de.micromata.opengis.kml.v_2_2_0.Point;
 import de.micromata.opengis.kml.v_2_2_0.Polygon;
 import de.micromata.opengis.kml.v_2_2_0.SimpleData;
 
@@ -53,19 +49,6 @@ public class DataTool {
         }
     }
 
-    public static class Point {
-        public double latitude;
-        public double longitude;
-
-        @Override
-        public String toString() {
-            return "Point{" +
-                    "latitude=" + latitude +
-                    ", longitude=" + longitude +
-                    '}';
-        }
-    }
-
     public static class PointOfInterest {
         public String name;
         public GeoPoint location;
@@ -83,7 +66,7 @@ public class DataTool {
 
     public static class Region {
         public String description;
-        public List<Point> region;
+        public List<GeoPoint> region;
 
         @Override
         public String toString() {
@@ -107,14 +90,7 @@ public class DataTool {
 
     }
 
-    public static void main(String[] args) throws IOException, ExecutionException, InterruptedException {
-        setupFirebase();
-
-        Firestore fs = FirestoreClient.getFirestore();
-
-//        Challenge challenge = fs.document("challenges/BK99EjGsYIyGK44KqJ3V").get().get().toObject(Challenge.class);
-//        System.out.println(challenge);
-
+    public static void createSeen(Firestore fs) throws Exception {
         CollectionReference cr = fs.collection("challenges/BK99EjGsYIyGK44KqJ3V/pois");
 
         Kml kml = Kml.unmarshal(new File("data/seen.kml"));
@@ -122,8 +98,6 @@ public class DataTool {
 
         Kml out = KmlFactory.createKml();
         Folder outf = out.createAndSetFolder();
-
-        JSONArray outArr = new JSONArray();
 
         for (Feature f : folder.getFeature()) {
             if (f instanceof Placemark) {
@@ -148,14 +122,6 @@ public class DataTool {
                             .withAltitudeMode(AltitudeMode.CLAMP_TO_GROUND)
                             .addToCoordinates(center.getLongitude(), center.getLatitude());
                     outf.addToFeature(placemark);
-                    JSONObject o = new JSONObject();
-                    o.put("name", name);
-                    o.put("radius", radius);
-                    JSONObject c = new JSONObject();
-                    c.put("longitude", center.getLongitude());
-                    c.put("latitude", center.getLatitude());
-                    o.put("coordinates", c);
-                    outArr.put(o);
 
                     PointOfInterest poi = new PointOfInterest();
                     poi.location = new GeoPoint(center.getLatitude(), center.getLongitude());
@@ -166,8 +132,55 @@ public class DataTool {
             }
         }
 
-        outArr.write(new FileWriter(new File("data/points.json")));
-        out.marshal(new File("data/out.kml"));
+        out.marshal(new File("data/out_seen.kml"));
+    }
+
+    private static void createNeuseeland(Firestore fs) throws Exception {
+        CollectionReference cr = fs.collection("challenges/mXJJw8pbvWnJACP2JPHV/pois");
+
+        Kml kml = Kml.unmarshal(new File("data/Aotearoa.kml"));
+        Folder folder = (Folder) (((Document) kml.getFeature()).getFeature()).get(0);
+
+        Kml out = KmlFactory.createKml();
+        Folder outf = out.createAndSetFolder();
+
+        for (Feature f : folder.getFeature()) {
+            if (f instanceof Placemark) {
+                Placemark p = (Placemark) f;
+                Point geom = (Point) p.getGeometry();
+                Coordinate center = geom.getCoordinates().get(0);
+                System.out.println(p.getName());
+                Placemark placemark = KmlFactory.createPlacemark();
+                placemark.withName(p.getName())
+                        .withVisibility(true)
+                        .withOpen(false)
+                        .createAndSetPoint()
+                        .withExtrude(false)
+                        .withAltitudeMode(AltitudeMode.CLAMP_TO_GROUND)
+                        .addToCoordinates(center.getLongitude(), center.getLatitude());
+                outf.addToFeature(placemark);
+
+                PointOfInterest poi = new PointOfInterest();
+                poi.location = new GeoPoint(center.getLatitude(), center.getLongitude());
+                poi.name = p.getName();
+                poi.radius = 1000;
+                cr.add(poi).get();
+            }
+        }
+
+        out.marshal(new File("data/out_neuseeland.kml"));
+    }
+
+    public static void main(String[] args) throws Exception {
+        setupFirebase();
+
+        Firestore fs = FirestoreClient.getFirestore();
+
+//        Challenge challenge = fs.document("challenges/BK99EjGsYIyGK44KqJ3V").get().get().toObject(Challenge.class);
+//        System.out.println(challenge);
+
+        createSeen(fs);
+        createNeuseeland(fs);
     }
 
     private static double circleAroundPolygon(Coordinate center, List<Coordinate> coords) {
