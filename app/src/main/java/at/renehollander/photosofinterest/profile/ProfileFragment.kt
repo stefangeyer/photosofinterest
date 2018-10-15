@@ -71,7 +71,7 @@ class ProfileFragment @Inject constructor() : DaggerFragment(), ProfileContract.
     }
 
     override fun updateScore(score: Int) {
-        scoreTextView.text = score.toString()
+//        scoreTextView.text = score.toString()
     }
 
     override fun onResume() {

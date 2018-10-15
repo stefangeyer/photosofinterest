@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<ns2:kml xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:ns2="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:xal="urn:oasis:names:tc:ciq:xsdschema:xAL:2.0">
+    <ns2:Folder>
+        <ns2:Placemark>
+            <ns2:name>Queenstown from Above</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>168.6492467622464,-45.02655332217247</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Lake Wakatipu</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>168.5169638542688,-45.09120135610551</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Te Anau</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>167.7180939274058,-45.41539809610596</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Lake Te Anau</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>167.7569351020796,-45.26495426642502</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Milford Sound</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>167.8825946986986,-44.63089435438775</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Fiordland National Park</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>167.9184480012838,-44.86890140290249</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Aoraki/Mount Cook National Park</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>170.1357056178779,-43.77208596187985</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Wellington</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>174.7858783631889,-41.29720039977297</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Huka Falls</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>176.0893014386908,-38.64936391413893</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Rotorua</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>176.2375815659285,-38.13963993872805</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Hobbiton</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>175.6818911367631,-37.87347061291915</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+        <ns2:Placemark>
+            <ns2:name>Auckland</ns2:name>
+            <ns2:visibility>1</ns2:visibility>
+            <ns2:open>0</ns2:open>
+            <ns2:Point>
+                <ns2:extrude>0</ns2:extrude>
+                <ns2:altitudeMode>clampToGround</ns2:altitudeMode>
+                <ns2:coordinates>174.7619990759473,-36.8502751145762</ns2:coordinates>
+            </ns2:Point>
+        </ns2:Placemark>
+    </ns2:Folder>
+</ns2:kml>
