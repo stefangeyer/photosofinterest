@@ -14,6 +14,8 @@ used for backend functionality.
 
 ## screenshots
 
+<img src="screenshots/challenge_details_vorarlberg.jpg" alt="drawing" width="300"/>
+
 ![Challenge Details][challenge-details]
 ![Challenge Uploads][challenge-uploads]
 ![Challenges][challenges]
