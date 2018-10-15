@@ -14,16 +14,8 @@ used for backend functionality.
 
 ## screenshots
 
-<img src="screenshots/challenge_details_vorarlberg.jpg" alt="drawing" width="300"/>
-
-![Challenge Details][challenge-details]
-![Challenge Uploads][challenge-uploads]
-![Challenges][challenges]
-![Profile][profile]
-![Scoreboard][scoreboard]
-
-[challenge-details]: https://github.com/stefangeyer/photosofinterest/raw/master/screenshots/challenge_details_vorarlberg.jpg "Challenge details"
-[challenge-uploads]: https://github.com/stefangeyer/photosofinterest/raw/master/screenshots/challenge_uploads_neuseeland.jpg "Challenge uploads"
-[challenges]: https://github.com/stefangeyer/photosofinterest/raw/master/screenshots/challenges.jpg "Challenges"
-[profile]: https://github.com/stefangeyer/photosofinterest/raw/master/screenshots/profile.jpg "Profile"
-[scoreboard]: https://github.com/stefangeyer/photosofinterest/raw/master/screenshots/scoreboard_logged_in.png "Scoreboard"
+<img src="screenshots/challenge_details_vorarlberg.jpg" alt="details" width="300"/>
+<img src="screenshots/challenge_uploads_neuseeland.jpg" alt="uploads" width="300"/>
+<img src="screenshots/challenges.jpg" alt="challenges" width="300"/>
+<img src="screenshots/profile.jpg" alt="profile" width="300"/>
+<img src="screenshots/scoreboard_logged_in.png.jpg" alt="scoreboard" width="300"/>
