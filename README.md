@@ -16,4 +16,3 @@ used for backend functionality.
 
 <img src="screenshots/challenge_details_vorarlberg.jpg" alt="details" width="300"/> <img src="screenshots/challenge_uploads_neuseeland.jpg" alt="uploads" width="300"/>
 <img src="screenshots/challenges.jpg" alt="challenges" width="300"/> <img src="screenshots/profile.png" alt="profile" width="300"/>
-<img src="screenshots/scoreboard_logged_in.png" alt="scoreboard" width="300"/>
