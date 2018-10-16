@@ -14,8 +14,6 @@ used for backend functionality.
 
 ## screenshots
 
-<img src="screenshots/challenge_details_vorarlberg.jpg" alt="details" width="300"/>
-<img src="screenshots/challenge_uploads_neuseeland.jpg" alt="uploads" width="300"/>
-<img src="screenshots/challenges.jpg" alt="challenges" width="300"/>
-<img src="screenshots/profile.jpg" alt="profile" width="300"/>
+<img src="screenshots/challenge_details_vorarlberg.jpg" alt="details" width="300"/> <img src="screenshots/challenge_uploads_neuseeland.jpg" alt="uploads" width="300"/>
+<img src="screenshots/challenges.jpg" alt="challenges" width="300"/> <img src="screenshots/profile.jpg" alt="profile" width="300"/>
 <img src="screenshots/scoreboard_logged_in.png.jpg" alt="scoreboard" width="300"/>
